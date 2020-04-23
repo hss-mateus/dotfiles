@@ -25,5 +25,5 @@ redshift -O 4500 &
 setxkbmap -option caps:escape &
 picom &
 
-wget https://source.unsplash.com/1360x768/?nature,blue -O ~/.wallpaper.jpg
+wget https://source.unsplash.com/1360x768/?nature,fog -O ~/.wallpaper.jpg
 feh --bg-fill ~/.wallpaper.jpg &
