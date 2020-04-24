@@ -8,7 +8,7 @@ super + d
 	dmenu_run -nb "#2e3440" -nf "#e5e9f0" -sb "#a3be8c" -sf "#2e3440" -fn "Hack-10"
 
 super + b
-	brave
+	firefox
 
 super + shift + {q,r}
 	bspc {quit,wm -r}
