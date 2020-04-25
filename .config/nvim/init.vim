@@ -1,51 +1,61 @@
 " Plugins
-
 call plug#begin()
 
 Plug 'junegunn/goyo.vim'
-Plug 'morhetz/gruvbox'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
+Plug 'dense-analysis/ale'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
-set number relativenumber
+" Default nvim configs
+set number relativenumber       " Show relative number column
+set colorcolumn=80              " Show a vertical ruler in column 80
+set backspace=indent,eol,start  " Set backspace to work properly
+set tabstop=2                   " Set tab size to 2 spaces
+set expandtab                   " Use spaces to insert a tab
+set shiftwidth=2                " Set auto identation to 2 spaces
+set splitright                  " Always vslpit on the right
+
+" Gruvbox theme
 let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
-set backspace=indent,eol,start
-set tabstop=2
-set shiftwidth=2
-set expandtab
+
+" Ale linter
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '▲'
 
 " Goyo (zen mode)
 let g:goyo_linenr = 1
 let g:goyo_width = 86
 
-" Keymaps
+"" Keybindings
 
 " Set leader key
-let mapleader="\<space>"
+let mapleader = "\<Space>"
 
-" Clear search on esc
-noremap <silent> <Esc> :noh<cr><Esc>
+" Clear search highlight on esc press
+noremap <silent> <Esc> :noh<Cr><Esc>
 
-" Remove arrows in Insert and Command Mode
-noremap! <Down> <Nop>
-noremap! <Left> <Nop>
-noremap! <Right> <Nop>
-noremap! <Up> <Nop>
-
-" Remove arrows in Normal, Visual and Select Mode
+" Remove arrows in normal, visual and select mode
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 noremap <Up> <Nop>
 
-" Split window
-noremap <leader>wv <C-w>v<C-w>l
-noremap <leader>ws <C-w>s
+" Remove arrows in insert mode
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
+inoremap <Up> <Nop>
 
-" Change to split
+" Split window
+noremap <leader>s <C-w>s
+noremap <leader>v <C-w>v<C-w>l
+
+" Move through splits
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
@@ -57,14 +67,18 @@ noremap <M-j> <C-w>+
 noremap <M-k> <C-w>-
 noremap <M-l> <C-w>>
 
-" Add semicolon to line end
-noremap <leader>; A;<esc>
+" Add a semicolon to line end
+noremap <leader>; A;<Esc>
 
-" Open nvim config file
-noremap <leader>ce :vsplit ~/.config/nvim/init.vim<cr>
+" Open this file in a split
+noremap <leader>co :vsplit ~/.config/nvim/init.vim<Cr>
 
-" Load nvim config file to running instance
-noremap <leader>cl :source ~/.config/nvim/init.vim<cr>
+" Load the changes of this file
+noremap <leader>cl :source ~/.config/nvim/init.vim<Cr>
 
 " Toggle zen mode
-noremap <silent> <leader>z :Goyo<cr>
+noremap <silent> <leader>z :Goyo<Cr>
+
+
+" Open the SML REPL
+au FileType sml noremap <silent> <leader>t :vsplit term://zsh<Cr>isml<Cr>val _ = OS.Process.system "clear";<Cr>
