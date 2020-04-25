@@ -9,3 +9,5 @@ alias xi='sudo xbps-install'
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+
+export PATH="/usr/local/smlnj/bin:$PATH"
