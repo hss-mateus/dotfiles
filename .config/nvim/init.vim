@@ -14,9 +14,12 @@ set number relativenumber       " Show relative number column
 set colorcolumn=80              " Show a vertical ruler in column 80
 set backspace=indent,eol,start  " Set backspace to work properly
 set tabstop=2                   " Set tab size to 2 spaces
-set expandtab                   " Use spaces to insert a tab
 set shiftwidth=2                " Set auto identation to 2 spaces
-set splitright                  " Always vslpit on the right
+set splitbelow									" Always split below
+set splitright									" Always vslpit on the right
+
+au FileType c set tabstop=4
+au FileType c set shiftwidth=4
 
 " Gruvbox theme
 let g:gruvbox_contrast_dark = 'soft'
@@ -79,6 +82,10 @@ noremap <leader>cl :source ~/.config/nvim/init.vim<Cr>
 " Toggle zen mode
 noremap <silent> <leader>z :Goyo<Cr>
 
+" Open a terminal buffer
+noremap <silent> <leader>ts :split term://zsh<Cr>i
+noremap <silent> <leader>tv :vsplit term://zsh<Cr>i
 
 " Open the SML REPL
-au FileType sml noremap <silent> <leader>t :vsplit term://zsh<Cr>isml<Cr>val _ = OS.Process.system "clear";<Cr>
+au FileType sml noremap <silent> <leader>ts :split term://zsh<Cr>isml<Cr>val _ = OS.Process.system "clear";<Cr>
+au FileType sml noremap <silent> <leader>tv :vsplit term://zsh<Cr>isml<Cr>val _ = OS.Process.system "clear";<Cr>
