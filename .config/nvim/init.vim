@@ -6,18 +6,25 @@ Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
 Plug 'dense-analysis/ale'
 Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
 " Default nvim configs
-set number relativenumber       " Show relative number column
-set colorcolumn=80              " Show a vertical ruler in column 80
-set backspace=indent,eol,start  " Set backspace to work properly
-set tabstop=2                   " Set tab size to 2 spaces
-set shiftwidth=2                " Set auto identation to 2 spaces
-set splitbelow									" Always split below
-set splitright									" Always vslpit on the right
+set number relativenumber
+set colorcolumn=80
+set backspace=indent,eol,start
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set splitbelow
+set splitright
+set nowrap
+set noshowmode
+set noshowcmd
 
+" Set 4 identation spaces in c files
 au FileType c set tabstop=4
 au FileType c set shiftwidth=4
 
@@ -27,12 +34,15 @@ colorscheme gruvbox
 
 " Ale linter
 let g:ale_sign_column_always = 1
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '▲'
 
 " Goyo (zen mode)
 let g:goyo_linenr = 1
 let g:goyo_width = 86
+
+" Airline
+let g:airline#extensions#ale#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'minimalist'
 
 "" Keybindings
 
@@ -69,6 +79,18 @@ noremap <M-h> <C-w><
 noremap <M-j> <C-w>+
 noremap <M-k> <C-w>-
 noremap <M-l> <C-w>>
+
+" Move through tabs
+noremap <leader>1 1gt<Cr>
+noremap <leader>2 2gt<Cr>
+noremap <leader>3 3gt<Cr>
+noremap <leader>4 4gt<Cr>
+noremap <leader>5 5gt<Cr>
+noremap <leader>6 6gt<Cr>
+noremap <leader>7 7gt<Cr>
+noremap <leader>8 8gt<Cr>
+noremap <leader>9 9gt<Cr>
+noremap <leader>0 10gt<Cr>
 
 " Add a semicolon to line end
 noremap <leader>; A;<Esc>
