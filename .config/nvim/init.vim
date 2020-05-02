@@ -1,3 +1,10 @@
+" Vim Plug
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source ~/.config/nvim/init.vim
+endif
+
 " Plugins
 call plug#begin()
 
@@ -5,9 +12,11 @@ Plug 'junegunn/goyo.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
 Plug 'dense-analysis/ale'
-Plug 'morhetz/gruvbox'
+Plug 'arcticicestudio/nord-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'scrooloose/nerdtree'
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -28,9 +37,8 @@ set noshowcmd
 au FileType c set tabstop=4
 au FileType c set shiftwidth=4
 
-" Gruvbox theme
-let g:gruvbox_contrast_dark = 'soft'
-colorscheme gruvbox
+" Nord theme
+colorscheme nord
 
 " Ale linter
 let g:ale_sign_column_always = 1
@@ -42,7 +50,13 @@ let g:goyo_width = 86
 " Airline
 let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'minimalist'
+let g:airline_theme = 'nord'
+
+" NERDTree
+let g:NERDTreeDirArrowExpandable = ''
+let g:NERDTreeDirArrowCollapsible = ''
+let NERDTreeShowHidden = 1
+let NERDTreeIgnore = ['^.git$']
 
 "" Keybindings
 
@@ -92,6 +106,9 @@ noremap <leader>8 8gt<Cr>
 noremap <leader>9 9gt<Cr>
 noremap <leader>0 10gt<Cr>
 
+" Toggle NERDTree
+noremap <silent> <C-\> :NERDTreeToggle<Cr>
+
 " Add a semicolon to line end
 noremap <leader>; A;<Esc>
 
@@ -103,11 +120,3 @@ noremap <leader>cl :source ~/.config/nvim/init.vim<Cr>
 
 " Toggle zen mode
 noremap <silent> <leader>z :Goyo<Cr>
-
-" Open a terminal buffer
-noremap <silent> <leader>ts :split term://zsh<Cr>i
-noremap <silent> <leader>tv :vsplit term://zsh<Cr>i
-
-" Open the SML REPL
-au FileType sml noremap <silent> <leader>ts :split term://zsh<Cr>isml<Cr>val _ = OS.Process.system "clear";<Cr>
-au FileType sml noremap <silent> <leader>tv :vsplit term://zsh<Cr>isml<Cr>val _ = OS.Process.system "clear";<Cr>
