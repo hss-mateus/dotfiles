@@ -18,4 +18,4 @@ export NVM_DIR="$HOME/.nvm"
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
 
-export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/.emacs.d/bin:/usr/local/smlnj/bin:$PATH"
