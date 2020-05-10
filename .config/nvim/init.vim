@@ -18,6 +18,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
@@ -26,7 +28,11 @@ set number relativenumber
 set colorcolumn=80
 set backspace=indent,eol,start
 set tabstop=2
+set softtabstop=2
 set shiftwidth=2
+set autoindent
+set smartindent
+set smarttab
 set expandtab
 set splitbelow
 set splitright
@@ -39,6 +45,15 @@ set nowritebackup
 set updatetime=300
 set shortmess+=c
 set signcolumn=yes
+set history=1000
+set autoread
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+set scrolloff=8
+set sidescrolloff=15
+set sidescroll=1
 
 " Set 4 identation spaces in c files
 au FileType c set tabstop=4
@@ -95,11 +110,11 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
-" Resize split
-noremap <M-h> <C-w><
-noremap <M-j> <C-w>+
-noremap <M-k> <C-w>-
-noremap <M-l> <C-w>>
+" " Resize split
+noremap <C-Left> <C-w><
+noremap <C-Up> <C-w>+
+noremap <C-Down> <C-w>-
+noremap <C-Right> <C-w>>
 
 " Move through tabs
 noremap <leader>1 1gt<Cr>
@@ -115,6 +130,9 @@ noremap <leader>0 10gt<Cr>
 
 " Toggle NERDTree
 noremap <silent> <C-\> :NERDTreeToggle<Cr>
+
+" Open fzf
+noremap <C-p> :Files<Cr>
 
 " Add a semicolon to line end
 noremap <leader>; A;<Esc>
