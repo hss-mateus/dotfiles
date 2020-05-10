@@ -20,6 +20,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'jez/vim-better-sml'
 
 call plug#end()
 
@@ -61,6 +62,13 @@ au FileType c set shiftwidth=4
 
 " Nord theme
 colorscheme nord
+
+" SML
+let g:sml_smlnj_executable = 'poly'
+let g:sml_greek_tyvar_show_tick=1
+au FileType sml setlocal conceallevel=2
+au FileType sml set tabstop=4
+au FileType sml set shiftwidth=4
 
 " Ale linter
 let g:ale_sign_column_always = 1
@@ -128,6 +136,9 @@ noremap <leader>8 8gt<Cr>
 noremap <leader>9 9gt<Cr>
 noremap <leader>0 10gt<Cr>
 
+" Terminal Mode
+tnoremap <Esc> <C-\><C-n>
+
 " Toggle NERDTree
 noremap <silent> <C-\> :NERDTreeToggle<Cr>
 
@@ -160,3 +171,9 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" SML
+au FileType sml noremap <silent> <buffer> <leader>rs :SMLReplStart<Cr>
+au FileType sml noremap <silent> <buffer> <leader>rk :SMLReplStop<Cr>
+au FileType sml noremap <silent> <buffer> <leader>rc :SMLReplClear<Cr>
+au FileType sml noremap <silent> <buffer> <leader>ru :SMLReplClear<Cr>:SMLReplUse<Cr>
