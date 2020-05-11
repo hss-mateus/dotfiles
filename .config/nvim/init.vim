@@ -21,6 +21,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jez/vim-better-sml'
+Plug 'mattn/emmet-vim'
+Plug 'alvan/vim-closetag'
 
 call plug#end()
 
@@ -69,6 +71,12 @@ let g:sml_greek_tyvar_show_tick=1
 au FileType sml setlocal conceallevel=2
 au FileType sml set tabstop=4
 au FileType sml set shiftwidth=4
+
+" Auto-closing tags
+let g:closetag_filetypes = 'html,javascript'
+let g:closetag_filenames = '*.html,*.js'
+let g:closetag_xhtml_filetypes = 'javascript'
+let g:closetag_emptyTags_caseSensitive = 1
 
 " Ale linter
 let g:ale_sign_column_always = 1
