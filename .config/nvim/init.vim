@@ -78,6 +78,14 @@ let g:closetag_filenames = '*.html,*.js'
 let g:closetag_xhtml_filetypes = 'javascript'
 let g:closetag_emptyTags_caseSensitive = 1
 
+" Emmet
+let g:user_emmet_leader_key='<Tab>'
+let g:user_emmet_settings = {
+\  'javascript.jsx' : {
+\    'extends' : 'jsx',
+\  },
+\}
+
 " Ale linter
 let g:ale_sign_column_always = 1
 
@@ -121,16 +129,16 @@ noremap <leader>s <C-w>s
 noremap <leader>v <C-w>v<C-w>l
 
 " Move through splits
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
+noremap <leader>wh <C-w>h
+noremap <leader>wj <C-w>j
+noremap <leader>wk <C-w>k
+noremap <leader>wl <C-w>l
 
 " " Resize split
-noremap <C-Left> <C-w><
-noremap <C-Up> <C-w>+
-noremap <C-Down> <C-w>-
-noremap <C-Right> <C-w>>
+noremap <C-h> <C-w><
+noremap <C-k> <C-w>+
+noremap <C-j> <C-w>-
+noremap <C-l> <C-w>>
 
 " Move through tabs
 noremap <leader>1 1gt<Cr>
