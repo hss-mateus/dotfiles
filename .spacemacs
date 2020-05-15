@@ -2,35 +2,32 @@
   (setq-default
    dotspacemacs-configuration-layer-path '()
    dotspacemacs-configuration-layers
-   '(
-     helm
-     auto-completion
+   '(auto-completion
+     c-c++
      emacs-lisp
      git
-     markdown
-     org
-     shell
-     syntax-checking
-     version-control
-     c-c++
+     helm
      html
      java
      javascript
+     markdown
      ocaml
+     org
      python
      racket
      react
      ruby
      rust
      scheme
+     shell
      shell-scripts
      sml
-     themes-megapack
+     syntax-checking
      typescript
-     )
+     version-control)
    dotspacemacs-additional-packages '(nord-theme)
    dotspacemacs-frozen-packages '()
-   dotspacemacs-excluded-packages '(company-tern)
+   dotspacemacs-excluded-packages '()
    dotspacemacs-install-packages 'used-only))
 
 (defun dotspacemacs/init ()
@@ -44,7 +41,7 @@
    dotspacemacs-startup-buffer-responsive t
    dotspacemacs-themes '(nord)
    dotspacemacs-colorize-cursor-according-to-state t
-   dotspacemacs-default-font '("Hasklug Nerd Font"
+   dotspacemacs-default-font '("JetBrainsMono Nerd Font"
                                :size 13
                                :weight normal
                                :width normal
@@ -59,11 +56,9 @@
    dotspacemacs-whitespace-cleanup 'trailing
    ))
 
-(defun dotspacemacs/user-init ()
-  )
+(defun dotspacemacs/user-init ())
 
 (defun dotspacemacs/user-config ()
   (global-aggressive-indent-mode)
-  (setq js2-strict-missing-semi-warning nil)
-  (setq js2-missing-semi-one-line-override t)
-  )
+  (setq js2-strict-missing-semi-warning nil
+        js2-missing-semi-one-line-override t))
