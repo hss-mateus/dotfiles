@@ -66,7 +66,6 @@ au FileType c set shiftwidth=4
 colorscheme nord
 
 " SML
-let g:sml_smlnj_executable = 'poly'
 let g:sml_greek_tyvar_show_tick=1
 au FileType sml setlocal conceallevel=2
 au FileType sml set tabstop=4
@@ -85,6 +84,16 @@ let g:user_emmet_settings = {
 \    'extends' : 'jsx',
 \  },
 \}
+
+" Coc.nvim
+let g:coc_global_extensions = [
+\  "coc-clangd",
+\  "coc-emmet",
+\  "coc-html",
+\  "coc-eslint",
+\  "coc-json",
+\  "coc-tsserver"
+\]
 
 " Ale linter
 let g:ale_sign_column_always = 1
