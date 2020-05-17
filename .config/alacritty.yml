@@ -1,5 +1,6 @@
 env:
   TERM: xterm-256color
+  WINIT_X11_SCALE_FACTOR: "1.0"
 
 window:
   dimensions:
@@ -17,7 +18,7 @@ window:
 
 font:
   normal:
-    family: Hasklug Nerd Font
+    family: JetBrainsMono Nerd Font
     style: Regular
 
   size: 10.0
@@ -28,7 +29,7 @@ font:
 
   glyph_offset:
     x: 0
-    y: 0
+    y: -1
 
   scale_with_dpi: true
 
