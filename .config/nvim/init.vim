@@ -20,9 +20,6 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'jez/vim-better-sml'
-Plug 'mattn/emmet-vim'
-Plug 'alvan/vim-closetag'
 
 call plug#end()
 
@@ -58,42 +55,8 @@ set scrolloff=8
 set sidescrolloff=15
 set sidescroll=1
 
-" Set 4 identation spaces in c files
-au FileType c set tabstop=4
-au FileType c set shiftwidth=4
-
 " Nord theme
 colorscheme nord
-
-" SML
-let g:sml_greek_tyvar_show_tick=1
-au FileType sml setlocal conceallevel=2
-au FileType sml set tabstop=4
-au FileType sml set shiftwidth=4
-
-" Auto-closing tags
-let g:closetag_filetypes = 'html,javascript'
-let g:closetag_filenames = '*.html,*.js'
-let g:closetag_xhtml_filetypes = 'javascript'
-let g:closetag_emptyTags_caseSensitive = 1
-
-" Emmet
-let g:user_emmet_leader_key='<Tab>'
-let g:user_emmet_settings = {
-\  'javascript.jsx' : {
-\    'extends' : 'jsx',
-\  },
-\}
-
-" Coc.nvim
-let g:coc_global_extensions = [
-\  "coc-clangd",
-\  "coc-emmet",
-\  "coc-html",
-\  "coc-eslint",
-\  "coc-json",
-\  "coc-tsserver"
-\]
 
 " Ale linter
 let g:ale_sign_column_always = 1
@@ -196,9 +159,3 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-
-" SML
-au FileType sml noremap <silent> <buffer> <leader>rs :SMLReplStart<Cr>
-au FileType sml noremap <silent> <buffer> <leader>rk :SMLReplStop<Cr>
-au FileType sml noremap <silent> <buffer> <leader>rc :SMLReplClear<Cr>
-au FileType sml noremap <silent> <buffer> <leader>ru :SMLReplClear<Cr>:SMLReplUse<Cr>

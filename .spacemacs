@@ -33,44 +33,18 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(auto-completion
-     (c-c++ :variables
-             c-c++-enable-google-style t
-             c-c++-enable-google-newline t
-             c-c++-enable-auto-newline t
-             c-c++-enable-clang-format-on-save t
-             c-c++-backend 'lsp-clangd)
      emacs-lisp
      git
-     helm
-     html
-     java
-     (javascript :variables
-                  javascript-backend 'lsp
-                  node-add-modules-path t
-                  js2-strict-missing-semi-warning nil
-                  js2-missing-semi-one-line-override t
-                  js2-mode-show-strict-warnings nil
-                  js2-mode-show-parse-errors nil)
+     ivy
      lsp
      markdown
      multiple-cursors
-     ocaml
      org
      parinfer
-     python
-     racket
-     react
-     reasonml
-     ruby
-     rust
      semantic
-     scheme
      shell
-     shell-scripts
      sml
      syntax-checking
-     tide
-     typescript
      version-control)
 
    ;; List of additional packages that will be installed without being
