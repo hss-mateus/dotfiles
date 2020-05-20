@@ -11,10 +11,12 @@ bspc config window_gap          0
 
 # Non-BSPWM related
 
+feh --bg-fill ~/.wallpaper.jpg
 xset r rate 250 25 &
 xsetroot -cursor_name left_ptr &
 amixer sset 'Master' 100% &
 redshift -O 4500 &
 setxkbmap -option caps:escape &
 picom &
-feh --bg-fill ~/.wallpaper.jpg &
+wmname LG3D &
+wget https://source.unsplash.com/1360x768/?nature,autumn -O ~/.wallpaper.jpg
