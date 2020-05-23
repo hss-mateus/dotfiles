@@ -14,6 +14,7 @@ bspc rule -a Emacs state=tiled
 # Non-BSPWM related
 
 feh --bg-fill ~/.wallpaper.jpg &
+$HOME/.config/polybar/launch.sh &
 xset r rate 250 25 &
 xsetroot -cursor_name left_ptr &
 amixer sset 'Master' 100% &
