@@ -1,4 +1,4 @@
-" Vim Plug
+" Setup vim-plug
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -8,93 +8,75 @@ endif
 " Plugins
 call plug#begin()
 
-Plug 'junegunn/goyo.vim'
+" Syntax highlight
 Plug 'sheerun/vim-polyglot'
+
+" Pairs completion
 Plug 'jiangmiao/auto-pairs'
-Plug 'dense-analysis/ale'
+
+" Color theme
 Plug 'arcticicestudio/nord-vim'
+
+" Status line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/nerdtree'
-Plug 'ryanoasis/vim-devicons'
+
+" LSP support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Fuzzy file finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
-" Default nvim configs
-set number relativenumber
-set colorcolumn=80
-set backspace=indent,eol,start
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set autoindent
-set smartindent
-set smarttab
-set expandtab
-set splitbelow
-set splitright
-set nowrap
-set noshowmode
-set noshowcmd
-set hidden
-set nobackup
-set nowritebackup
-set updatetime=300
-set shortmess+=c
-set signcolumn=yes
-set history=1000
-set autoread
-set incsearch
-set hlsearch
-set ignorecase
-set smartcase
-set scrolloff=8
-set sidescrolloff=15
-set sidescroll=1
+" Basic nvim settings
+set number                     " Line number column
+set cursorline                 " Highlight current line
+set backspace=indent,eol,start " Make backspace work decently
+set expandtab                  " Use spaces instead of tabs
+set tabstop=2                  " 2 spaces in a tab
+set softtabstop=2              " How far cursor moves while typing tab
+set autoindent                 " Enable auto-indentation
+set shiftwidth=2               " Size of auto indentation
+set smartindent                " Auto-indent new lines
+set smarttab                   " Auto-indent line when tab is pressed at the beginning
+set splitbelow                 " Open new vertial splits below
+set splitright                 " Open new splits at the right
+set nowrap                     " Don't wrap text
+set noshowmode                 " Dont show current mode in command line
+set noshowcmd                  " Don't show keys pressed in command line
+set hidden                     " Load multiple buffers in background
+set updatetime=300             " Update each 300ms, for better auto-completion response
+set shortmess+=c               " Remove ins-completion-menu messages
+set signcolumn=yes             " Enable sign column to display errors and warnings
+set history=1000               " Set command history to 1000
+set autoread                   " Reload file contents when edited in other place
+set ignorecase                 " Ignore case in search
+set smartcase                  " Don't ignore case if search have upper case
+set scrolloff=8                " Scroll before the cursor hits the last line
+set sidescrolloff=15           " Same but horizontally
 
-" Nord theme
+" Theme
 colorscheme nord
 
-" Ale linter
-let g:ale_sign_column_always = 1
-
-" Goyo (zen mode)
-let g:goyo_linenr = 1
-let g:goyo_width = 86
-
 " Airline
-let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'nord'
 
-" NERDTree
-let g:NERDTreeDirArrowExpandable = ''
-let g:NERDTreeDirArrowCollapsible = ''
-let NERDTreeShowHidden = 1
-let NERDTreeIgnore = ['^.git$']
-
 "" Keybindings
 
-" Set leader key
+" Leader key
 let mapleader = "\<Space>"
 
-" Clear search highlight on esc press
+" Clear search highlight on esc
 noremap <silent> <Esc> :noh<Cr><Esc>
 
-" Remove arrows in normal, visual and select mode
+" Remove arrows
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 noremap <Up> <Nop>
-
-" Remove arrows in insert mode
-inoremap <Down> <Nop>
-inoremap <Left> <Nop>
-inoremap <Right> <Nop>
-inoremap <Up> <Nop>
 
 " Split window
 noremap <leader>s <C-w>s
@@ -106,7 +88,7 @@ noremap <leader>wj <C-w>j
 noremap <leader>wk <C-w>k
 noremap <leader>wl <C-w>l
 
-" " Resize split
+" Resize split
 noremap <C-h> <C-w><
 noremap <C-k> <C-w>+
 noremap <C-j> <C-w>-
@@ -124,11 +106,8 @@ noremap <leader>8 8gt<Cr>
 noremap <leader>9 9gt<Cr>
 noremap <leader>0 10gt<Cr>
 
-" Terminal Mode
+" Go to normal mode in terminal mode
 tnoremap <Esc> <C-\><C-n>
-
-" Toggle NERDTree
-noremap <silent> <C-\> :NERDTreeToggle<Cr>
 
 " Open fzf
 noremap <C-p> :Files<Cr>
@@ -136,26 +115,5 @@ noremap <C-p> :Files<Cr>
 " Add a semicolon to line end
 noremap <leader>; A;<Esc>
 
-" Open this file in a split
-noremap <leader>co :vsplit ~/.config/nvim/init.vim<Cr>
-
-" Load the changes of this file
-noremap <leader>cl :source ~/.config/nvim/init.vim<Cr>
-
-" Toggle zen mode
-noremap <silent> <leader>z :Goyo<Cr>
-
-" Coc.nvim
+" Trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
