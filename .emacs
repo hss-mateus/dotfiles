@@ -2,6 +2,7 @@
 (setq inhibit-startup-screen t
       make-backup-files nil
       create-lockfiles nil
+      auto-save-default nil
       initial-scratch-message ""
       ring-bell-function 'ignore
       scroll-step 1
@@ -87,13 +88,10 @@
 ;; Integrate Ivy with Projectile
 (use-package counsel-projectile :config (counsel-projectile-mode 1))
 
-;; Standard ML support
-(use-package sml-mode)
-
 ;; Evil mode
 (use-package evil :config (evil-mode 1))
 
-;; Keybindings
+;; Global keybindings
 (use-package general
   :config
   (general-define-key
@@ -115,3 +113,11 @@
    "ff" 'counsel-find-file
    "pf" 'counsel-git
    ))
+
+;; Standard ML support
+(use-package sml-mode
+  :config
+  (general-def 'normal sml-mode-map
+   :prefix "SPC m"
+   "sb" 'sml-prog-proc-send-buffer
+   "rf" 'sml-prog-proc-switch-to))
