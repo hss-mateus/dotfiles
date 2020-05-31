@@ -21,6 +21,9 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" Icons
+Plug 'ryanoasis/vim-devicons'
+
 " LSP support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -28,11 +31,15 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+" File tree
+Plug 'scrooloose/nerdtree'
+
 call plug#end()
 
 " Basic nvim settings
 set number                     " Line number column
 set cursorline                 " Highlight current line
+set colorcolumn=100            " Show a vertical ruler in column 100
 set backspace=indent,eol,start " Make backspace work decently
 set expandtab                  " Use spaces instead of tabs
 set tabstop=2                  " 2 spaces in a tab
@@ -63,6 +70,12 @@ colorscheme nord
 " Airline
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'nord'
+
+" NERDTree
+let g:NERDTreeDirArrowExpandable = ''
+let g:NERDTreeDirArrowCollapsible = ''
+let NERDTreeShowHidden = 1
+let NERDTreeIgnore = ['^.git$']
 
 "" Keybindings
 
@@ -106,11 +119,17 @@ noremap <leader>8 8gt<Cr>
 noremap <leader>9 9gt<Cr>
 noremap <leader>0 10gt<Cr>
 
+" Go to previous buffer
+noremap <leader><Tab> <C-^>
+
 " Go to normal mode in terminal mode
 tnoremap <Esc> <C-\><C-n>
 
 " Open fzf
-noremap <C-p> :Files<Cr>
+noremap <leader>ff :Files<Cr>
+
+" Toggle NERDTree
+noremap <silent> <leader>ft :NERDTreeToggle<Cr>
 
 " Add a semicolon to line end
 noremap <leader>; A;<Esc>
