@@ -68,16 +68,30 @@
 ;; Auto-complete
 (use-package company :config (global-company-mode 1))
 
+;; Better company-mode visuals
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+
 ;; Syntax checking
 (use-package flycheck :config (global-flycheck-mode 1))
 
+;; Language server client
+(use-package eglot
+  :hook (elm-mode . eglot-ensure))
+
 ;; Auto close characters
 (use-package smartparens
-  :ensure t
   :config
   (sp-use-paredit-bindings)
   (add-hook 'prog-mode-hook #'smartparens-mode)
   (sp-pair "{" nil :post-handlers '(("||\n[i]" "RET"))))
+
+;; Parens and indentation correction
+(use-package parinfer
+  :init
+  (progn
+    (setq parinfer-extensions '(defaults evil))
+    (add-hook 'racket-mode #'parinfer-mode)))
 
 ;; Ivy completion engine
 (use-package ivy :config (ivy-mode 1))
@@ -102,8 +116,8 @@
    ;; Buffers and frames
    "TAB" 'evil-switch-to-windows-last-buffer
    "bd" 'kill-buffer-and-window
-   "ws" 'split-window-right
-   "wv" 'split-window-below
+   "wv" 'split-window-right
+   "ws" 'split-window-below
    "wh" 'windmove-left
    "wj" 'windmove-down
    "wk" 'windmove-up
@@ -112,12 +126,14 @@
    ;; Files
    "ff" 'counsel-find-file
    "pf" 'counsel-git
+   "pp" 'counsel-projectile-switch-project
    ))
 
 ;; Standard ML support
-(use-package sml-mode
-  :config
-  (general-def 'normal sml-mode-map
-   :prefix "SPC m"
-   "sb" 'sml-prog-proc-send-buffer
-   "rf" 'sml-prog-proc-switch-to))
+(use-package sml-mode)
+
+;; Racket support
+(use-package racket-mode)
+
+;; Elm support
+(use-package elm-mode)
