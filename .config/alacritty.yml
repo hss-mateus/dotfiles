@@ -3,7 +3,7 @@ env:
   WINIT_X11_SCALE_FACTOR: "1.0"
 
 shell:
-  program: /bin/zsh
+  program: zsh
   args:
     - --login
 
@@ -23,7 +23,7 @@ window:
 
 font:
   normal:
-    family: JetBrainsMono Nerd Font
+    family: Hasklig
     style: Regular
 
   size: 10.5
@@ -34,7 +34,7 @@ font:
 
   glyph_offset:
     x: 0
-    y: -1
+    y: 0
 
   scale_with_dpi: true
 

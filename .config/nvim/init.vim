@@ -21,9 +21,6 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" Icons
-Plug 'ryanoasis/vim-devicons'
-
 " LSP support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
