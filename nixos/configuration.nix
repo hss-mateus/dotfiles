@@ -16,14 +16,14 @@
 
   sound.enable = true;
 
+  hardware.pulseaudio.enable = true;
+
   users = {
     defaultUserShell = pkgs.zsh;
-    users = {
-      mt = {
-        isNormalUser = true;
-        extraGroups = [ "wheel" ];
-        password = "mt";
-      };
+    users.mt = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" ];
+      password = "mt";
     };
   };
 
@@ -31,6 +31,8 @@
                      "ebcb8b" "a3be8c" "d08770" "e5e9f0"
                      "4c566a" "81a1c1" "3b4252" "434c5e"
                      "d8dee9" "eceff4" "b48ead" "8fbcbb" ];
+
+  nixpkgs.config.allowUnfree = true;
 
   environment = {
     shells = with pkgs; [ bash zsh ];
@@ -71,6 +73,8 @@
 
   fonts.fonts = with pkgs; [ dejavu_fonts hasklig powerline-fonts ];
 
+  services.emacs.enable = true;
+
   programs.zsh = {
     enable = true;
     autosuggestions.enable = true;
@@ -78,10 +82,16 @@
     syntaxHighlighting.enable = true;
   };
 
+  services.xserver.enable = true;
+  services.xserver.displayManager.lightdm = {
+    enable = true;
+    autoLogin.enable = true;
+    autoLogin.user = "mt";
+  };
+
   programs.sway = {
     enable = true;
     extraSessionCommands = ''
-       export XKB_DEFAULT_OPTIONS=caps:escape
        export SDL_VIDEODRIVER=wayland
        export QT_QPA_PLATFORM=wayland
        export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
