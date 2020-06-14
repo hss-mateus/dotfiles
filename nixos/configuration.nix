@@ -14,6 +14,11 @@
 
   time.timeZone = "America/Sao_Paulo";
 
+  location = {
+    latitude = 0.0;
+    longitude = 0.0;
+  };
+
   sound.enable = true;
 
   hardware.pulseaudio.enable = true;
@@ -42,6 +47,7 @@
       bat
       curl
       coreutils
+      dmenu
       emacs
       exa
       fd
@@ -50,7 +56,8 @@
       ghc
       git
       jetbrains.idea-ultimate
-      jdk
+      jdk11
+      killall
       libsForQt5.vlc
       lxappearance
       mesa
@@ -59,21 +66,23 @@
       nodejs
       nordic
       papirus-icon-theme
+      polybar
       polyml
       ranger
       ripgrep
       rsync
       scrcpy
+      scrot
       tmux
+      unzip
       wget
+      wmname
       ytop
       zathura
     ];
   };
 
   fonts.fonts = with pkgs; [ dejavu_fonts hasklig powerline-fonts ];
-
-  services.emacs.enable = true;
 
   programs.zsh = {
     enable = true;
@@ -82,31 +91,37 @@
     syntaxHighlighting.enable = true;
   };
 
-  services.xserver.enable = true;
-  services.xserver.displayManager.lightdm = {
-    enable = true;
-    autoLogin.enable = true;
-    autoLogin.user = "mt";
-  };
+  services = {
+    emacs.enable = true;
 
-  programs.sway = {
-    enable = true;
-    extraSessionCommands = ''
-       export SDL_VIDEODRIVER=wayland
-       export QT_QPA_PLATFORM=wayland
-       export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-       export _JAVA_AWT_WM_NONREPARENTING=1
-     '';
-  };
+    xserver = {
+      enable = true;
+      videoDrivers = [ "ati" ];
+      defaultDepth = 24;
+      xkbOptions = "caps:escape";
+      autoRepeatDelay = 250;
+      autoRepeatInterval = 25;
+      windowManager.bspwm.enable = true;
+      displayManager.lightdm = {
+        enable = true;
+        autoLogin.enable = true;
+        autoLogin.user = "mt";
+      };
+    };
 
-  location = {
-    latitude = 0.0;
-    longitude = 0.0;
-  };
+    picom = {
+      enable = true;
+      backend = "xr_glx_hybrid";
+      fade = true;
+      fadeDelta = 4;
+      fadeSteps = [ "0.03" "0.03" ];
+      vSync = true;
+    };
 
-  services.redshift = {
-    enable = true;
-    temperature.day = 4500;
-    temperature.night = 4500;
+    redshift = {
+      enable = true;
+      temperature.day = 4500;
+      temperature.night = 4500;
+    };
   };
 }
