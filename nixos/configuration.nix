@@ -2,9 +2,7 @@
 
 {
   imports = [ ./hardware-configuration.nix ];
-
   system.stateVersion = "20.03";
-
   boot.loader.grub.device = "/dev/sda";
 
   networking.wireless = {
@@ -23,11 +21,14 @@
 
   hardware.pulseaudio.enable = true;
 
+  virtualisation.docker.enable = true;
+
   users = {
-    defaultUserShell = pkgs.zsh;
+    defaultUserShell = pkgs.bash;
     users.mt = {
       isNormalUser = true;
-      extraGroups = [ "wheel" ];
+      shell = pkgs.zsh;
+      extraGroups = [ "wheel" "docker" ];
       password = "mt";
     };
   };
@@ -40,7 +41,21 @@
   nixpkgs.config.allowUnfree = true;
 
   environment = {
-    shells = with pkgs; [ bash zsh ];
+    shells = [ pkgs.bash ];
+
+    variables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+      FZF_DEFAULT_COMMAND = "fd --type f --hidden --exclude .git";
+    };
+
+    shellAliases = {
+      cat = "bat --theme=base16";
+      ls = "exa --git --ignore-glob .git";
+      v = "nvim";
+      e = "emacsclient -nc";
+    };
+
     systemPackages = with pkgs; [
       alacritty
       alsaUtils
@@ -72,7 +87,6 @@
       ripgrep
       rsync
       scrcpy
-      scrot
       tmux
       unzip
       wget
@@ -82,13 +96,21 @@
     ];
   };
 
-  fonts.fonts = with pkgs; [ dejavu_fonts hasklig powerline-fonts ];
+  fonts.fonts = with pkgs; [
+    dejavu_fonts
+    hasklig
+    powerline-fonts
+  ];
 
   programs.zsh = {
     enable = true;
     autosuggestions.enable = true;
-    ohMyZsh.enable = true;
     syntaxHighlighting.enable = true;
+    ohMyZsh = {
+      enable = true;
+      theme = "theunraveler";
+      plugins = [ "git" "stack" ];
+    };
   };
 
   services = {
@@ -102,19 +124,25 @@
       autoRepeatDelay = 250;
       autoRepeatInterval = 25;
       windowManager.bspwm.enable = true;
-      displayManager.lightdm = {
-        enable = true;
-        autoLogin.enable = true;
-        autoLogin.user = "mt";
+
+      displayManager = {
+        sessionCommands = ''
+          $HOME/.config/polybar/launch.sh &
+          xsetroot -cursor_name left_ptr &
+          wmname LG3D &
+        '';
+
+        lightdm = {
+          enable = true;
+          autoLogin.enable = true;
+          autoLogin.user = "mt";
+        };
       };
     };
 
     picom = {
       enable = true;
-      backend = "xr_glx_hybrid";
-      fade = true;
-      fadeDelta = 4;
-      fadeSteps = [ "0.03" "0.03" ];
+      backend = "glx";
       vSync = true;
     };
 
