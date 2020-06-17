@@ -1,7 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    <home-manager/nixos>
+  ];
+
   system.stateVersion = "20.03";
   boot.loader.grub.device = "/dev/sda";
 
@@ -41,7 +45,7 @@
   nixpkgs.config.allowUnfree = true;
 
   environment = {
-    shells = [ pkgs.bash ];
+    shells = [ pkgs.bash pkgs.zsh ];
 
     variables = {
       EDITOR = "nvim";
@@ -68,6 +72,7 @@
       fd
       feh
       firefox
+      fzf
       ghc
       git
       jetbrains.idea-ultimate
@@ -126,18 +131,10 @@
       autoRepeatInterval = 25;
       windowManager.bspwm.enable = true;
 
-      displayManager = {
-        sessionCommands = ''
-          $HOME/.config/polybar/launch.sh &
-          xsetroot -cursor_name left_ptr &
-          wmname LG3D &
-        '';
-
-        lightdm = {
-          enable = true;
-          autoLogin.enable = true;
-          autoLogin.user = "mt";
-        };
+      displayManager.lightdm = {
+        enable = true;
+        autoLogin.enable = true;
+        autoLogin.user = "mt";
       };
     };
 
@@ -153,4 +150,6 @@
       temperature.night = 4500;
     };
   };
+
+  home-manager.users.mt = import /etc/nixos/home;
 }
