@@ -87,6 +87,7 @@
       ripgrep
       rsync
       scrcpy
+      stack
       tmux
       unzip
       wget
