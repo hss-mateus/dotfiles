@@ -138,12 +138,6 @@
       };
     };
 
-    picom = {
-      enable = true;
-      backend = "glx";
-      vSync = true;
-    };
-
     redshift = {
       enable = true;
       temperature.day = 4500;

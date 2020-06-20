@@ -21,4 +21,11 @@
   };
 
   xsession.enable = true;
+
+  services.picom = {
+    enable = true;
+    experimentalBackends = true;
+    backend = "xrender";
+    vSync = true;
+  };
 }
