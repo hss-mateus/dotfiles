@@ -124,8 +124,6 @@
 
     xserver = {
       enable = true;
-      videoDrivers = [ "ati" ];
-      defaultDepth = 24;
       xkbOptions = "caps:escape";
       autoRepeatDelay = 250;
       autoRepeatInterval = 25;
