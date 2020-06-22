@@ -23,7 +23,15 @@
 
   sound.enable = true;
 
-  hardware.pulseaudio.enable = true;
+  hardware = {
+    pulseaudio.enable = true;
+
+    opengl = {
+      enable = true;
+      driSupport = true;
+      extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau libva libva-utils ];
+    };
+  };
 
   virtualisation.docker.enable = true;
 
@@ -61,43 +69,51 @@
     };
 
     systemPackages = with pkgs; [
-      alacritty
+      # General CLI tools
       alsaUtils
       bat
-      curl
       coreutils
-      dmenu
-      emacs
+      curl
       exa
       fd
-      feh
-      firefox
       fzf
-      ghc
-      git
-      jetbrains.idea-ultimate
-      jdk11
       killall
-      libsForQt5.vlc
-      lxappearance
       mesa
       neofetch
       neovim
-      nodejs
-      nordic
-      papirus-icon-theme
-      polybar
-      polyml
       ranger
       ripgrep
       rsync
-      scrcpy
-      stack
+      scrot
       tmux
       unzip
       wget
       wmname
       ytop
+
+      # Development
+      emacs
+      docker-compose
+      git
+      ghc
+      guile
+      jetbrains.idea-ultimate
+      jdk11
+      nodejs
+      polyml
+      stack
+
+      # Graphical
+      alacritty
+      dmenu
+      feh
+      firefox
+      libsForQt5.vlc
+      lxappearance
+      nordic
+      papirus-icon-theme
+      polybar
+      scrcpy
       zathura
     ];
   };
@@ -124,6 +140,7 @@
 
     xserver = {
       enable = true;
+      videoDrivers = [ "ati" ];
       xkbOptions = "caps:escape";
       autoRepeatDelay = 250;
       autoRepeatInterval = 25;
