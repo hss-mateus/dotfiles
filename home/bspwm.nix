@@ -5,6 +5,7 @@
     startupPrograms = [
       "wmname LG3D"
       "xsetroot -cursor_name left_ptr"
+      "feh --bg-fill ~/.wallpaper.jpg"
     ];
     rules = {
       Emacs.state = "tiled";

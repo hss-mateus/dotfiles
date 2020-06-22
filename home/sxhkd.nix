@@ -3,7 +3,8 @@
     enable = true;
     keybindings = {
       "super + Return"                  = "alacritty";
-      "super + e"                       = "alacritty -e ranger";
+      "super + r"                       = "alacritty -e ranger";
+      "super + e"                       = "emacsclient -c";
       "super + d"                       = "dmenu_run -nb '#2e3440' -nf '#e5e9f0' -sb '#a3be8c' -sf '#2e3440' -fn 'Hasklig-10'";
       "super + b"                       = "firefox";
       "super + shift + {q,r}"           = "bspc {quit,wm -r}";
