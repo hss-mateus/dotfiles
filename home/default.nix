@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./alacritty.nix
     ./bspwm.nix
     ./neovim.nix
     ./polybar.nix
