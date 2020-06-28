@@ -55,6 +55,8 @@
   environment = {
     shells = [ pkgs.bash pkgs.zsh ];
 
+    sessionVariables.PATH = [ "/home/mt/.local/bin" ];
+
     variables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
