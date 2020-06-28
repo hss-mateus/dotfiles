@@ -2,8 +2,8 @@
   services.sxhkd = {
     enable = true;
     keybindings = {
-      "super + Return"                  = "alacritty";
-      "super + r"                       = "alacritty -e ranger";
+      "super + Return"                  = "st";
+      "super + r"                       = "st -e ranger";
       "super + e"                       = "emacsclient -c";
       "super + d"                       = "dmenu_run -nb '#2e3440' -nf '#e5e9f0' -sb '#a3be8c' -sf '#2e3440' -fn 'Hasklig-10'";
       "super + b"                       = "firefox";
