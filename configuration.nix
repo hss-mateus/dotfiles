@@ -77,6 +77,7 @@
       coreutils
       curl
       exa
+      exercism
       fd
       fzf
       killall
@@ -89,6 +90,7 @@
       scrot
       tmux
       unzip
+      tuir
       wget
       wmname
       ytop
@@ -106,7 +108,6 @@
       stack
 
       # Graphical
-      alacritty
       dmenu
       feh
       firefox
@@ -116,6 +117,7 @@
       papirus-icon-theme
       polybar
       scrcpy
+      ueberzug
       zathura
     ];
   };
