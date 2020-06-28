@@ -18,7 +18,8 @@
     extraConfig = ''
         set number                     " Line number column
         set cursorline                 " Highlight current line
-        set colorcolumn=100            " Show a vertical ruler in column 100
+        set termguicolors              " Highlight the background and foreground
+        set colorcolumn=80             " Show a vertical ruler in column 80
         set backspace=indent,eol,start " Make backspace work decently
         set expandtab                  " Use spaces instead of tabs
         set tabstop=2                  " 2 spaces in a tab
