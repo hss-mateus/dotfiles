@@ -2,7 +2,8 @@
   programs.tmux = {
     enable = true;
     extraConfig = ''
-        set-option -g default-terminal screen-256color
+        set -g default-terminal screen-256color
+        set -ga terminal-overrides ,*256col*:Tc
 
         set -g history-limit 10000
 
