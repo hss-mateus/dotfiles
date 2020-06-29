@@ -134,7 +134,7 @@
     syntaxHighlighting.enable = true;
     ohMyZsh = {
       enable = true;
-      theme = "theunraveler";
+      theme = "arrow";
       plugins = [ "git" "stack" ];
     };
   };
