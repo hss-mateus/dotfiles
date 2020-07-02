@@ -41,7 +41,6 @@
       isNormalUser = true;
       shell = pkgs.zsh;
       extraGroups = [ "wheel" "docker" ];
-      password = "mt";
     };
   };
 
@@ -77,7 +76,6 @@
       coreutils
       curl
       exa
-      exercism
       fd
       fzf
       killall
@@ -105,7 +103,6 @@
       jdk11
       nodejs
       polyml
-      stack
 
       # Graphical
       dmenu
@@ -124,7 +121,7 @@
 
   fonts.fonts = with pkgs; [
     dejavu_fonts
-    hasklig
+    fira-code
     powerline-fonts
   ];
 
@@ -135,7 +132,7 @@
     ohMyZsh = {
       enable = true;
       theme = "arrow";
-      plugins = [ "git" "stack" ];
+      plugins = [ "git" ];
     };
   };
 
