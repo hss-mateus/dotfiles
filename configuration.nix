@@ -66,7 +66,7 @@
       cat = "bat --theme=base16";
       ls = "exa --git --ignore-glob .git";
       v = "nvim";
-      e = "emacsclient -nc";
+      e = "emacsclient -nw";
     };
 
     systemPackages = with pkgs; [
