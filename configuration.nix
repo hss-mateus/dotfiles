@@ -44,10 +44,10 @@
     };
   };
 
-  console.colors = [ "2e3440" "88c0d0" "bf616a" "5e81ac"
-                     "ebcb8b" "a3be8c" "d08770" "e5e9f0"
-                     "4c566a" "81a1c1" "3b4252" "434c5e"
-                     "d8dee9" "eceff4" "b48ead" "8fbcbb" ];
+  console.colors = [ "282c34" "e06c75" "98c379" "e5c07b"
+                     "61afef" "c678dd" "56b6c2" "abb2bf"
+                     "545862" "e06c75" "98c379" "e5c07b"
+                     "61afef" "c678dd" "56b6c2" "c8ccd4" ];
 
   nixpkgs.config.allowUnfree = true;
 

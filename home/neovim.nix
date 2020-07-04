@@ -7,7 +7,7 @@
     plugins = with pkgs.vimPlugins; [
       vim-polyglot
       auto-pairs
-      nord-vim
+      base16-vim
       vim-airline
       vim-airline-themes
       coc-nvim
@@ -45,11 +45,11 @@
         set sidescrolloff=15           " Same but horizontally
 
         " Theme
-        colorscheme nord
+        colorscheme base16-onedark
 
         " Airline
         let g:airline_powerline_fonts = 1
-        let g:airline_theme = 'nord'
+        let g:airline_theme = 'onedark'
 
         " NERDTree
         let g:NERDTreeDirArrowExpandable = ' '

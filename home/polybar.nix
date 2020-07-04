@@ -7,14 +7,14 @@
         type                      = "internal/bspwm";
         enable-click              = false;
         enable-scroll             = false;
-        label-focused-foreground  = "#d8dee9";
-        label-occupied-foreground = "#4c566a";
-        label-empty-foreground    = "#2e3440";
+        label-focused-foreground  = "#abb2bf";
+        label-occupied-foreground = "#545862";
+        label-empty-foreground    = "#282c34";
       };
 
       "module/title" = {
         type              = "internal/xwindow";
-        format-foreground = "#d8dee9";
+        format-foreground = "#abb2bf";
         label-maxlen      = 80;
         label-empty       = "Desktop";
       };
@@ -29,9 +29,9 @@
       "bar/default" = {
         wm-restack     = "bspwm";
         padding        = 1;
-        background     = "#2e3440";
-        foreground     = "#d8dee9";
-        font-0         = "Hasklig:pixelsize=11";
+        background     = "#282c34";
+        foreground     = "#abb2bf";
+        font-0         = "Fira Code:pixelsize=10";
         modules-left   = "bspwm";
         modules-center = "title";
         modules-right  = "date";
