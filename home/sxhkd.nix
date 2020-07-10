@@ -5,7 +5,7 @@
       "super + Return"                  = "st";
       "super + r"                       = "st -e ranger";
       "super + e"                       = "st -e emacsclient -nw";
-      "super + d"                       = "dmenu_run -nb '#2e3440' -nf '#e5e9f0' -sb '#a3be8c' -sf '#2e3440' -fn 'Hasklig-10'";
+      "super + d"                       = "dmenu_run -nb '#282c34' -nf '#abb2bf' -sb '#61afef' -sf '#282c34' -fn 'Fira Code-10'";
       "super + b"                       = "firefox";
       "super + shift + {q,r}"           = "bspc {quit,wm -r}";
       "super + c"                       = "bspc node -c";
