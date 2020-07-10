@@ -24,11 +24,15 @@
   sound.enable = true;
 
   hardware = {
-    pulseaudio.enable = true;
+    pulseaudio = {
+      enable = true;
+      support32Bit = true;
+    };
 
     opengl = {
       enable = true;
       driSupport = true;
+      driSupport32Bit = true;
       extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau libva libva-utils ];
     };
   };
