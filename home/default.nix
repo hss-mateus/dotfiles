@@ -23,8 +23,7 @@
 
   services.picom = {
     enable = true;
-    experimentalBackends = true;
-    backend = "xrender";
+    backend = "glx";
     vSync = true;
   };
 }
