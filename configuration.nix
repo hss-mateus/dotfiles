@@ -84,11 +84,9 @@
       neovim
       ranger
       ripgrep
-      rsync
       scrot
       tmux
       unzip
-      tuir
       wget
       wmname
       ytop
@@ -97,12 +95,7 @@
       emacs
       docker-compose
       git
-      ghc
-      guile
-      jetbrains.idea-ultimate
-      jdk11
       nodejs
-      polyml
 
       # Graphical
       dmenu
