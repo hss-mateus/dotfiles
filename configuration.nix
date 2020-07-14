@@ -149,6 +149,8 @@
         autoLogin.enable = true;
         autoLogin.user = "mt";
       };
+
+      xrandrHeads = [ "HDMI-0" "DVI-1" ];
     };
 
     redshift = {

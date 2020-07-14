@@ -1,7 +1,10 @@
 {
   services.polybar = {
     enable = true;
-    script = "polybar default &";
+    script = ''
+      MONITOR=HDMI-0 polybar --reload default &
+      MONITOR=DVI-1 polybar --reload default &
+    '';
     config = {
       "module/bspwm" = {
         type                      = "internal/bspwm";
@@ -27,6 +30,7 @@
       };
 
       "bar/default" = {
+        monitor = "\${env:MONITOR:}";
         wm-restack     = "bspwm";
         padding        = 1;
         background     = "#282c34";
