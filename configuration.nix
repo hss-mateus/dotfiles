@@ -1,10 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    <home-manager/nixos>
-  ];
+  imports = [ ./hardware-configuration.nix <home-manager/nixos> ];
 
   system.stateVersion = "20.03";
   boot.loader.grub.device = "/dev/sda";
@@ -33,7 +30,12 @@
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
-      extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau libva libva-utils ];
+      extraPackages = with pkgs; [
+        libvdpau-va-gl
+        vaapiVdpau
+        libva
+        libva-utils
+      ];
     };
   };
 
@@ -48,10 +50,24 @@
     };
   };
 
-  console.colors = [ "282c34" "e06c75" "98c379" "e5c07b"
-                     "61afef" "c678dd" "56b6c2" "abb2bf"
-                     "545862" "e06c75" "98c379" "e5c07b"
-                     "61afef" "c678dd" "56b6c2" "c8ccd4" ];
+  console.colors = [
+    "282c34"
+    "e06c75"
+    "98c379"
+    "e5c07b"
+    "61afef"
+    "c678dd"
+    "56b6c2"
+    "abb2bf"
+    "545862"
+    "e06c75"
+    "98c379"
+    "e5c07b"
+    "61afef"
+    "c678dd"
+    "56b6c2"
+    "c8ccd4"
+  ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -116,11 +132,7 @@
     ];
   };
 
-  fonts.fonts = with pkgs; [
-    dejavu_fonts
-    fira-code
-    powerline-fonts
-  ];
+  fonts.fonts = with pkgs; [ dejavu_fonts fira-code powerline-fonts ];
 
   programs.zsh = {
     enable = true;
