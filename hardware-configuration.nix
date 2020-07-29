@@ -12,6 +12,7 @@
     "usbhid"
     "sd_mod"
   ];
+
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" "amdgpu" "radeon" ];
   boot.extraModulePackages = [ ];

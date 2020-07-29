@@ -6,17 +6,7 @@
   system.stateVersion = "20.03";
   boot.loader.grub.device = "/dev/sda";
 
-  networking.wireless = {
-    enable = true;
-    networks.Slowmo.psk = "1148190449";
-  };
-
   time.timeZone = "America/Sao_Paulo";
-
-  location = {
-    latitude = 0.0;
-    longitude = 0.0;
-  };
 
   sound.enable = true;
 
@@ -39,47 +29,23 @@
     };
   };
 
-  virtualisation.docker.enable = true;
-
   users = {
-    defaultUserShell = pkgs.bash;
+    defaultUserShell = pkgs.zsh;
     users.mt = {
       isNormalUser = true;
       shell = pkgs.zsh;
-      extraGroups = [ "wheel" "docker" ];
+      extraGroups = [ "wheel" ];
     };
   };
 
-  console.colors = [
-    "282c34"
-    "e06c75"
-    "98c379"
-    "e5c07b"
-    "61afef"
-    "c678dd"
-    "56b6c2"
-    "abb2bf"
-    "545862"
-    "e06c75"
-    "98c379"
-    "e5c07b"
-    "61afef"
-    "c678dd"
-    "56b6c2"
-    "c8ccd4"
-  ];
-
-  nixpkgs.config.allowUnfree = true;
+  security.sudo.wheelNeedsPassword = false;
 
   environment = {
-    shells = [ pkgs.bash pkgs.zsh ];
-
     sessionVariables.PATH = [ "/home/mt/.local/bin" ];
 
     variables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
-      FZF_DEFAULT_COMMAND = "fd --type f --hidden --exclude .git";
     };
 
     shellAliases = {
@@ -91,56 +57,47 @@
 
     systemPackages = with pkgs; [
       # General CLI tools
-      alsaUtils
       bat
-      coreutils
       curl
       exa
       fd
-      fzf
-      killall
-      mesa
-      neofetch
       neovim
+      pfetch
       ranger
       ripgrep
       scrot
-      tmux
       unzip
       wget
-      wmname
       ytop
 
       # Development
       emacs
-      docker-compose
       git
-      nodejs
+      ghc
+      hlint
+      stack
 
       # Graphical
       dmenu
       feh
       firefox
       libsForQt5.vlc
-      lxappearance
-      nordic
-      papirus-icon-theme
-      polybar
       scrcpy
-      ueberzug
+      signal-desktop
       zathura
     ];
   };
 
-  fonts.fonts = with pkgs; [ dejavu_fonts fira-code powerline-fonts ];
+  fonts.fonts = with pkgs; [ hasklig powerline-fonts ];
 
   programs.zsh = {
     enable = true;
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
+
     ohMyZsh = {
       enable = true;
-      theme = "arrow";
+      theme = "lambda";
       plugins = [ "git" ];
     };
   };
@@ -154,7 +111,6 @@
       xkbOptions = "caps:escape";
       autoRepeatDelay = 250;
       autoRepeatInterval = 25;
-      windowManager.bspwm.enable = true;
 
       displayManager.lightdm = {
         enable = true;
@@ -162,15 +118,9 @@
         autoLogin.user = "mt";
       };
 
-      xrandrHeads = [ "HDMI-0" "DVI-1" ];
-    };
-
-    redshift = {
-      enable = true;
-      temperature.day = 4500;
-      temperature.night = 4500;
+      windowManager.xmonad.enable = true;
     };
   };
 
-  home-manager.users.mt = import /etc/nixos/home;
+  home-manager.users.mt = import ./home.nix;
 }
