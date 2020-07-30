@@ -52,7 +52,7 @@
       cat = "bat --theme=base16";
       ls = "exa --git --ignore-glob .git";
       v = "nvim";
-      e = "emacsclient -nw";
+      e = "emacs -nw";
     };
 
     systemPackages = with pkgs; [
@@ -102,24 +102,20 @@
     };
   };
 
-  services = {
-    emacs.enable = true;
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "ati" ];
+    xkbOptions = "caps:escape";
+    autoRepeatDelay = 250;
+    autoRepeatInterval = 25;
 
-    xserver = {
+    displayManager.lightdm = {
       enable = true;
-      videoDrivers = [ "ati" ];
-      xkbOptions = "caps:escape";
-      autoRepeatDelay = 250;
-      autoRepeatInterval = 25;
-
-      displayManager.lightdm = {
-        enable = true;
-        autoLogin.enable = true;
-        autoLogin.user = "mt";
-      };
-
-      windowManager.xmonad.enable = true;
+      autoLogin.enable = true;
+      autoLogin.user = "mt";
     };
+
+    windowManager.xmonad.enable = true;
   };
 
   home-manager.users.mt = import ./home.nix;
