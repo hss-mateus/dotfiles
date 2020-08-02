@@ -52,7 +52,7 @@
       cat = "bat --theme=base16";
       ls = "exa --git --ignore-glob .git";
       v = "nvim";
-      e = "emacs -nw";
+      e = "emacsclient -nw";
     };
 
     systemPackages = with pkgs; [
@@ -101,6 +101,8 @@
       plugins = [ "git" ];
     };
   };
+
+  services.emacs.enable = true;
 
   services.xserver = {
     enable = true;

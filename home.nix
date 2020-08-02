@@ -1,10 +1,6 @@
 { pkgs, ... }:
 
-let
-  doom-emacs = pkgs.callPackage (builtins.fetchTarball {
-    url = "https://github.com/vlaci/nix-doom-emacs/archive/master.tar.gz";
-  }) { doomPrivateDir = ./doom-emacs; };
-in {
+{
   home.stateVersion = "20.03";
 
   programs.git = {
@@ -50,6 +46,4 @@ in {
     '';
   };
 
-  home.packages = [ doom-emacs ];
-  home.file.".emacs.d/init.el".text = ''(load "default.el")'';
 }
