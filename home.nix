@@ -11,6 +11,25 @@
       extraConfig.credential.helper = "store";
     };
 
+    neovim = {
+      enable = true;
+      plugins = with pkgs.vimPlugins; [ vim-sensible base16-vim auto-pairs ];
+      withNodeJs = true;
+      extraConfig = ''
+        set hidden
+        set termguicolors
+        set clipboard+=unnamedplus
+        set number
+        set tabstop=2
+        set softtabstop=2
+        set shiftwidth=2
+        set expandtab
+        set colorcolumn=81
+
+        colorscheme base16-onedark
+      '';
+    };
+
     zathura = {
       enable = true;
       options = {
