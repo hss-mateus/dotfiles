@@ -84,6 +84,7 @@
       libsForQt5.vlc
       scrcpy
       signal-desktop
+      xmobar
       zathura
     ];
   };

@@ -1,0 +1,11 @@
+Config { font     = "xft:Hasklig:size=10"
+       , bgColor  = "#282c34"
+       , fgColor  = "#545862"
+       , position = Static { xpos = 0, ypos = 1064, width = 1920, height = 16 }
+       , commands = [ Run Date "%a %b %_d %Y %H:%M" "date" 10
+                    , Run StdinReader
+                    ]
+       , sepChar  = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %date%"
+       }

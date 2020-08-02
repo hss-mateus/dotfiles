@@ -58,16 +58,9 @@
 
   xsession.windowManager.xmonad = {
     enable = true;
-    config = pkgs.writeText "xmonad.hs" ''
-      import XMonad
-
-      main = launch defaultConfig
-             { modMask = mod4Mask
-             , terminal = "st"
-             , focusedBorderColor = "#e06c75"
-             , normalBorderColor = "#abb2bf"
-             }
-    '';
+    enableContribAndExtras = true;
+    config = ./xmonad.hs;
   };
 
+  home.file.".xmobarrc".source = ./xmobar;
 }
