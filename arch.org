@@ -1,0 +1,528 @@
+- .config
+  - alacritty.yml
+    #+BEGIN_SRC yaml
+env:
+  TERM: xterm-256color
+
+window:
+  dynamic_padding: true
+
+font:
+  normal:
+    family: FantasqueSansMono Nerd Font
+
+  size: 11.0
+
+  offset:
+    y: 5
+
+colors:
+  primary:
+    background: '0x002b36'
+    foreground: '0x93a1a1'
+
+  cursor:
+    text: '0x002b36'
+    cursor: '0x93a1a1'
+
+  normal:
+    black:   '0x002b36'
+    red:     '0xdc322f'
+    green:   '0x859900'
+    yellow:  '0xb58900'
+    blue:    '0x268bd2'
+    magenta: '0x6c71c4'
+    cyan:    '0x2aa198'
+    white:   '0x93a1a1'
+
+mouse:
+  hide_when_typing: true
+
+key_bindings:
+  - { key: Equals,         mods: Control,       action: IncreaseFontSize }
+  - { key: NumpadSubtract, mods: Control,       action: DecreaseFontSize }
+  - { key: Key0,           mods: Control,       action: ResetFontSize    }
+  - { key: K,              mods: Control|Shift, action: ScrollPageUp     }
+  - { key: J,              mods: Control|Shift, action: ScrollPageDown   }
+#+END_SRC
+
+  - fish/config.fish
+    #+BEGIN_SRC fish
+set fish_greeting
+set -x EDITOR nvim
+set -x VISUAL nvim
+set -x FZF_DEFAULT_COMMAND "fd --type f --hidden --exclude .git"
+alias ls="exa --git --ignore-glob .git"
+alias cat="bat --theme=base16"
+alias v="nvim"
+alias e="emacsclient -nw"
+
+set PATH $PATH ~/.local/bin ~/.emacs.d/bin ~/.rbenv/shims ~/.yarn/bin
+
+function fish_user_key_bindings
+fish_vi_cursor
+fish_vi_key_bindings
+end
+
+fish_user_key_bindings
+
+starship init fish | source
+
+status --is-interactive; and source (rbenv init -|psub)
+#+END_SRC
+
+  - picom.conf
+    #+BEGIN_SRC
+backend = "glx";
+vsync = true;
+#+END_SRC
+
+- .doom.d
+  - config.el
+    #+BEGIN_SRC elisp
+(setq user-full-name "hss-mateus"
+      user-mail-address "hss-mateus@pm.me")
+
+(setq doom-theme 'doom-horizon)
+
+(setq org-directory "~/dev/org/")
+
+(setq display-line-numbers-type t)
+
+(setq doom-font (font-spec :family "FantasqueSansMono Nerd Font" :size 16))
+
+(setq-default line-spacing 0.4)
+
+(after! evil-snipe
+  (evil-snipe-mode -1))
+
+(setq confirm-kill-emacs nil)
+
+(setq-default projectile-rails-custom-server-command "rails server")
+
+(setq lsp-diagnostic-package :none)
+
+(add-hook 'ruby-mode-local-vars-hook
+          (lambda ()
+            (flycheck-select-checker 'ruby-standard)))
+#+END_SRC
+
+  - init.el
+    #+BEGIN_SRC elisp
+;;; init.el -*- lexical-binding: t; -*-
+
+;; This file controls what Doom modules are enabled and what order they load
+;; in. Remember to run 'doom sync' after modifying it!
+
+;; NOTE Press 'SPC h d h' (or 'C-h d h' for non-vim users) to access Doom's
+;;      documentation. There you'll find a "Module Index" link where you'll find
+;;      a comprehensive list of Doom's modules and what flags they support.
+
+;; NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
+;;      'C-c c k' for non-vim users) to view its documentation. This works on
+;;      flags as well (those symbols that start with a plus).
+;;
+;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
+;;      directory (for easy access to its source code).
+
+(doom! :input
+       ;;chinese
+       ;;japanese
+       ;;layout            ; auie,ctsrnm is the superior home row
+
+       :completion
+       company           ; the ultimate code completion backend
+       ;;helm              ; the *other* search engine for love and life
+       ;;ido               ; the other *other* search engine...
+       (ivy +childframe +fuzzy)               ; a search engine for love and life
+
+       :ui
+       ;;deft              ; notational velocity for Emacs
+       doom              ; what makes DOOM look the way it does
+       ;;doom-dashboard    ; a nifty splash screen for Emacs
+       ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;;fill-column       ; a `fill-column' indicator
+       hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       hydra
+       ;;indent-guides     ; highlighted indent columns
+       ligatures         ; ligatures and symbols to make your code pretty again
+       ;;minimap           ; show a map of the code on the side
+       modeline          ; snazzy, Atom-inspired modeline, plus API
+       ;;nav-flash         ; blink cursor line after big motions
+       ;;neotree           ; a project drawer, like NERDTree for vim
+       ophints           ; highlight the region an operation acts on
+       (popup +defaults)   ; tame sudden yet inevitable temporary windows
+       ;;tabs              ; a tab bar for Emacs
+       treemacs          ; a project drawer, like neotree but cooler
+       ;;unicode           ; extended unicode support for various languages
+       vc-gutter         ; vcs diff in the fringe
+       ;;vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       ;;window-select     ; visually switch windows
+       ;;workspaces        ; tab emulation, persistence & separate workspaces
+       ;;zen               ; distraction-free coding or writing
+
+       :editor
+       (evil +everywhere); come to the dark side, we have cookies
+       file-templates    ; auto-snippets for empty files
+       ;;fold              ; (nigh) universal code folding
+       format  ; automated prettiness
+       ;;god               ; run Emacs commands without modifier keys
+       ;;lispy             ; vim for lisp, for people who don't like vim
+       multiple-cursors  ; editing in many places at once
+       ;;objed             ; text object editing for the innocent
+       parinfer          ; turn lisp into python, sort of
+       ;;rotate-text       ; cycle region at point between text candidates
+       snippets          ; my elves. They type so I don't have to
+       word-wrap         ; soft wrapping with language-aware indent
+
+       :emacs
+       dired             ; making dired pretty [functional]
+       electric          ; smarter, keyword-based electric-indent
+       ;;ibuffer         ; interactive buffer management
+       undo              ; persistent, smarter undo for your inevitable mistakes
+       vc                ; version-control and Emacs, sitting in a tree
+
+       :term
+       eshell            ; the elisp shell that works everywhere
+       ;;shell             ; simple shell REPL for Emacs
+       ;;term              ; basic terminal emulator for Emacs
+       vterm             ; the best terminal emulation in Emacs
+
+       :checkers
+       syntax              ; tasing you for every semicolon you forget
+       ;;spell             ; tasing you for misspelling mispelling
+       ;;grammar           ; tasing grammar mistake every you make
+
+       :tools
+       ;;ansible
+       ;;debugger          ; FIXME stepping through code, to help you add bugs
+       direnv
+       docker
+       editorconfig      ; let someone else argue about tabs vs spaces
+       ;;ein               ; tame Jupyter notebooks with emacs
+       (eval +overlay)     ; run code, run (also, repls)
+       ;;gist              ; interacting with github gists
+       lookup              ; navigate your code and its documentation
+       lsp
+       magit             ; a git porcelain for Emacs
+       ;;make              ; run make tasks from Emacs
+       ;;pass              ; password manager for nerds
+       pdf               ; pdf enhancements
+       ;;prodigy           ; FIXME managing external services & code builders
+       rgb               ; creating color strings #FF00FF
+       ;;taskrunner        ; taskrunner for all your projects
+       ;;terraform         ; infrastructure as code
+       ;;tmux              ; an API for interacting with tmux
+       ;;upload            ; map local to remote projects via ssh/ftp
+
+       :os
+       (:if IS-MAC macos)  ; improve compatibility with macOS
+       tty               ; improve the terminal Emacs experience
+
+       :lang
+       ;;agda              ; types of types of types of types...
+       cc                ; C/C++/Obj-C madness
+       ;;clojure           ; java with a lisp
+       common-lisp       ; if you've seen one lisp, you've seen them all
+       ;;coq               ; proofs-as-programs
+       ;;crystal           ; ruby at the speed of c
+       ;;csharp            ; unity, .NET, and mono shenanigans
+       ;;data              ; config/data formats
+       ;;(dart +flutter)   ; paint ui and not much else
+       (elixir +lsp)            ; erlang done right
+       (elm +lsp)       ; care for a cup of TEA?
+       emacs-lisp        ; drown in parentheses
+       (erlang +lsp)            ; an elegant language for a more civilized age
+       ;;ess               ; emacs speaks statistics
+       ;;faust             ; dsp, but you get to keep your soul
+       ;;fsharp            ; ML stands for Microsoft's Language
+       ;;fstar             ; (dependent) types and (monadic) effects and Z3
+       ;;gdscript          ; the language you waited for
+       ;;(go +lsp)         ; the hipster dialect
+       (haskell +dante)  ; a language that's lazier than I am
+       ;;hy                ; readability of scheme w/ speed of python
+       ;;idris             ; a language you can depend on
+       (json +lsp)              ; At least it ain't XML
+       ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
+       javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       ;;julia             ; a better, faster MATLAB
+       ;;kotlin            ; a better, slicker Java(Script)
+       ;;latex             ; writing papers in Emacs has never been so fun
+       ;;lean
+       ;;factor
+       ;;ledger            ; an accounting system in Emacs
+       ;;lua               ; one-based indices? one-based indices
+       markdown          ; writing docs for people to ignore
+       ;;nim               ; python + lisp at the speed of c
+       ;;nix               ; I hereby declare "nix geht mehr!"
+       ;;ocaml             ; an objective camel
+       (org +pretty)               ; organize your plain life in plain text
+       ;;php               ; perl's insecure younger brother
+       plantuml          ; diagrams for confusing people more
+       ;;purescript        ; javascript, but functional
+       ;;python            ; beautiful is better than ugly
+       ;;qt                ; the 'cutest' gui framework ever
+       racket            ; a DSL for DSLs
+       ;;raku              ; the artist formerly known as perl6
+       rest              ; Emacs as a REST client
+       ;;rst               ; ReST in peace
+       (ruby +rails +rbenv +lsp)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;;scala             ; java, but good
+       ;;scheme            ; a fully conniving family of lisps
+       sh                ; she sells {ba,z,fi}sh shells on the C xor
+       sml
+       ;;solidity          ; do you need a blockchain? No.
+       ;;swift             ; who asked for emoji variables?
+       ;;terra             ; Earth and Moon in alignment for performance.
+       (web +html +css)               ; the tubes
+       yaml              ; JSON, but readable
+
+       :email
+       ;;(mu4e +gmail)
+       ;;notmuch
+       ;;(wanderlust +gmail)
+
+       :app
+       ;;calendar
+       ;;irc               ; how neckbeards socialize
+       ;;(rss +org)        ; emacs as an RSS reader
+       ;;twitter           ; twitter client https://twitter.com/vnought
+
+       :config
+       ;;literate
+       (default +bindings +smartparens))
+#+END_SRC
+
+  - packages.el
+    #+BEGIN_SRC elisp
+;; -*- no-byte-compile: t; -*-
+;;; $DOOMDIR/packages.el
+
+(package! hl-line :disable t)
+(package! solaire-mode :disable t)
+#+END_SRC
+
+- .gitconfig
+  #+BEGIN_SRC
+[user]
+    name = hss-mateus
+    email = hss-mateus@pm.me
+[credential]
+    helper = store
+#+END_SRC
+
+- .newsboat
+  - config
+    #+BEGIN_SRC
+color listfocus        black blue bold
+color listfocus_unread black blue bold
+color info             black blue bold
+browser "firefox"
+#+END_SRC
+
+  - urls
+    #+BEGIN_SRC
+https://lobste.rs/rss
+https://rsshub.app/github/trending/daily
+https://elmbits.com/rss/
+https://cprss.s3.amazonaws.com/rubyweekly.com.xml
+https://whatthefuck.is/feed.xml
+https://ferd.ca/feed.rss
+http://www.rubyflow.com/rss
+https://blog.bigbinary.com/feed.xml
+https://www.rubytapas.com/feed/
+#+END_SRC
+
+- .tmux.conf
+  #+BEGIN_SRC
+set -g default-terminal screen-256color
+set -ga terminal-overrides ,*256col*:Tc
+set -g history-limit 10000
+set -g base-index 1
+set-option -g renumber-windows on
+set -s escape-time 0
+bind-key -n M-n new-window -c "#{pane_current_path}"
+bind-key -n M-1 select-window -t :1
+bind-key -n M-2 select-window -t :2
+bind-key -n M-3 select-window -t :3
+bind-key -n M-4 select-window -t :4
+bind-key -n M-5 select-window -t :5
+bind-key -n M-6 select-window -t :6
+bind-key -n M-7 select-window -t :7
+bind-key -n M-8 select-window -t :8
+bind-key -n M-9 select-window -t :9
+bind-key -n M-0 select-window -t :0
+bind-key -n M-. select-window -n
+bind-key -n M-, select-window -p
+bind-key -n M-< swap-window -t -1
+bind-key -n M-> swap-window -t +1
+bind-key -n M-X confirm-before "kill-window"
+bind-key -n M-- split-window -v -c "#{pane_current_path}"
+bind-key -n M-\\ split-window -h -c "#{pane_current_path}"
+bind-key -n M-v split-window -h -c "#{pane_current_path}"
+bind-key -n M-V split-window -v -c "#{pane_current_path}"
+bind-key -n M-R command-prompt -I "#W" "rename-window '%%'"
+bind-key -n M-f resize-pane -Z
+bind-key -n M-C-h resize-pane -L
+bind-key -n M-C-j resize-pane -D
+bind-key -n M-C-k resize-pane -U
+bind-key -n M-C-l resize-pane -R
+bind-key -n M-h select-pane -L
+bind-key -n M-l select-pane -R
+bind-key -n M-k select-pane -U
+bind-key -n M-j select-pane -D
+bind-key -n "M-H" run-shell 'old=`tmux display -p "#{pane_index}"`; tmux select-pane -L; tmux swap-pane -t $old'
+bind-key -n "M-J" run-shell 'old=`tmux display -p "#{pane_index}"`; tmux select-pane -D; tmux swap-pane -t $old'
+bind-key -n "M-K" run-shell 'old=`tmux display -p "#{pane_index}"`; tmux select-pane -U; tmux swap-pane -t $old'
+bind-key -n "M-L" run-shell 'old=`tmux display -p "#{pane_index}"`; tmux select-pane -R; tmux swap-pane -t $old'
+bind-key -n M-x confirm-before "kill-pane"
+set-option -g status-keys vi
+set-option -g set-titles on
+set-option -g set-titles-string 'tmux - #W'
+set-option -g visual-bell off
+setw -g mode-keys vi
+setw -g monitor-activity on
+set -g visual-activity on
+set -g status-left ""
+set -g status-right ""
+set -g status-style fg=colour15
+set -g message-style fg=colour0,bg=colour3
+setw -g window-status-current-style fg=yellow,bold
+setw -g window-status-current-format ' #W '
+setw -g window-status-style fg=colour250
+setw -g window-status-format ' #W '
+setw -g window-status-bell-style fg=colour1
+#+END_SRC
+
+- .xmobarrc
+  #+BEGIN_SRC haskell
+Config { font     = "xft:FantasqueSansMono Nerd Font:size=10"
+       , bgColor  = "#002b36"
+       , fgColor  = "#93a1a1"
+       , position = Static { xpos = 0, ypos = 1064, width = 1920, height = 16 }
+       , commands = [ Run Date "%a %b %d %Y %H:%M" "date" 10
+                    , Run StdinReader
+                    ]
+       , sepChar  = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %date%"
+       }
+#+END_SRC
+
+- .xmonad/xmonad.hs
+  #+BEGIN_SRC haskell
+import System.IO
+import XMonad
+import XMonad.Config.Desktop
+import XMonad.Hooks.DynamicLog
+import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.Run (spawnPipe)
+import XMonad.Layout.NoBorders
+
+logHook' :: Handle -> X ()
+logHook' xmobarProc = dynamicLogWithPP xmobarPP
+                      { ppOutput = hPutStrLn xmobarProc
+                      , ppCurrent = wrap "[" "]"
+                      , ppTitle = shorten 50
+                      , ppUrgent = xmobarColor "#dc322f" ""
+                      }
+
+main :: IO ()
+main = do
+  xmobarProc <- spawnPipe "xmobar"
+  xmonad $ desktopConfig
+       { modMask            = mod4Mask
+       , terminal           = "alacritty"
+       , focusedBorderColor = "#2aa198"
+       , normalBorderColor  = "#002b36"
+       , logHook            = logHook' xmobarProc
+       , layoutHook         = smartBorders (layoutHook desktopConfig)
+       }
+
+       `additionalKeysP`
+       [ ("M-b", spawn "firefox")
+       , ("M-e", spawn "emacsclient -nc")
+       , ("M-r", spawn "alacritty -e ranger")
+       , ("M-s", spawn "flameshot gui")
+       , ("M-p", spawn "dmenu_run -fn 'FantasqueSansMono Nerd Font' -nb '#002b36' -nf '#93a1a1' -sb '#859900' -sf '#002b36'")
+       ]
+#+END_SRC
+
+- .xprofile
+  #+BEGIN_SRC shell
+setxkbmap -option caps:escape &
+xset r rate 200 30 &
+picom &
+hsetroot -solid '#002b36' &
+#+END_SRC
+
+* packages
+alacritty
+alsa-utils
+amd-ucode
+base
+base-devel
+bat
+chromium
+cmake
+dhcpcd
+dmenu
+docker
+docker-compose
+emacs
+exa
+fd
+feh
+firefox
+fish
+flameshot
+git
+gtk-theme-numix-solarized
+hlint
+hsetroot
+imagemagick
+lightdm
+lightdm-gtk-greeter
+linux-firmware
+linux-zen
+linux-zen-headers
+lxappearance
+neovim
+nerd-fonts-fantasque-sans-mono
+newsboat
+p7zip
+pavucontrol
+picom
+postgresql-libs
+pulseaudio-alsa
+ranger
+rbenv
+ripgrep
+scrcpy
+stack
+starship-bin
+sudo
+tmux
+tokei
+ttf-symbola-free
+unrar
+unzip
+wget
+xclip
+xf86-video-amdgpu
+xf86-video-ati
+xmobar
+xmonad
+xmonad-contrib
+xmonad-utils
+xorg
+xorg-apps
+yarn
+yay-bin
+ytop-bin
+zip
+
+* oh-my-fish plugins
+- foreign-env
+- https://github.com/jhillyerd/plugin-git
