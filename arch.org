@@ -526,3 +526,11 @@ zip
 * oh-my-fish plugins
 - foreign-env
 - https://github.com/jhillyerd/plugin-git
+
+* Tridactyl
+#+BEGIN_SRC
+bind / fillcmdline find
+bind ? fillcmdline find -?
+bind n findnext 1
+bind N findnext -1
+#+END_SRC
