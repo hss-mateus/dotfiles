@@ -49,22 +49,16 @@ key_bindings:
   - fish/config.fish
     #+BEGIN_SRC fish
 set fish_greeting
-set -x EDITOR nvim
-set -x VISUAL nvim
-set -x FZF_DEFAULT_COMMAND "fd --type f --hidden --exclude .git"
+
 alias ls="exa --git --ignore-glob .git"
 alias cat="bat --theme=base16"
 alias v="nvim"
 alias e="emacsclient -nw"
+alias cdr="cd (git root)"
+alias kbdus="setxkbmap -layout us"
+alias kbdintl="setxkbmap -layout us -variant intl"
 
-set PATH $PATH ~/.local/bin ~/.emacs.d/bin ~/.rbenv/shims ~/.yarn/bin
-
-function fish_user_key_bindings
-fish_vi_cursor
-fish_vi_key_bindings
-end
-
-fish_user_key_bindings
+fenv source ~/.profile
 
 starship init fish | source
 
@@ -77,34 +71,157 @@ backend = "glx";
 vsync = true;
 #+END_SRC
 
+  - starship.toml
+   #+BEGIN_SRC toml
+right_format = "$time"
+
+[time]
+disabled = false
+format = "$time"
+time_format = "%R"
+use_12hr = true
+
+[character]
+success_symbol = "\\$"
+error_symbol = "[\\$](red)"
+#+END_SRC
+
+  - nvim/init.vim
+    #+BEGIN_SRC vim
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin()
+
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdtree'
+Plug 'chriskempson/base16-vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf', {'do': {-> fzf#install()}}
+Plug 'junegunn/fzf.vim'
+Plug 'slim-template/vim-slim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'farmergreg/vim-lastplace'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'junegunn/goyo.vim'
+Plug 'axvr/org.vim'
+Plug 'mattn/emmet-vim'
+Plug 'elixir-editors/vim-elixir'
+Plug 'vim-crystal/vim-crystal'
+
+call plug#end()
+
+set hidden
+set termguicolors
+set clipboard+=unnamedplus
+set number
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+set colorcolumn=81
+set splitright
+set splitbelow
+set ignorecase
+set smartcase
+set relativenumber
+
+set nobackup
+set nowritebackup
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
+
+colorscheme base16-onedark
+
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+
+let mapleader=' '
+
+nnoremap <m-x> :
+
+nnoremap <silent> <esc> :noh<cr><esc>
+
+vnoremap < <gv
+vnoremap > >gv
+
+nnoremap <leader>wv :vsplit<cr>
+nnoremap <leader>ws :split<cr>
+nnoremap <leader>wh <c-w>h
+nnoremap <leader>wj <c-w>j
+nnoremap <leader>wk <c-w>k
+nnoremap <leader>wl <c-w>l
+
+nnoremap <leader>bb :Buffers<cr>
+nnoremap <leader>bp :bp<cr>
+nnoremap <leader>bn :bn<cr>
+nnoremap <leader>bd :bd<cr>
+nnoremap <leader>bk :bd!<cr>
+
+nnoremap <leader><leader> :Files<cr>
+nnoremap <leader>fe :Files %:p:h<cr>
+nnoremap <leader>ff :edit %:p:h
+
+nnoremap <leader>op :NERDTree<cr>
+
+nnoremap <leader>* :Rg<cr>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+nnoremap <silent> K :call <sid>show_documentation()<cr>
+
+nnoremap <silent> gd <Plug>(coc-definition)
+nnoremap <silent> gt <Plug>(coc-type-definition)
+nnoremap <silent> gi <Plug>(coc-implementation)
+nnoremap <silent> gr <Plug>(coc-references)
+
+inoremap <silent><expr> <c-space> coc#refresh()
+
+nnoremap <leader>ga :Git add<cr>
+nnoremap <leader>gl :Git log<cr>
+nnoremap <leader>gd :Git diff<cr>
+nnoremap <leader>gs :Git status<cr>
+nnoremap <leader>gg :Git<cr>
+
+nnoremap <silent> <leader>tz :Goyo<cr>
+#+END_SRC
+
 - .doom.d
   - config.el
     #+BEGIN_SRC elisp
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
 (setq user-full-name "hss-mateus"
-      user-mail-address "hss-mateus@pm.me")
+      user-mail-address "hss-mateus@pm.me"
+      doom-font (font-spec :family "IBM Plex Mono" :size 17)
+      doom-theme 'doom-palenight
+      org-directory "~/org/"
+      display-line-numbers-type 'relative
+      confirm-kill-emacs nil)
 
-(setq doom-theme 'doom-horizon)
-
-(setq org-directory "~/dev/org/")
-
-(setq display-line-numbers-type t)
-
-(setq doom-font (font-spec :family "FantasqueSansMono Nerd Font" :size 16))
-
-(setq-default line-spacing 0.4)
-
-(after! evil-snipe
-  (evil-snipe-mode -1))
-
-(setq confirm-kill-emacs nil)
-
-(setq-default projectile-rails-custom-server-command "rails server")
-
-(setq lsp-diagnostic-package :none)
-
-(add-hook 'ruby-mode-local-vars-hook
-          (lambda ()
-            (flycheck-select-checker 'ruby-standard)))
+(remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 #+END_SRC
 
   - init.el
@@ -134,26 +251,28 @@ vsync = true;
        company           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +childframe +fuzzy)               ; a search engine for love and life
+       ;;(ivy +childframe +fuzzy)               ; a search engine for love and life
+       (vertico +icons)
 
        :ui
        ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        ;;doom-dashboard    ; a nifty splash screen for Emacs
        ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;;(emoji +unicode)  ; 🙂
        ;;fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        hydra
        ;;indent-guides     ; highlighted indent columns
-       ligatures         ; ligatures and symbols to make your code pretty again
+       ;;ligatures         ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
-       ;;neotree           ; a project drawer, like NERDTree for vim
+       neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
        ;;tabs              ; a tab bar for Emacs
-       treemacs          ; a project drawer, like neotree but cooler
+       ;;treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        ;;vi-tilde-fringe   ; fringe tildes to mark beyond EOB
@@ -170,7 +289,7 @@ vsync = true;
        ;;lispy             ; vim for lisp, for people who don't like vim
        multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
-       parinfer          ; turn lisp into python, sort of
+       (parinfer +rust)          ; turn lisp into python, sort of
        ;;rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
        word-wrap         ; soft wrapping with language-aware indent
@@ -183,21 +302,21 @@ vsync = true;
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       eshell            ; the elisp shell that works everywhere
+       ;;eshell            ; the elisp shell that works everywhere
        ;;shell             ; simple shell REPL for Emacs
        ;;term              ; basic terminal emulator for Emacs
        vterm             ; the best terminal emulation in Emacs
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       ;;spell             ; tasing you for misspelling mispelling
+       ;;(spell +flyspell) ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
        ;;debugger          ; FIXME stepping through code, to help you add bugs
-       direnv
-       docker
+       ;;direnv
+       ;;docker
        editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
@@ -205,11 +324,11 @@ vsync = true;
        lookup              ; navigate your code and its documentation
        lsp
        magit             ; a git porcelain for Emacs
-       ;;make              ; run make tasks from Emacs
+       make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
-       pdf               ; pdf enhancements
+       ;;pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
-       rgb               ; creating color strings #FF00FF
+       ;;rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
@@ -221,30 +340,30 @@ vsync = true;
 
        :lang
        ;;agda              ; types of types of types of types...
-       cc                ; C/C++/Obj-C madness
-       ;;clojure           ; java with a lisp
-       common-lisp       ; if you've seen one lisp, you've seen them all
+       ;;(cc +lsp)                ; C/C++/Obj-C madness
+       ;;(clojure +lsp)           ; java with a lisp
+       ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
        ;;data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
-       (elixir +lsp)            ; erlang done right
-       (elm +lsp)       ; care for a cup of TEA?
+       ;;(elixir +lsp)            ; erlang done right
+       ;;(elm +lsp)               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
-       (erlang +lsp)            ; an elegant language for a more civilized age
+       ;;erlang            ; an elegant language for a more civilized age
        ;;ess               ; emacs speaks statistics
        ;;faust             ; dsp, but you get to keep your soul
        ;;fsharp            ; ML stands for Microsoft's Language
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
        ;;(go +lsp)         ; the hipster dialect
-       (haskell +dante)  ; a language that's lazier than I am
+       ;;(haskell +lsp)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
        (json +lsp)              ; At least it ain't XML
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
-       javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        ;;latex             ; writing papers in Emacs has never been so fun
@@ -258,20 +377,20 @@ vsync = true;
        ;;ocaml             ; an objective camel
        (org +pretty)               ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
-       plantuml          ; diagrams for confusing people more
+       ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        ;;python            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
-       racket            ; a DSL for DSLs
+       ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
        rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
-       (ruby +rails +rbenv +lsp)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       (ruby +rails +rbenv)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       ;;(rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps
        sh                ; she sells {ba,z,fi}sh shells on the C xor
-       sml
+       ;;sml
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
@@ -285,6 +404,8 @@ vsync = true;
 
        :app
        ;;calendar
+       ;;emms
+       ;;everywhere        ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
@@ -325,13 +446,14 @@ browser "firefox"
     #+BEGIN_SRC
 https://lobste.rs/rss
 https://rsshub.app/github/trending/daily
-https://elmbits.com/rss/
 https://cprss.s3.amazonaws.com/rubyweekly.com.xml
-https://whatthefuck.is/feed.xml
 https://ferd.ca/feed.rss
 http://www.rubyflow.com/rss
 https://blog.bigbinary.com/feed.xml
-https://www.rubytapas.com/feed/
+https://rubyonrails.org/feed.xml
+https://lwn.net/headlines/newrss
+https://blog.arkency.com/feed.xml
+https://esoteric.codes/rss
 #+END_SRC
 
 - .tmux.conf
@@ -455,6 +577,20 @@ setxkbmap -option caps:escape &
 xset r rate 200 30 &
 picom &
 hsetroot -solid '#002b36' &
+#+END_SRC
+
+- .profile
+  #+BEGIN_SRC shell
+export PAGER=less
+export VISUAL=nvim
+export EDITOR=nvim
+export GIT_EDITOR=nvim
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git"
+
+export PATH="$HOME/.local/share/npm/bin:$HOME/.local/bin:$HOME/.ghcup/bin:$PATH"
+
+export JAVA_HOME="/usr/lib/jvm/default"
+export _JAVA_AWT_WM_NONREPARENTING=1
 #+END_SRC
 
 * packages
