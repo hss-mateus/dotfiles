@@ -340,15 +340,15 @@ nnoremap <silent> <leader>tz :Goyo<cr>
 
        :lang
        ;;agda              ; types of types of types of types...
-       ;;(cc +lsp)                ; C/C++/Obj-C madness
-       ;;(clojure +lsp)           ; java with a lisp
-       ;;common-lisp       ; if you've seen one lisp, you've seen them all
+       (cc +lsp)                ; C/C++/Obj-C madness
+       (clojure +lsp)           ; java with a lisp
+       common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
-       ;;crystal           ; ruby at the speed of c
+       crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
        ;;data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
-       ;;(elixir +lsp)            ; erlang done right
+       (elixir +lsp)            ; erlang done right
        ;;(elm +lsp)               ; care for a cup of TEA?
        emacs-lisp        ; drown in parentheses
        ;;erlang            ; an elegant language for a more civilized age
@@ -358,7 +358,7 @@ nnoremap <silent> <leader>tz :Goyo<cr>
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
        ;;(go +lsp)         ; the hipster dialect
-       ;;(haskell +lsp)  ; a language that's lazier than I am
+       (haskell +lsp)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
        (json +lsp)              ; At least it ain't XML
@@ -386,11 +386,11 @@ nnoremap <silent> <leader>tz :Goyo<cr>
        rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        (ruby +rails +rbenv)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       ;;(rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       (rust +lsp)              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps
        sh                ; she sells {ba,z,fi}sh shells on the C xor
-       ;;sml
+       sml
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
@@ -454,6 +454,8 @@ https://rubyonrails.org/feed.xml
 https://lwn.net/headlines/newrss
 https://blog.arkency.com/feed.xml
 https://esoteric.codes/rss
+https://clojure.org/feed.xml
+https://alan.petitepomme.net/cwn/cwn.rss
 #+END_SRC
 
 - .tmux.conf
