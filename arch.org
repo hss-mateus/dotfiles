@@ -519,57 +519,25 @@ setw -g window-status-format ' #W '
 setw -g window-status-bell-style fg=colour1
 #+END_SRC
 
-- .xmobarrc
-  #+BEGIN_SRC haskell
-Config { font     = "xft:FantasqueSansMono Nerd Font:size=10"
-       , bgColor  = "#002b36"
-       , fgColor  = "#93a1a1"
-       , position = Static { xpos = 0, ypos = 1064, width = 1920, height = 16 }
-       , commands = [ Run Date "%a %b %d %Y %H:%M" "date" 10
-                    , Run StdinReader
-                    ]
-       , sepChar  = "%"
-       , alignSep = "}{"
-       , template = "%StdinReader% }{ %date%"
-       }
-#+END_SRC
-
 - .xmonad/xmonad.hs
   #+BEGIN_SRC haskell
-import System.IO
 import XMonad
 import XMonad.Config.Desktop
-import XMonad.Hooks.DynamicLog
 import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.Run (spawnPipe)
-import XMonad.Layout.NoBorders
-
-logHook' :: Handle -> X ()
-logHook' xmobarProc = dynamicLogWithPP xmobarPP
-                      { ppOutput = hPutStrLn xmobarProc
-                      , ppCurrent = wrap "[" "]"
-                      , ppTitle = shorten 50
-                      , ppUrgent = xmobarColor "#dc322f" ""
-                      }
 
 main :: IO ()
 main = do
-  xmobarProc <- spawnPipe "xmobar"
   xmonad $ desktopConfig
-       { modMask            = mod4Mask
-       , terminal           = "alacritty"
-       , focusedBorderColor = "#2aa198"
-       , normalBorderColor  = "#002b36"
-       , logHook            = logHook' xmobarProc
-       , layoutHook         = smartBorders (layoutHook desktopConfig)
+       { terminal           = "alacritty"
+       -- , modMask            = mod4Mask
+       , borderWidth        = 0
+       , layoutHook         = layoutHook desktopConfig
        }
 
        `additionalKeysP`
        [ ("M-b", spawn "firefox")
-       , ("M-e", spawn "emacsclient -nc")
-       , ("M-r", spawn "alacritty -e ranger")
        , ("M-s", spawn "flameshot gui")
-       , ("M-p", spawn "dmenu_run -fn 'FantasqueSansMono Nerd Font' -nb '#002b36' -nf '#93a1a1' -sb '#859900' -sf '#002b36'")
+       , ("M-p", spawn "dmenu_run -fn 'Iosevka Nerd Font' -nb '#fafafa' -nf '#383a42' -sb '#4078f2' -sf '#fafafa'")
        ]
 #+END_SRC
 
@@ -578,7 +546,7 @@ main = do
 setxkbmap -option caps:escape &
 xset r rate 200 30 &
 picom &
-hsetroot -solid '#002b36' &
+feh --bg-fill /home/mt/Downloads/wallpaper.jpg &
 #+END_SRC
 
 - .profile
@@ -593,6 +561,8 @@ export PATH="$HOME/.local/share/npm/bin:$HOME/.local/bin:$HOME/.ghcup/bin:$PATH"
 
 export JAVA_HOME="/usr/lib/jvm/default"
 export _JAVA_AWT_WM_NONREPARENTING=1
+
+export RUBY_YJIT_ENABLE=1
 #+END_SRC
 
 * packages
