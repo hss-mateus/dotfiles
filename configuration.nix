@@ -1,125 +1,125 @@
-{ config, pkgs, ... }:
-
 {
-  imports = [ ./hardware-configuration.nix <home-manager/nixos> ];
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+  };
 
-  system.stateVersion = "20.03";
-  boot.loader.grub.device = "/dev/sda";
+  networking = {
+    hostName = "nixos";
+    networkmanager.enable = true;
+  };
 
   time.timeZone = "America/Sao_Paulo";
+  i18n.defaultLocale = "en_US.UTF-8";
 
-  sound.enable = true;
-
-  hardware = {
-    pulseaudio = {
+  virtualisation = {
+    docker = {
       enable = true;
-      support32Bit = true;
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
     };
 
-    opengl = {
+    oci-containers = {
+      backend = "docker";
+
+      containers.postgres = {
+        image = "postgres:alpine";
+        ports = [ "5432:5432" ];
+        cmd = [
+          "postgres"
+          "-c"
+          "statement_timeout=2000"
+          "-c"
+          "max_connections=200"
+          "-c"
+          "shared_buffers=2GB"
+          "-c"
+          "fsync=off"
+          "-c"
+          "full_page_writes=off"
+        ];
+
+        environment = {
+          POSTGRES_USER = "postgres";
+          POSTGRES_PASSWORD = "postgres";
+        };
+      };
+    };
+  };
+
+  services = {
+    displayManager.sddm = {
       enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-      extraPackages = with pkgs; [
-        libvdpau-va-gl
-        vaapiVdpau
-        libva
-        libva-utils
+      wayland.enable = true;
+    };
+
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      jack.enable = true;
+      pulse.enable = true;
+    };
+  };
+
+  programs = {
+    hyprland.enable = true;
+    fish.enable = true;
+    nixvim.enable = true;
+  };
+
+  stylix = {
+    enable = true;
+    image = ./wallpaper.png;
+    polarity = "light";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/solarized-light.yaml";
+    cursor.size = 24;
+
+    fonts = {
+      monospace = {
+        name = "Iosevka Comfy Motion Fixed";
+        package = pkgs.iosevka-comfy.comfy-motion-fixed;
+      };
+
+      sansSerif = {
+        name = "SF Pro";
+        package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro;
+      };
+    };
+  };
+
+  nix = {
+    gc.automatic = true;
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
+
+  users = {
+    users.mt = {
+      shell = pkgs.fish;
+      isNormalUser = true;
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "video"
+        "audio"
+        "docker"
       ];
     };
   };
 
-  users = {
-    defaultUserShell = pkgs.zsh;
-    users.mt = {
-      isNormalUser = true;
-      shell = pkgs.zsh;
-      extraGroups = [ "wheel" ];
-    };
-  };
-
   security.sudo.wheelNeedsPassword = false;
-
-  environment = {
-    sessionVariables.PATH = [ "/home/mt/.local/bin" ];
-
-    variables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
-    };
-
-    shellAliases = {
-      cat = "bat --theme=base16";
-      ls = "exa --git --ignore-glob .git";
-      v = "nvim";
-      e = "emacsclient -nw";
-    };
-
-    systemPackages = with pkgs; [
-      # General CLI tools
-      bat
-      curl
-      exa
-      fd
-      neovim
-      pfetch
-      ranger
-      ripgrep
-      scrot
-      unzip
-      wget
-      ytop
-
-      # Development
-      emacs
-      git
-      ghc
-      hlint
-      stack
-
-      # Graphical
-      dmenu
-      feh
-      firefox
-      libsForQt5.vlc
-      scrcpy
-      signal-desktop
-      xmobar
-      zathura
-    ];
-  };
-
-  fonts.fonts = with pkgs; [ hasklig powerline-fonts ];
-
-  programs.zsh = {
-    enable = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-
-    ohMyZsh = {
-      enable = true;
-      theme = "lambda";
-      plugins = [ "git" ];
-    };
-  };
-
-  services.emacs.enable = true;
-
-  services.xserver = {
-    enable = true;
-    videoDrivers = [ "ati" ];
-    xkbOptions = "caps:escape";
-    autoRepeatDelay = 250;
-    autoRepeatInterval = 25;
-
-    displayManager.lightdm = {
-      enable = true;
-      autoLogin.enable = true;
-      autoLogin.user = "mt";
-    };
-
-    windowManager.xmonad.enable = true;
-  };
-
-  home-manager.users.mt = import ./home.nix;
+  system.stateVersion = "24.05";
 }

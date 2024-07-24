@@ -1,28 +1,54 @@
-{ config, lib, pkgs, ... }:
-
+{ lib, pkgs, ... }:
 {
-  imports = [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix> ];
-
-  boot.initrd.availableKernelModules = [
-    "ahci"
-    "ohci_pci"
-    "ehci_pci"
-    "pata_atiixp"
-    "usb_storage"
-    "usbhid"
-    "sd_mod"
-  ];
-
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" "amdgpu" "radeon" ];
-  boot.extraModulePackages = [ ];
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
+  boot = {
+    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "ahci"
+      "nvme"
+      "usbhid"
+      "usb_storage"
+      "sd_mod"
+    ];
   };
 
-  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
+  hardware.enableRedistributableFirmware = true;
+  nixpkgs.hostPlatform = "x86_64-linux";
+  hardware.cpu.amd.updateMicrocode = true;
 
-  nix.maxJobs = lib.mkDefault 2;
+  disko.devices = {
+    disk = {
+      main = {
+        device = "/dev/nvme0n1";
+        content = {
+          type = "gpt";
+          partitions = {
+            ESP = {
+              size = "500M";
+              type = "EF00";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+              };
+            };
+
+            root = {
+              end = "-8G";
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/";
+              };
+            };
+
+            swap = {
+              size = "100%";
+              content.type = "swap";
+            };
+          };
+        };
+      };
+    };
+  };
 }
