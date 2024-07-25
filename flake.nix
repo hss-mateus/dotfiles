@@ -35,17 +35,17 @@
         };
 
         modules = [
-          ./configuration.nix
-          ./hardware-configuration.nix
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           stylix.nixosModules.stylix
           nixvim.nixosModules.nixvim
+          ./configuration.nix
+          ./hardware-configuration.nix
           {
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.mt = import ./home.nix;
+              users.mt = import ./home;
             };
           }
         ];
