@@ -25,6 +25,7 @@
       act
       cmake
       devcontainer
+      devenv
       gcc
       gnumake
       libtool
@@ -104,10 +105,7 @@
       package = pkgs.ungoogled-chromium;
     };
 
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-    };
+    direnv.enable = true;
 
     eza = {
       enable = true;
