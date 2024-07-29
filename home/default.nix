@@ -133,6 +133,8 @@
       ];
     };
 
+    gh.enable = true;
+
     git = {
       enable = true;
       userName = "hss-mateus";
@@ -148,8 +150,6 @@
         merge.conflictstyle = "diff3";
       };
     };
-
-    git-credential-oauth.enable = true;
 
     newsboat = {
       enable = true;
