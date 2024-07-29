@@ -22,7 +22,9 @@
     };
 
     packages = with pkgs; [
+      act
       cmake
+      devcontainer
       gcc
       gnumake
       libtool
