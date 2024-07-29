@@ -50,7 +50,7 @@ with config.xdg;
       emacs = {
         source = builtins.fetchGit {
           url = "https://github.com/doomemacs/doomemacs.git";
-          rev = "f5b3958331cebf66383bf22bdc8b61cd44eca645";
+          rev = "0f30e1eca5f7cb9220d2d1caf4fef7214a86c339";
         };
         onChange = doomSyncScript;
       };
