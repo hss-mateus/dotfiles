@@ -176,6 +176,7 @@
         "https://blog.arkency.com/feed.xml"
         "https://esoteric.codes/rss"
         "https://shopify.engineering/blog.atom"
+        "https://hotwireweekly.com/rss"
       ];
 
       extraConfig = ''
