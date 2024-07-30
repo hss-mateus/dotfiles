@@ -12,9 +12,10 @@ with config.xdg;
     sessionPath = [ "${configHome}/emacs/bin" ];
 
     sessionVariables = {
-      DOOMDIR = "${configHome}/doom/config";
-      DOOMLOCALDIR = "${configHome}/doom/local";
-      DOOMPROFILELOADFILE = "${configHome}/doom/local/load.el";
+      DOOMDIR = "${configHome}/doomconfig";
+      DOOMLOCALDIR = "${configHome}/doomlocal";
+      DOOMPROFILELOADFILE = "${configHome}/doomlocal/load.el";
+      LSP_USE_PLISTS = "true";
     };
   };
 
@@ -41,7 +42,12 @@ with config.xdg;
           '';
           runtimeInputs = config.home.packages ++ config.home.sessionPath;
           runtimeEnv = {
-            inherit (config.home.sessionVariables) DOOMDIR DOOMLOCALDIR DOOMPROFILELOADFILE;
+            inherit (config.home.sessionVariables)
+              DOOMDIR
+              DOOMLOCALDIR
+              DOOMPROFILELOADFILE
+              LSP_USE_PLISTS
+              ;
           };
         }
       }/bin/doom-sync";
@@ -55,16 +61,16 @@ with config.xdg;
         onChange = doomSyncScript;
       };
 
-      "doom/config/init.el" = {
+      "${config.home.sessionVariables.DOOMDIR}/init.el" = {
         source = ./init.el;
         onChange = doomSyncScript;
       };
 
-      "doom/config/packages.el" = {
+      "${config.home.sessionVariables.DOOMDIR}/packages.el" = {
         source = ./packages.el;
         onChange = doomSyncScript;
       };
 
-      "doom/config/config.el".source = ./config.el;
+      "${config.home.sessionVariables.DOOMDIR}/config.el".source = ./config.el;
     };
 }
