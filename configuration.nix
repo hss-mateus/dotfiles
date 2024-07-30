@@ -48,6 +48,8 @@
           POSTGRES_USER = "postgres";
           POSTGRES_PASSWORD = "postgres";
         };
+
+        volumes = ["/var/lib/postgresql/data:/var/lib/postgresql/data"];
       };
     };
   };
