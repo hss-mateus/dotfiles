@@ -45,7 +45,19 @@
       cat = "bat";
       ls = "eza --git --ignore-glob .git";
       v = "nvim";
+      be = "bundle exec";
+      flat = "bundle exec flatware";
+      flatr = "bundle exec flatware rspec";
     };
+
+    file.".irbrc".text = ''
+      IRB.conf.merge!(
+        PROMPT_MODE: :SIMPLE,
+        USE_MULTILINE: false,
+        USE_SINGLELINE: true,
+        USE_READLINE: true
+      )
+    '';
   };
 
   xdg = {

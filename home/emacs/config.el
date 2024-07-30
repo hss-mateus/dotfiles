@@ -41,9 +41,8 @@
                                    :zeus "zeus console"
                                    :vanilla (concat projectile-rails-vanilla-command " console"))))
 
-       (setq rails-console-command (concat rails-console-command " -- --nomultiline --noreadline --prompt simple"))
-
        (with-demoted-errors
+           "Error: %S"
            (inf-ruby-console-run
             (if (>= (or (car arg) 0) 4)
                 (read-string "rails console: " rails-console-command)
