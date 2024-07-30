@@ -137,10 +137,7 @@
       plugins = [
         {
           name = "plugin-git";
-          src = builtins.fetchGit {
-            url = "https://github.com/jhillyerd/plugin-git.git";
-            rev = "6336017c16c02b1e9e708dd4eb233e66a18b62fe";
-          };
+          src = pkgs.fishPlugins.plugin-git.src;
         }
       ];
     };
