@@ -67,6 +67,11 @@
       jack.enable = true;
       pulse.enable = true;
     };
+
+    openssh = {
+      enable = true;
+      settings.X11Forwarding = true;
+    };
   };
 
   programs = {
