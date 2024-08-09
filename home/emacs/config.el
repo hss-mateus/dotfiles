@@ -83,3 +83,8 @@
                 'json-read)
               :around
               #'lsp-booster--advice-json-parse))
+
+(after! crystal-mode
+  (add-hook 'crystal-mode-hook #'lsp! 'append))
+
+(add-to-list 'auto-mode-alist '("\\.rbi\\'" . ruby-mode))
