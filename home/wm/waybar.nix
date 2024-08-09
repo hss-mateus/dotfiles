@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.waybar = {
@@ -17,6 +17,9 @@
 
         modules-right = [
           "network"
+          "custom/weather"
+          "memory"
+          "cpu"
           "temperature"
           "pulseaudio"
           "hyprland/language"
@@ -51,7 +54,8 @@
 
         network = {
           interface = "wlp3s0";
-          format-wifi = "󰕒  {bandwidthUpBytes}  󰇚  {bandwidthDownBytes}    {essid} ({signalStrength}%)";
+          format-wifi = "  {essid} ({signalStrength}%)";
+          tooltip-format-wifi = "󰕒  {bandwidthUpBytes}  󰇚  {bandwidthDownBytes}";
           format-disconnected = "󰅛  Disconnected";
           interval = 1;
         };
@@ -59,7 +63,7 @@
         temperature = {
           hwmon-path = "/sys/class/hwmon/hwmon1/temp1_input";
           critical-threshold = 60;
-          format = "{icon} {temperatureC}°C";
+          format = "{icon}  {temperatureC}°C";
           format-icons = [
             ""
             ""
@@ -78,6 +82,42 @@
           ];
           on-click = "pavucontrol";
         };
+
+        "custom/weather" = {
+          return-type = "json";
+          format = "{}";
+          tooltip = true;
+          interval = 3600;
+          exec = "${pkgs.writeShellScript "weather" ''
+            set -o pipefail
+
+            for i in {1..5}
+            do
+              text=$(curl -s "https://wttr.in/?format=1" | sed -E "s/\s+/ /g")
+              tooltip=$(curl -s "https://wttr.in/?format=4" | sed -E "s/\s+/ /g")
+
+              if [[ $text != "" && $tooltip != "" ]]
+              then
+                echo "{\"text\":\"$text\", \"tooltip\":\"$tooltip\"}"
+                exit
+              fi
+
+              sleep 2
+            done
+
+            echo '{"text": "error", "tooltip": "error"}'
+          ''}";
+        };
+
+        cpu = {
+          interval = 1;
+          format = "  {usage:2d}%";
+        };
+
+        memory = {
+          interval = 1;
+          format = "  {:2d}%";
+        };
       };
     };
 
@@ -93,9 +133,15 @@
       label {
         font-family: "Iosevka Comfy Motion Fixed";
         font-size: 14px;
+        color: @base05;
+        text-shadow: none;
       }
 
       #workspaces button {
+        padding: 0 5px;
+      }
+
+      #custom-weather {
         padding: 0 5px;
       }
     '';
