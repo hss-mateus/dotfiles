@@ -8,7 +8,7 @@
   };
 
   networking = {
-    hostName = "nixos";
+    hostName = pkgs.lib.mkDefault "nixos";
     networkmanager.enable = true;
   };
 

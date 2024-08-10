@@ -17,29 +17,35 @@
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
   };
 
-  outputs = inputs: {
-    nixosConfigurations.nixos = inputs.nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+  outputs =
+    inputs: with inputs.nixpkgs.lib; {
+      nixosConfigurations =
+        let
+          mkConfig = host: {
+            system = "x86_64-linux";
 
-      specialArgs = {
-        inherit inputs;
-      };
+            specialArgs = {
+              inherit inputs;
+            };
 
-      modules = [
-        inputs.disko.nixosModules.disko
-        inputs.home-manager.nixosModules.home-manager
-        inputs.stylix.nixosModules.stylix
-        inputs.nixvim.nixosModules.nixvim
-        ./configuration.nix
-        ./hardware-configuration.nix
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.mt = import ./home;
+            modules = [
+              inputs.disko.nixosModules.disko
+              inputs.home-manager.nixosModules.home-manager
+              inputs.stylix.nixosModules.stylix
+              inputs.nixvim.nixosModules.nixvim
+              ./configuration.nix
+              ./hardware-configuration.nix
+              ./hosts/${host}
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  users.mt = import ./home;
+                };
+              }
+            ];
           };
-        }
-      ];
+        in
+          mapAttrs (host: _: nixosSystem (mkConfig host)) (builtins.readDir ./hosts);
     };
-  };
 }

@@ -3,6 +3,6 @@
 sudo nix \
   --extra-experimental-features "flakes nix-command" \
   run github:nix-community/disko#disko-install -- \
-  --flake "github:hss-mateus/dotfiles#nixos" \
+  --flake "github:hss-mateus/dotfiles#${HOST:-desktop}" \
   --write-efi-boot-entries \
-  --disk main /dev/nvme0n1
+  --disk main ${DISK:-/dev/nvme0n1}

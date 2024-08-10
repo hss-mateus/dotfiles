@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_zen;
@@ -13,8 +13,7 @@
   };
 
   hardware.enableRedistributableFirmware = true;
-  nixpkgs.hostPlatform = "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = true;
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   disko.devices = {
     disk = {
