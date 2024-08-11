@@ -49,12 +49,16 @@
           POSTGRES_PASSWORD = "postgres";
         };
 
-        volumes = ["/var/lib/postgresql/data:/var/lib/postgresql/data"];
+        volumes = [ "/var/lib/postgresql/data:/var/lib/postgresql/data" ];
       };
     };
   };
 
   services = {
+    acpid.enable = true;
+    blueman.enable = true;
+    tlp.enable = true;
+
     displayManager.sddm = {
       enable = true;
       wayland.enable = true;
@@ -78,6 +82,11 @@
     hyprland.enable = true;
     fish.enable = true;
     nixvim.enable = true;
+
+    light = {
+      enable = true;
+      brightnessKeys.enable = true;
+    };
   };
 
   stylix = {
@@ -124,6 +133,9 @@
       ];
     };
   };
+
+  powerManagement.enable = true;
+  hardware.bluetooth.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
   system.stateVersion = "24.05";
