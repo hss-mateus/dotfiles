@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   home.packages = with pkgs; [
@@ -14,9 +19,10 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    systemd.extraCommands = [ "systemctl --user restart hyprland-session.target" ];
 
     settings = {
-      monitor = ",preferred,auto,auto";
+      monitor = lib.mkDefault ",preferred,auto,auto";
 
       "$terminal" = "alacritty";
       "$fileManager" = "alacritty -e ranger";
@@ -24,7 +30,7 @@
       "$browser" = "firefox";
       "$screenshot" = "grim -g \"$(slurp)\" - | satty --filename - --copy-command wl-copy";
 
-      exec-once = "swaync & udiskie & waybar &";
+      exec-once = "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1 & swaync & udiskie & waybar &";
 
       general = {
         gaps_in = 0;
@@ -39,16 +45,8 @@
         rounding = 10;
         active_opacity = 1.0;
         inactive_opacity = 0.8;
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 3;
-
-        blur = {
-          enabled = true;
-          size = 10;
-          passes = 1;
-          vibrancy = 0.1696;
-        };
+        drop_shadow = false;
+        blur.enabled = false;
       };
 
       animations = {
@@ -132,6 +130,16 @@
       bindm = [
         "$mainMod, mouse:272, movewindow"
         "$mainMod, mouse:273, resizewindow"
+      ];
+
+      bindel = [
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+      ];
+
+      bindl = [
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
       ];
 
       windowrulev2 = [ "suppressevent maximize, class:.*" ];
