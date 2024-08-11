@@ -15,13 +15,14 @@
     nixvim.url = "github:nix-community/nixvim";
     stylix.url = "github:danth/stylix";
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
   outputs =
     inputs: with inputs.nixpkgs.lib; {
       nixosConfigurations =
         let
-          mkConfig = host: {
+          mkConfig = modules: {
             system = "x86_64-linux";
 
             specialArgs = {
@@ -35,7 +36,6 @@
               inputs.nixvim.nixosModules.nixvim
               ./configuration.nix
               ./hardware-configuration.nix
-              ./hosts/${host}
               {
                 home-manager = {
                   useGlobalPkgs = true;
@@ -43,9 +43,17 @@
                   users.mt = import ./home;
                 };
               }
-            ];
+            ] ++ modules;
           };
+
+          mkSystem = modules: nixosSystem (mkConfig modules);
         in
-          mapAttrs (host: _: nixosSystem (mkConfig host)) (builtins.readDir ./hosts);
+        {
+          desktop = mkSystem [ ./hosts/desktop ];
+          notebook = mkSystem [
+            ./hosts/notebook
+            inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel
+          ];
+        };
     };
 }
