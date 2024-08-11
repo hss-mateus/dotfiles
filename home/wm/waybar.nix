@@ -23,6 +23,7 @@
           "temperature"
           "pulseaudio"
           "hyprland/language"
+          "battery"
           "clock"
           "tray"
         ];
@@ -34,6 +35,25 @@
           rewrite = {
             "(.*) — Mozilla Firefox" = "  $1";
           };
+        };
+
+        battery = {
+          format = "{icon}  {capacity}%";
+          format-icons = [
+            "󱃍"
+            "󰁺"
+            "󰁻"
+            "󰁼"
+            "󰁽"
+            "󰁾"
+            "󰁿"
+            "󰂀"
+            "󰂁"
+            "󰂂"
+            "󰁹"
+          ];
+          tooltip-format = "{timeTo}\nCycles: {cycles}\nHealth: {health}%\nPower: {power}";
+          interval = 1;
         };
 
         "hyprland/language" = {
@@ -48,15 +68,22 @@
         };
 
         clock = {
-          format = "  {:%a %b %e  󰥔  %R}";
-          interval = 30;
+          format = "󰥔  {:%R}";
+          tooltip-format = "  {:%a %b %e}";
+          interval = 1;
         };
 
         network = {
-          interface = "wlp3s0";
-          format-wifi = "  {essid} ({signalStrength}%)";
-          tooltip-format-wifi = "󰕒  {bandwidthUpBytes}  󰇚  {bandwidthDownBytes}";
-          format-disconnected = "󰅛  Disconnected";
+          format-wifi = "{icon}  ({signalStrength}%)";
+          tooltip-format-wifi = "{icon}  {essid}  󰕒  {bandwidthUpBytes}  󰇚  {bandwidthDownBytes}";
+          format-disconnected = "󰤭 ";
+          format-icons = [
+            "󰤯"
+            "󰤟"
+            "󰤢"
+            "󰤥"
+            "󰤨"
+          ];
           interval = 1;
         };
 
@@ -87,25 +114,7 @@
           format = "{}";
           tooltip = true;
           interval = 3600;
-          exec = "${pkgs.writeShellScript "weather" ''
-            set -o pipefail
-
-            for i in {1..5}
-            do
-              text=$(curl -s "https://wttr.in/?format=1" | sed -E "s/\s+/ /g")
-              tooltip=$(curl -s "https://wttr.in/?format=4" | sed -E "s/\s+/ /g")
-
-              if [[ $text != "" && $tooltip != "" ]]
-              then
-                echo "{\"text\":\"$text\", \"tooltip\":\"$tooltip\"}"
-                exit
-              fi
-
-              sleep 2
-            done
-
-            echo '{"text": "error", "tooltip": "error"}'
-          ''}";
+          exec = "${pkgs.wttrbar}/bin/wttrbar";
         };
 
         cpu = {
