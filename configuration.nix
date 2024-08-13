@@ -68,6 +68,8 @@
     displayManager.sddm = {
       enable = true;
       wayland.enable = true;
+      package = pkgs.kdePackages.sddm;
+      catppuccin.enable = true;
     };
 
     pipewire = {
@@ -107,8 +109,8 @@
   stylix = {
     enable = true;
     image = ./wallpaper.png;
-    polarity = "light";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/solarized-light.yaml";
+    polarity = "dark";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     cursor.size = 24;
 
     fonts = {
@@ -122,7 +124,11 @@
         package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro;
       };
     };
+
+    targets.gtk.enable = false;
   };
+
+  catppuccin.enable = true;
 
   nix = {
     gc.automatic = true;
@@ -149,6 +155,7 @@
     };
   };
 
+  console.catppuccin.enable = true;
   powerManagement.enable = true;
   hardware.bluetooth.enable = true;
 

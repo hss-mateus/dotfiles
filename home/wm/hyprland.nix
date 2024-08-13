@@ -8,7 +8,6 @@
 {
   home.packages = with pkgs; [
     grim
-    rofi-wayland
     satty
     slurp
     swaynotificationcenter
@@ -17,8 +16,11 @@
     xdg-desktop-portal-hyprland
   ];
 
+  xdg.configFile."swaync/style.css".source = ./swaync.css;
+
   wayland.windowManager.hyprland = {
     enable = true;
+    catppuccin.enable = true;
     systemd.extraCommands = [ "systemctl --user restart hyprland-session.target" ];
 
     settings = {
@@ -26,7 +28,7 @@
 
       "$terminal" = "alacritty";
       "$fileManager" = "alacritty -e ranger";
-      "$menu" = "rofi -show run";
+      "$menu" = "rofi -show drun";
       "$browser" = "firefox";
       "$screenshot" = "grim -g \"$(slurp)\" - | satty --filename - --copy-command wl-copy";
 

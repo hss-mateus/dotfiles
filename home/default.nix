@@ -6,6 +6,15 @@
     ./wm
   ];
 
+  catppuccin.enable = true;
+
+  gtk = {
+    enable = true;
+    catppuccin.icon.enable = true;
+  };
+
+  qt.style.catppuccin.enable = true;
+
   home = {
     username = "mt";
     homeDirectory = "/home/mt";
@@ -74,6 +83,7 @@
   programs = {
     alacritty = {
       enable = true;
+      catppuccin.enable = false;
 
       settings = {
         mouse.hide_when_typing = true;
@@ -109,8 +119,15 @@
       };
     };
 
-    bat.enable = true;
-    bottom.enable = true;
+    bat = {
+      enable = true;
+      catppuccin.enable = false;
+    };
+
+    bottom = {
+      enable = true;
+      catppuccin.enable = true;
+    };
 
     chromium = {
       enable = true;
@@ -133,6 +150,7 @@
 
     fish = {
       enable = true;
+      catppuccin.enable = true;
       interactiveShellInit = "set fish_greeting";
       plugins = [
         {
@@ -162,6 +180,7 @@
 
     newsboat = {
       enable = true;
+      catppuccin.enable = false;
       urls = builtins.map (url: { inherit url; }) [
         "https://lobste.rs/rss"
         "https://cprss.s3.amazonaws.com/rubyweekly.com.xml"
@@ -183,6 +202,15 @@
       '';
     };
 
-    starship.enable = true;
+    rofi = {
+      enable = true;
+      package = pkgs.rofi-wayland;
+      catppuccin.enable = true;
+    };
+
+    starship = {
+      enable = true;
+      catppuccin.enable = true;
+    };
   };
 }

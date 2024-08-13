@@ -2,7 +2,7 @@
 
 (setq user-full-name  "hss-mateuss"
       user-mail-address "hss-mateus@proton.me"
-      doom-theme 'doom-solarized-light
+      doom-theme 'catppuccin
       org-directory "~/dev/org/"
       display-line-numbers-type 'relative
       confirm-kill-emacs nil

@@ -16,6 +16,7 @@
     stylix.url = "github:danth/stylix";
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs =
@@ -34,13 +35,17 @@
               inputs.home-manager.nixosModules.home-manager
               inputs.stylix.nixosModules.stylix
               inputs.nixvim.nixosModules.nixvim
+              inputs.catppuccin.nixosModules.catppuccin
               ./configuration.nix
               ./hardware-configuration.nix
               {
                 home-manager = {
                   useGlobalPkgs = true;
                   useUserPackages = true;
-                  users.mt = import ./home;
+                  users.mt.imports = [
+                    ./home
+                    inputs.catppuccin.homeManagerModules.catppuccin
+                  ];
                 };
               }
             ] ++ modules;

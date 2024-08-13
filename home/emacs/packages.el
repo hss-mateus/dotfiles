@@ -3,3 +3,4 @@
 
 (package! hl-line :disable t)
 (package! solaire-mode :disable t)
+(package! catppuccin-theme)
