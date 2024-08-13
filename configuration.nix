@@ -98,7 +98,10 @@
   programs = {
     hyprland.enable = true;
     fish.enable = true;
-    nixvim.enable = true;
+    nixvim = {
+      enable = true;
+      clipboard.register = "unnamedplus";
+    };
 
     light = {
       enable = true;
