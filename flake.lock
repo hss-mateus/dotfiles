@@ -194,6 +194,22 @@
         "type": "github"
       }
     },
+    "doom-emacs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1723252886,
+        "narHash": "sha256-wrC3oAnVz22SHR/ujEG8wqaA9vfSNDlCiitW10iUlbM=",
+        "owner": "doomemacs",
+        "repo": "doomemacs",
+        "rev": "f5020a4f7f228a84a51039a57fbf67107a0f2d74",
+        "type": "github"
+      },
+      "original": {
+        "owner": "doomemacs",
+        "repo": "doomemacs",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "locked": {
         "lastModified": 1696426674,
@@ -593,6 +609,7 @@
         "apple-fonts": "apple-fonts",
         "catppuccin": "catppuccin",
         "disko": "disko",
+        "doom-emacs": "doom-emacs",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",

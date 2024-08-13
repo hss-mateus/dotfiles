@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 with config.xdg;
 {
@@ -54,10 +59,7 @@ with config.xdg;
     in
     {
       emacs = {
-        source = builtins.fetchGit {
-          url = "https://github.com/doomemacs/doomemacs.git";
-          rev = "cf7098528d2a21c29d497cd810faa0a77ecaf4cc";
-        };
+        source = inputs.doom-emacs;
         onChange = doomSyncScript;
       };
 

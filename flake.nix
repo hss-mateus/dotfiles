@@ -12,6 +12,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    doom-emacs = {
+      url = "github:doomemacs/doomemacs";
+      flake = false;
+    };
+
     nixvim.url = "github:nix-community/nixvim";
     stylix.url = "github:danth/stylix";
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
@@ -42,6 +47,11 @@
                 home-manager = {
                   useGlobalPkgs = true;
                   useUserPackages = true;
+
+                  extraSpecialArgs = {
+                    inherit inputs;
+                  };
+
                   users.mt.imports = [
                     ./home
                     inputs.catppuccin.homeManagerModules.catppuccin
