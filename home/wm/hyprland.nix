@@ -11,7 +11,6 @@
     satty
     slurp
     swaynotificationcenter
-    udiskie
     wl-clipboard
     xdg-desktop-portal-hyprland
   ];
@@ -32,7 +31,7 @@
       "$browser" = "firefox";
       "$screenshot" = "grim -g \"$(slurp)\" - | satty --filename - --copy-command wl-copy";
 
-      exec-once = "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1 & swaync & udiskie & waybar &";
+      exec-once = "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1 & swaync & waybar &";
 
       general = {
         gaps_in = 0;

@@ -57,6 +57,8 @@
   services = {
     acpid.enable = true;
     blueman.enable = true;
+    udisks2.enable = true;
+
     tlp = {
       enable = true;
       settings = {

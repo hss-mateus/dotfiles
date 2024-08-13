@@ -213,4 +213,6 @@
       catppuccin.enable = true;
     };
   };
+
+  services.udiskie.enable = true;
 }
