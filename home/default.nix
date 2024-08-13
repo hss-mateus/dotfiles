@@ -132,6 +132,7 @@
     chromium = {
       enable = true;
       package = pkgs.ungoogled-chromium;
+      commandLineArgs = [ "--ozone-platform-hint=auto" ];
     };
 
     direnv.enable = true;
