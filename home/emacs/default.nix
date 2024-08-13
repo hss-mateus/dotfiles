@@ -28,6 +28,7 @@ with config.xdg;
     emacs = {
       enable = true;
       package = pkgs.emacs29-pgtk;
+      extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
     };
 
     fd.enable = true;
