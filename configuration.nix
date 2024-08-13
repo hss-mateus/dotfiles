@@ -163,7 +163,7 @@
   console.catppuccin.enable = true;
   powerManagement.enable = true;
   hardware.bluetooth.enable = true;
-
+  nixpkgs.config.allowUnfree = true;
   security.sudo.wheelNeedsPassword = false;
   system.stateVersion = "24.05";
 }
