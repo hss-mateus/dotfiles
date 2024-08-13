@@ -57,7 +57,13 @@
   services = {
     acpid.enable = true;
     blueman.enable = true;
-    tlp.enable = true;
+    tlp = {
+      enable = true;
+      settings = {
+        START_CHARGE_THRESH_BAT0= 40;
+        STOP_CHARGE_THRESH_BAT0 = 50;
+      };
+    };
 
     displayManager.sddm = {
       enable = true;
@@ -70,6 +76,15 @@
       alsa.support32Bit = true;
       jack.enable = true;
       pulse.enable = true;
+      wireplumber.extraConfig = {
+        disable-camera = {
+          "wireplumber.profiles" = {
+            main = {
+              "monitor.libcamera" = "disabled";
+            };
+          };
+        };
+      };
     };
 
     openssh = {
