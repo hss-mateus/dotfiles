@@ -17,7 +17,6 @@
         ];
 
         modules-right = [
-          "network"
           "custom/weather"
           "memory"
           "cpu"
@@ -25,6 +24,7 @@
           "pulseaudio"
           "hyprland/language"
           "battery"
+          "network"
           "clock"
           "tray"
         ];
@@ -70,13 +70,25 @@
 
         clock = {
           format = "󰥔  {:%R}";
-          tooltip-format = "  {:%a %b %e}";
+          tooltip-format = "<tt>{calendar}</tt>";
           interval = 1;
+
+          calendar = {
+            mode = "year";
+            mode-mon-col = 3;
+            format.today = "<span color='#ff6699'><b><u>{}</u></b></span>";
+          };
+
+          actions = {
+            on-scroll-up = "shift_up";
+            on-scroll-down = "shift_down";
+            on-click-middle = "shift_reset";
+          };
         };
 
         network = {
-          format-wifi = "{icon}  ({signalStrength}%)";
-          tooltip-format-wifi = "{icon}  {essid}  󰕒  {bandwidthUpBytes}  󰇚  {bandwidthDownBytes}";
+          format-wifi = "{icon} ";
+          tooltip-format-wifi = "{icon}  {essid} ({signalStrength}%)  󰕒  {bandwidthUpBytes}  󰇚  {bandwidthDownBytes}";
           format-disconnected = "󰤭 ";
           format-icons = [
             "󰤯"
