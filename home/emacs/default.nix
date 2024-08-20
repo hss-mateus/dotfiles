@@ -27,7 +27,7 @@ with config.xdg;
   programs = {
     emacs = {
       enable = true;
-      package = pkgs.emacs29-pgtk;
+      package = pkgs.emacs-gtk;
       extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
     };
 
@@ -57,6 +57,8 @@ with config.xdg;
           };
         }
       }/bin/doom-sync";
+
+      inherit (config.home.sessionVariables) DOOMDIR;
     in
     {
       emacs = {
@@ -64,16 +66,16 @@ with config.xdg;
         onChange = doomSyncScript;
       };
 
-      "${config.home.sessionVariables.DOOMDIR}/init.el" = {
+      "${DOOMDIR}/init.el" = {
         source = ./init.el;
         onChange = doomSyncScript;
       };
 
-      "${config.home.sessionVariables.DOOMDIR}/packages.el" = {
+      "${DOOMDIR}/packages.el" = {
         source = ./packages.el;
         onChange = doomSyncScript;
       };
 
-      "${config.home.sessionVariables.DOOMDIR}/config.el".source = ./config.el;
+      "${DOOMDIR}/config.el".source = ./config.el;
     };
 }

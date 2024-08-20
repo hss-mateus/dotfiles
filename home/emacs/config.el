@@ -9,6 +9,7 @@
       lsp-disabled-clients '(rubocop-ls typeprof-ls ruby-syntax-tree-ls rubocop-ls-tramp typeprof-ls-tramp ruby-syntax-tree-ls-tramp)
       lsp-sorbet-use-bundler t
       lsp-ruby-lsp-use-bundler t
+      lsp-ui-sideline-enable nil
       shell-file-name (executable-find "bash")
       vterm-shell (executable-find "fish")
       projectile-rails-vanilla-command "bin/rails"
@@ -20,6 +21,16 @@
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
 (after! projectile-rails
+  (defun sorbet-typecheck ()
+    "Typecheck project using sorbet and spoom."
+    (interactive)
+    (let ((default-directory (projectile-project-root)))
+      (compile "bundle exec spoom srb tc -f '%F:%L: %C - %M'")))
+
+  (map! :localleader
+        :map 'ruby-mode-map
+        "c" 'sorbet-typecheck)
+
   (defun projectile-rails-find-use-case ()
     "Find a use-case."
     (interactive)
@@ -39,13 +50,12 @@
                                    :zeus "zeus console"
                                    :vanilla (concat projectile-rails-vanilla-command " console"))))
 
-       (with-demoted-errors
-           "Error: %S"
-           (inf-ruby-console-run
-            (if (>= (or (car arg) 0) 4)
-                (read-string "rails console: " rails-console-command)
-              rails-console-command)
-            "rails"))
+       (with-demoted-errors "Error: %S"
+         (inf-ruby-console-run
+          (if (>= (or (car arg) 0) 4)
+              (read-string "rails console: " rails-console-command)
+            rails-console-command)
+          "rails"))
        (projectile-rails-mode +1)))))
 
 (after! tramp
@@ -74,6 +84,20 @@
           (message "Using emacs-lsp-booster for %s!" orig-result)
           (cons "emacs-lsp-booster" orig-result))
       orig-result)))
+
+(require 'lsp)
+(require 'lsp-sorbet)
+
+(lsp-register-client
+ (make-lsp-client
+  :add-on? t
+  :new-connection (lsp-stdio-connection '("bundle" "exec" "srb" "typecheck" "--lsp" "--enable-all-beta-lsp-features"))
+  :initialization-options '(:highlightUntyped "everywhere"
+                            :supportsSorbetURIs t
+                            :enableTypedFalseCompletionNudges :json-false)
+  :priority -2
+  :activation-fn (lsp-activate-on "ruby")
+  :server-id 'sorbet-ls))
 
 (after! lsp-mode
   (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
