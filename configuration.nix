@@ -100,6 +100,8 @@
   programs = {
     hyprland.enable = true;
     fish.enable = true;
+    nix-ld.enable = true;
+
     nixvim = {
       enable = true;
       clipboard.register = "unnamedplus";
@@ -164,6 +166,5 @@
   powerManagement.enable = true;
   hardware.bluetooth.enable = true;
   nixpkgs.config.allowUnfree = true;
-  security.sudo.wheelNeedsPassword = false;
   system.stateVersion = "24.05";
 }

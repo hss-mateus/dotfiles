@@ -62,12 +62,23 @@
           };
 
           mkSystem = modules: nixosSystem (mkConfig modules);
+          hardware = inputs.nixos-hardware.nixosModules;
         in
         {
-          desktop = mkSystem [ ./hosts/desktop ];
+          desktop = mkSystem [
+            ./hosts/desktop
+            hardware.common-cpu-amd
+            hardware.common-cpu-amd-pstate
+            hardware.common-cpu-amd-zenpower
+            hardware.common-gpu-amd
+            hardware.common-pc
+            hardware.common-pc-ssd
+          ];
+
           notebook = mkSystem [
             ./hosts/notebook
-            inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel
+            hardware.lenovo-thinkpad-e14-intel
+            hardware.common-gpu-intel-tiger-lake
           ];
         };
     };
