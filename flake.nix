@@ -25,60 +25,71 @@
   };
 
   outputs =
-    inputs: with inputs.nixpkgs.lib; {
+    {
+      nixpkgs,
+      disko,
+      home-manager,
+      stylix,
+      nixvim,
+      catppuccin,
+      nixos-hardware,
+      ...
+    }@inputs:
+    {
       nixosConfigurations =
         let
-          mkConfig = modules: {
-            system = "x86_64-linux";
+          mkSystems = nixpkgs.lib.mapAttrs (
+            name: modules:
+            nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
 
-            specialArgs = {
-              inherit inputs;
-            };
+              specialArgs = {
+                inherit inputs;
+              };
 
-            modules = [
-              inputs.disko.nixosModules.disko
-              inputs.home-manager.nixosModules.home-manager
-              inputs.stylix.nixosModules.stylix
-              inputs.nixvim.nixosModules.nixvim
-              inputs.catppuccin.nixosModules.catppuccin
-              ./configuration.nix
-              ./hardware-configuration.nix
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
+              modules = [
+                disko.nixosModules.disko
+                home-manager.nixosModules.home-manager
+                stylix.nixosModules.stylix
+                nixvim.nixosModules.nixvim
+                catppuccin.nixosModules.catppuccin
+                ./configuration.nix
+                ./hardware-configuration.nix
+                ./hosts/${name}
+                {
+                  networking.hostName = name;
+                  home-manager = {
+                    useGlobalPkgs = true;
+                    useUserPackages = true;
 
-                  extraSpecialArgs = {
-                    inherit inputs;
+                    extraSpecialArgs = {
+                      inherit inputs;
+                    };
+
+                    users.mt.imports = [
+                      ./home
+                      catppuccin.homeManagerModules.catppuccin
+                    ];
                   };
-
-                  users.mt.imports = [
-                    ./home
-                    inputs.catppuccin.homeManagerModules.catppuccin
-                  ];
-                };
-              }
-            ] ++ modules;
-          };
-
-          mkSystem = modules: nixosSystem (mkConfig modules);
-          hardware = inputs.nixos-hardware.nixosModules;
+                }
+              ] ++ modules;
+            }
+          );
         in
-        {
-          desktop = mkSystem [
-            ./hosts/desktop
-            hardware.common-cpu-amd
-            hardware.common-cpu-amd-pstate
-            hardware.common-cpu-amd-zenpower
-            hardware.common-gpu-amd
-            hardware.common-pc
-            hardware.common-pc-ssd
+        with nixos-hardware.nixosModules;
+        mkSystems {
+          desktop = [
+            common-cpu-amd
+            common-cpu-amd-pstate
+            common-cpu-amd-zenpower
+            common-gpu-amd
+            common-pc
+            common-pc-ssd
           ];
 
-          notebook = mkSystem [
-            ./hosts/notebook
-            hardware.lenovo-thinkpad-e14-intel
-            hardware.common-gpu-intel-tiger-lake
+          notebook = [
+            lenovo-thinkpad-e14-intel
+            common-gpu-intel-tiger-lake
           ];
         };
     };
