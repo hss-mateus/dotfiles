@@ -26,6 +26,7 @@
           "battery"
           "network"
           "clock"
+          "custom/notification"
           "tray"
         ];
 
@@ -98,6 +99,7 @@
             "󰤨"
           ];
           interval = 1;
+          on-click = "networkmanager_dmenu";
         };
 
         temperature = {
@@ -138,6 +140,22 @@
         memory = {
           interval = 1;
           format = "  {:2d}%";
+        };
+
+        "custom/notification" = {
+          tooltip = false;
+          format = "{icon} ";
+          format-icons = {
+            notification = "󰂚";
+            none = "󰂜";
+            dnd-notification = "󱏧";
+            dnd-none = "󱏨";
+          };
+          return-type = "json";
+          exec = "swaync-client --subscribe-waybar";
+          on-click = "swaync-client --toggle-panel --skip-wait";
+          on-click-right = "swaync-client --toggle-dnd --skip-wait";
+          escape = true;
         };
       };
     };

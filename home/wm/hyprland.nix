@@ -1,7 +1,7 @@
 {
-  config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -15,7 +15,7 @@
     xdg-desktop-portal-hyprland
   ];
 
-  xdg.configFile."swaync/style.css".source = ./swaync.css;
+  xdg.configFile."swaync/style.css".source = inputs.catppuccin-swaync;
 
   wayland.windowManager.hyprland = {
     enable = true;

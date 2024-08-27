@@ -22,6 +22,10 @@
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     catppuccin.url = "github:catppuccin/nix";
+    catppuccin-swaync = {
+      url = "file+https://github.com/catppuccin/swaync/releases/latest/download/mocha.css";
+      flake = false;
+    };
   };
 
   outputs =

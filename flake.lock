@@ -153,6 +153,18 @@
         "type": "github"
       }
     },
+    "catppuccin-swaync": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-PLckTUZEEYe8NTAkk/0KxPHodZ1xzO5Qy9uFoyeQX00=",
+        "type": "file",
+        "url": "https://github.com/catppuccin/swaync/releases/latest/download/mocha.css"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/catppuccin/swaync/releases/latest/download/mocha.css"
+      }
+    },
     "devshell": {
       "inputs": {
         "nixpkgs": [
@@ -629,6 +641,7 @@
       "inputs": {
         "apple-fonts": "apple-fonts",
         "catppuccin": "catppuccin",
+        "catppuccin-swaync": "catppuccin-swaync",
         "disko": "disko",
         "doom-emacs": "doom-emacs",
         "home-manager": "home-manager",
