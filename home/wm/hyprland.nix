@@ -27,7 +27,7 @@
 
       "$terminal" = "alacritty";
       "$fileManager" = "alacritty -e ranger";
-      "$menu" = "rofi -show drun";
+      "$menu" = "fuzzel --dpi-aware=yes";
       "$browser" = "firefox";
       "$screenshot" = "grim -g \"$(slurp)\" - | satty --filename - --copy-command wl-copy";
 

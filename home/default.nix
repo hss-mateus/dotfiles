@@ -76,7 +76,7 @@
     configFile = {
       "networkmanager-dmenu/config.ini".text = ''
         [dmenu]
-        dmenu_command = rofi -dmenu
+        dmenu_command = fuzzel --dpi-aware=yes --dmenu
       '';
     };
   };
@@ -204,9 +204,8 @@
       '';
     };
 
-    rofi = {
+    fuzzel = {
       enable = true;
-      package = pkgs.rofi-wayland;
       catppuccin.enable = true;
     };
 
