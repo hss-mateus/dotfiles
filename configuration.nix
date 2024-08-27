@@ -139,6 +139,7 @@
 
   nix = {
     gc.automatic = true;
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     settings = {
       trusted-users = [ "@wheel" ];
       experimental-features = [

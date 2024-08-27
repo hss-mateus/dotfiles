@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -40,6 +40,7 @@
       libtool
       (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
       networkmanager_dmenu
+      nixd
       nixfmt-rfc-style
       pavucontrol
       ranger
