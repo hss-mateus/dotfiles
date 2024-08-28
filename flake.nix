@@ -93,7 +93,7 @@
 
           notebook = [
             lenovo-thinkpad-e14-intel
-            common-gpu-intel-tiger-lake
+            "${nixos-hardware}/common/gpu/intel/tiger-lake"
           ];
         };
     };
