@@ -24,10 +24,7 @@
     keyboard = {
       layout = "us,us(intl)";
       model = "qwerty";
-      options = [
-        "grp:alt_space_toggle"
-        "caps:escape"
-      ];
+      options = [ "grp:alt_space_toggle" ];
     };
 
     packages = with pkgs; [

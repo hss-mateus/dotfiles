@@ -95,6 +95,14 @@
       enable = true;
       settings.X11Forwarding = true;
     };
+
+    keyd = {
+      enable = true;
+      keyboards.default.settings.main = {
+        capslock = "esc";
+        esc = "`";
+      };
+    };
   };
 
   programs = {

@@ -77,7 +77,7 @@
 
       input = {
         kb_layout = "us,us(intl)";
-        kb_options = "grp:alt_space_toggle,caps:escape";
+        kb_options = "grp:alt_space_toggle";
         repeat_rate = 30;
         repeat_delay = 200;
         follow_mouse = 1;
