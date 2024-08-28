@@ -103,6 +103,12 @@
         esc = "`";
       };
     };
+
+    xserver.xkb = {
+      layout = "us,us(intl)";
+      model = "querty";
+      options = "grp:alt_space_toggle";
+    };
   };
 
   programs = {
@@ -171,7 +177,11 @@
     };
   };
 
-  console.catppuccin.enable = true;
+  console = {
+    catppuccin.enable = true;
+    useXkbConfig = true;
+  };
+
   powerManagement.enable = true;
   hardware.bluetooth.enable = true;
   nixpkgs.config.allowUnfree = true;

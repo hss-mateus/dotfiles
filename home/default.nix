@@ -21,12 +21,6 @@
     preferXdgDirectories = true;
     stateVersion = "24.11";
 
-    keyboard = {
-      layout = "us,us(intl)";
-      model = "qwerty";
-      options = [ "grp:alt_space_toggle" ];
-    };
-
     packages = with pkgs; [
       act
       cmake
