@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  config,
   user,
   hostName,
   ...
@@ -131,6 +132,16 @@
       enable = true;
       brightnessKeys.enable = true;
     };
+
+    nh = {
+      enable = true;
+      clean.enable = true;
+      flake =
+        let
+          home = config.users.extraUsers.${user}.home;
+        in
+        "${home}/dev/dotfiles";
+    };
   };
 
   stylix = {
@@ -157,11 +168,11 @@
 
   catppuccin.enable = true;
 
+  nixpkgs.pkgs = pkgs;
+
   nix = {
-    gc.automatic = true;
-    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    nixPath = [ "nixpkgs=${pkgs.path}" ];
     settings = {
-      trusted-users = [ "@wheel" ];
       experimental-features = [
         "nix-command"
         "flakes"
@@ -204,6 +215,5 @@
 
   powerManagement.enable = true;
   hardware.bluetooth.enable = true;
-  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "24.05";
 }
