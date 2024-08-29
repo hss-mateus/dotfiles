@@ -2,6 +2,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    lix-module = {
+      url = "git+https://git.lix.systems/lix-project/nixos-module";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,8 +22,16 @@
       flake = false;
     };
 
-    nixvim.url = "github:nix-community/nixvim";
-    stylix.url = "github:danth/stylix";
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     catppuccin.url = "github:catppuccin/nix";
@@ -26,20 +39,15 @@
   };
 
   outputs =
-    inputs:
+    { nixpkgs, ... }@inputs:
     let
-      pkgs = import inputs.nixpkgs {
-        system = "x86_64-linux";
-        config.allowUnfree = true;
-      };
-
-      mkSystems = pkgs.lib.mapAttrs (
+      mkSystems = nixpkgs.lib.mapAttrs (
         hostName: modules:
-        inputs.nixpkgs.lib.nixosSystem {
-          inherit pkgs;
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
 
           specialArgs = {
-            inherit hostName inputs pkgs;
+            inherit hostName inputs;
             user = "mt";
           };
 
@@ -54,6 +62,7 @@
               ./configuration.nix
               ./hardware-configuration.nix
               ./hosts/${hostName}
+              lix-module.nixosModules.default
             ]
             ++ modules;
         }

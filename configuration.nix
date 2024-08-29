@@ -168,10 +168,9 @@
 
   catppuccin.enable = true;
 
-  nixpkgs.pkgs = pkgs;
+  nixpkgs.config.allowUnfree = true;
 
   nix = {
-    nixPath = [ "nixpkgs=${pkgs.path}" ];
     settings = {
       experimental-features = [
         "nix-command"
@@ -199,7 +198,7 @@
     useUserPackages = true;
 
     extraSpecialArgs = {
-      inherit inputs pkgs user;
+      inherit inputs user;
     };
 
     users.mt.imports = [
