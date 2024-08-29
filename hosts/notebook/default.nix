@@ -1,6 +1,6 @@
-{ ... }:
+{ user, ... }:
 {
-  home-manager.users.mt = {
+  home-manager.users.${user} = {
     programs.waybar.settings.mainBar.temperature.thermal-zone = 2;
     wayland.windowManager.hyprland.settings.monitor = ",preferred,auto,1.25";
   };

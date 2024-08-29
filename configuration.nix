@@ -1,4 +1,10 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  user,
+  hostName,
+  ...
+}:
 {
   boot = {
     loader = {
@@ -8,7 +14,7 @@
   };
 
   networking = {
-    hostName = pkgs.lib.mkDefault "nixos";
+    inherit hostName;
     networkmanager.enable = true;
   };
 
@@ -164,7 +170,7 @@
   };
 
   users = {
-    users.mt = {
+    extraUsers.${user} = {
       shell = pkgs.fish;
       isNormalUser = true;
       extraGroups = [
@@ -175,6 +181,20 @@
         "docker"
       ];
     };
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+
+    extraSpecialArgs = {
+      inherit inputs pkgs user;
+    };
+
+    users.mt.imports = [
+      ./home
+      inputs.catppuccin.homeManagerModules.catppuccin
+    ];
   };
 
   console = {

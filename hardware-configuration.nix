@@ -17,8 +17,6 @@
     firmware = [ pkgs.linux-firmware ];
   };
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
   disko.devices = {
     disk = {
       main = {

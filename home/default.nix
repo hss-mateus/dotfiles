@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 
 {
   imports = [
@@ -16,8 +16,7 @@
   qt.style.catppuccin.enable = true;
 
   home = {
-    username = "mt";
-    homeDirectory = "/home/mt";
+    username = user;
     preferXdgDirectories = true;
     stateVersion = "24.11";
 
