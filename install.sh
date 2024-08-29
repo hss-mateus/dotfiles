@@ -1,8 +1,14 @@
 #!/usr/bin/env sh
 
-sudo nix \
+if [ "$1" = "-h" ]; then
+   echo "usage: ./install.sh [system-name] [ssh-url]"
+   exit 0
+fi
+
+nix \
   --extra-experimental-features "flakes nix-command" \
-  run github:nix-community/disko#disko-install -- \
-  --flake "github:hss-mateus/dotfiles#${HOST:-desktop}" \
-  --write-efi-boot-entries \
-  --disk main ${DISK:-/dev/nvme0n1}
+  run github:nix-community/nixos-anywhere -- \
+  --build-on-remote \
+  --print-build-logs \
+  --flake "github:hss-mateus/dotfiles#${1:-desktop}" \
+  "${2:-nixos@0.0.0.0}"
