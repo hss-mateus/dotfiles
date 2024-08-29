@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_zen;
@@ -35,18 +35,26 @@
               };
             };
 
-            root = {
-              end = "-8G";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
-              };
-            };
-
-            swap = {
+            luks = {
               size = "100%";
-              content.type = "swap";
+
+              content = {
+                type = "luks";
+                name = "crypted";
+
+                settings = {
+                  allowDiscards = true;
+                  bypassWorkqueues = true;
+                };
+
+                content = {
+                  type = "btrfs";
+                  mountpoint = "/";
+                  mountOptions = [ "noatime" ];
+                  extraArgs = [ "-f" ];
+                  swap.swapfile.size = "20G";
+                };
+              };
             };
           };
         };
