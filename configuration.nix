@@ -116,6 +116,11 @@
       model = "querty";
       options = "grp:alt_space_toggle";
     };
+
+    logind = {
+      lidSwitch = "suspend-then-hibernate";
+      lidSwitchExternalPower = "suspend";
+    };
   };
 
   programs = {
