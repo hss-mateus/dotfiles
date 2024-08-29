@@ -2,6 +2,7 @@
 {
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+    resumeDevice = "/dev/dm-0";
     initrd.availableKernelModules = [
       "xhci_pci"
       "ahci"
@@ -49,10 +50,20 @@
 
                 content = {
                   type = "btrfs";
-                  mountpoint = "/";
-                  mountOptions = [ "noatime" ];
                   extraArgs = [ "-f" ];
-                  swap.swapfile.size = "20G";
+
+                  subvolumes = {
+                    "/" = {
+                      mountpoint = "/";
+		      mountOptions = [ "noatime" ];
+                    };
+
+                    "/swap" = {
+                      mountpoint = "/swap";
+		      mountOptions = [ "noatime" "nodatacow" ];
+                      swap.swapfile.size = "20G";
+                    };
+                  };
                 };
               };
             };
