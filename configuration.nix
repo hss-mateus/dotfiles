@@ -180,7 +180,10 @@
   };
 
   users = {
+    users.root.initialPassword = "123";
+
     extraUsers.${user} = {
+      initialPassword = "123";
       shell = pkgs.fish;
       isNormalUser = true;
       extraGroups = [
