@@ -2,8 +2,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    lix-module = {
-      url = "git+https://git.lix.systems/lix-project/nixos-module";
+    flakelight = {
+      url = "github:nix-community/flakelight";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -44,51 +44,24 @@
   };
 
   outputs =
-    { nixpkgs, ... }@inputs:
-    let
-      mkSystems = nixpkgs.lib.mapAttrs (
-        hostName: modules:
-        nixpkgs.lib.nixosSystem {
+    { flakelight, ... }:
+    flakelight ./. (
+      { lib, ... }:
+      {
+        nixpkgs.config.allowUnfree = true;
+
+        nixosConfigurations = lib.mapAttrs (hostname: _: {
           system = "x86_64-linux";
 
           specialArgs = {
-            inherit hostName inputs;
             user = "mt";
           };
 
-          modules =
-            with inputs;
-            [
-              disko.nixosModules.disko
-              home-manager.nixosModules.home-manager
-              stylix.nixosModules.stylix
-              nixvim.nixosModules.nixvim
-              catppuccin.nixosModules.catppuccin
-              ./configuration.nix
-              ./hardware-configuration.nix
-              ./hosts/${hostName}
-              lix-module.nixosModules.default
-            ]
-            ++ modules;
-        }
-      );
-    in
-    with inputs.nixos-hardware.nixosModules;
-    {
-      nixosConfigurations = mkSystems {
-        desktop = [
-          common-cpu-amd
-          common-cpu-amd-pstate
-          common-cpu-amd-zenpower
-          common-gpu-amd
-          common-pc
-          common-pc-ssd
-        ];
-
-        notebook = [
-          lenovo-thinkpad-e14-intel
-          "${inputs.nixos-hardware}/common/gpu/intel/tiger-lake"
-        ];
-      };
-    };
+          modules = [
+            ./configuration.nix
+            ./hosts/${hostname}
+          ];
+        }) (builtins.readDir ./hosts);
+      }
+    );
 }

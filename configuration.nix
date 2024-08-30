@@ -1,12 +1,22 @@
 {
   pkgs,
   inputs,
+  inputs',
   config,
   user,
-  hostName,
+  hostname,
   ...
 }:
 {
+  imports = with inputs; [
+    ./hardware-configuration.nix
+    disko.nixosModules.disko
+    stylix.nixosModules.stylix
+    nixvim.nixosModules.nixvim
+    catppuccin.nixosModules.catppuccin
+    home-manager.nixosModules.home-manager
+  ];
+
   boot = {
     loader = {
       systemd-boot.enable = true;
@@ -15,7 +25,7 @@
   };
 
   networking = {
-    inherit hostName;
+    hostName = hostname;
     networkmanager.enable = true;
   };
 
@@ -164,7 +174,7 @@
 
       sansSerif = {
         name = "SF Pro";
-        package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro;
+        package = inputs'.apple-fonts.packages.sf-pro;
       };
     };
 
@@ -173,9 +183,8 @@
 
   catppuccin.enable = true;
 
-  nixpkgs.config.allowUnfree = true;
-
   nix = {
+    package = pkgs.lix;
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     settings = {
       experimental-features = [
@@ -212,8 +221,7 @@
 
     users.${user}.imports = [
       ./home
-      inputs.catppuccin.homeManagerModules.catppuccin
-      inputs.nix-index-database.hmModules.nix-index
+      ./hosts/${hostname}/home.nix
     ];
   };
 

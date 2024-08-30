@@ -1,4 +1,11 @@
-{ user, ... }:
+{ inputs, ... }:
 {
-  home-manager.users.${user}.programs.waybar.settings.mainBar.temperature.hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
+  imports = with inputs.nixos-hardware.nixosModules; [
+    common-cpu-amd
+    common-cpu-amd-pstate
+    common-cpu-amd-zenpower
+    common-gpu-amd
+    common-pc
+    common-pc-ssd
+  ];
 }

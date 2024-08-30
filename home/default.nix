@@ -1,9 +1,15 @@
-{ pkgs, user, ... }:
-
+{
+  pkgs,
+  inputs,
+  user,
+  ...
+}:
 {
   imports = [
     ./emacs
     ./wm
+    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.nix-index-database.hmModules.nix-index
   ];
 
   catppuccin.enable = true;
@@ -17,6 +23,7 @@
 
   home = {
     username = user;
+    homeDirectory = "/home/${user}";
     preferXdgDirectories = true;
     stateVersion = "24.11";
 

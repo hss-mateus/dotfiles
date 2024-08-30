@@ -1,9 +1,9 @@
-{ user, ... }:
+{ inputs, ... }:
 {
-  boot.kernelParams = [ "resume_offset=533760" ];
+  imports = [
+    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel
+    "${inputs.nixos-hardware}/common/gpu/intel/tiger-lake"
+  ];
 
-  home-manager.users.${user} = {
-    programs.waybar.settings.mainBar.temperature.thermal-zone = 2;
-    wayland.windowManager.hyprland.settings.monitor = ",preferred,auto,1.25";
-  };
+  boot.kernelParams = [ "resume_offset=533760" ];
 }
