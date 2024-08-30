@@ -210,9 +210,10 @@
       inherit inputs user;
     };
 
-    users.mt.imports = [
+    users.${user}.imports = [
       ./home
       inputs.catppuccin.homeManagerModules.catppuccin
+      inputs.nix-index-database.hmModules.nix-index
     ];
   };
 

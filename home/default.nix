@@ -194,6 +194,9 @@
       '';
     };
 
+    nix-index.enable = true;
+    nix-index-database.comma.enable = true;
+
     fuzzel = {
       enable = true;
       catppuccin.enable = true;
