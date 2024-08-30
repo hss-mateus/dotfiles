@@ -55,12 +55,15 @@
                   subvolumes = {
                     "/" = {
                       mountpoint = "/";
-		      mountOptions = [ "noatime" ];
+                      mountOptions = [ "noatime" ];
                     };
 
                     "/swap" = {
                       mountpoint = "/swap";
-		      mountOptions = [ "noatime" "nodatacow" ];
+                      mountOptions = [
+                        "noatime"
+                        "nodatacow"
+                      ];
                       swap.swapfile.size = "20G";
                     };
                   };
