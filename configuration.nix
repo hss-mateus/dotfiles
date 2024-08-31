@@ -11,18 +11,14 @@
   imports = with inputs; [
     ./hardware-configuration.nix
     disko.nixosModules.disko
+    lanzaboote.nixosModules.lanzaboote
     stylix.nixosModules.stylix
     nixvim.nixosModules.nixvim
     catppuccin.nixosModules.catppuccin
     home-manager.nixosModules.home-manager
   ];
 
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-  };
+  environment.systemPackages = [ pkgs.sbctl ];
 
   networking = {
     hostName = hostname;

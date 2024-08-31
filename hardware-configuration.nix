@@ -3,14 +3,24 @@
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_zen;
     resumeDevice = "/dev/dm-0";
-    initrd.availableKernelModules = [
-      "xhci_pci"
-      "ahci"
-      "nvme"
-      "usbhid"
-      "usb_storage"
-      "sd_mod"
-    ];
+    loader.efi.canTouchEfiVariables = true;
+
+    initrd = {
+      systemd.enable = true;
+      availableKernelModules = [
+        "xhci_pci"
+        "ahci"
+        "nvme"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
+      ];
+    };
+
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/etc/secureboot";
+    };
   };
 
   hardware = {
