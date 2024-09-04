@@ -132,7 +132,6 @@
   programs = {
     hyprland.enable = true;
     fish.enable = true;
-    nix-ld.enable = true;
 
     nixvim = {
       enable = true;
