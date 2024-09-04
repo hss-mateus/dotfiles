@@ -439,6 +439,22 @@
         "type": "github"
       }
     },
+    "nixos-unstable-small": {
+      "locked": {
+        "lastModified": 1725361206,
+        "narHash": "sha256-/HTUg+kMaqBPGrcQBYboAMsQHIWIkuKRDldss/035Hc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "2830c7c930311397d94c0b86a359c865c081c875",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable-small",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1725103162,
@@ -524,6 +540,7 @@
         "lanzaboote": "lanzaboote",
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
+        "nixos-unstable-small": "nixos-unstable-small",
         "nixpkgs": "nixpkgs",
         "stylix": "stylix",
         "systems": "systems"
