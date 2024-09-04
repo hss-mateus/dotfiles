@@ -13,7 +13,6 @@
       "disko"
       "lanzaboote"
       "stylix"
-      "nixvim"
       "catppuccin"
       "home-manager"
     ]
@@ -130,9 +129,9 @@
     hyprland.enable = true;
     fish.enable = true;
 
-    nixvim = {
+    neovim = {
       enable = true;
-      clipboard.register = "unnamedplus";
+      configure.init = "set clipboard+=unnamedplus";
     };
 
     light = {
