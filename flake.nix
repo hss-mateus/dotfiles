@@ -64,6 +64,7 @@
 
           modules = [
             ./configuration.nix
+            ./hardware-configuration.nix
             ./hosts/${hostname}
           ];
         }) (builtins.readDir ./hosts);

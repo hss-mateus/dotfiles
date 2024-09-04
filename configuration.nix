@@ -8,15 +8,16 @@
   ...
 }:
 {
-  imports = with inputs; [
-    ./hardware-configuration.nix
-    disko.nixosModules.disko
-    lanzaboote.nixosModules.lanzaboote
-    stylix.nixosModules.stylix
-    nixvim.nixosModules.nixvim
-    catppuccin.nixosModules.catppuccin
-    home-manager.nixosModules.home-manager
-  ];
+  imports = (
+    builtins.map (mod: inputs.${mod}.nixosModules.${mod}) [
+      "disko"
+      "lanzaboote"
+      "stylix"
+      "nixvim"
+      "catppuccin"
+      "home-manager"
+    ]
+  );
 
   environment.systemPackages = [ pkgs.sbctl ];
 
