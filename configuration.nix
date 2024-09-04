@@ -25,6 +25,8 @@
     networkmanager.enable = true;
   };
 
+  systemd.sleep.extraConfig = "HibernateDelaySec=1h";
+
   time.timeZone = "America/Sao_Paulo";
   i18n.defaultLocale = "en_US.UTF-8";
 
