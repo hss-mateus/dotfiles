@@ -29,13 +29,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   virtualisation = {
-    docker = {
-      enable = true;
-      rootless = {
-        enable = true;
-        setSocketVariable = true;
-      };
-    };
+    docker.enable = true;
 
     oci-containers = {
       backend = "docker";
