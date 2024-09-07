@@ -62,8 +62,6 @@
       };
     };
 
-    nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     catppuccin.url = "github:catppuccin/nix";
     catppuccin-swaync = {
@@ -75,18 +73,12 @@
   outputs =
     { flakelight, ... }:
     flakelight ./. (
-      { lib, inputs, ... }:
-      let
-        system = "x86_64-linux";
-        unstable-small = import inputs.nixos-unstable-small { inherit system; };
-      in
+      { lib, ... }:
       {
         nixpkgs.config.allowUnfree = true;
 
-        withOverlays = (_: _: { inherit (unstable-small) hyprpaper xdg-desktop-portal-hyprland; });
-
         nixosConfigurations = lib.mapAttrs (hostname: _: {
-          inherit system;
+          system = "x86_64-linux";
           specialArgs.user = "mt";
 
           modules = [
