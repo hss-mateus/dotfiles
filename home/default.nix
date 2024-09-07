@@ -52,9 +52,6 @@
       cat = "bat";
       ls = "eza --git --ignore-glob .git";
       v = "nvim";
-      be = "bundle exec";
-      flat = "bundle exec flatware";
-      flatr = "bundle exec flatware rspec";
     };
 
     file.".irbrc".text = ''
