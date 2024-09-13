@@ -27,7 +27,7 @@ with config.xdg;
   programs = {
     emacs = {
       enable = true;
-      package = pkgs.emacs-gtk;
+      package = pkgs.emacs29-pgtk;
       extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
     };
 
