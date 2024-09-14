@@ -3,6 +3,7 @@
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_zen;
     resumeDevice = "/dev/dm-0";
+    kernelParams = [ "resume_offset=533760" ];
     loader.efi.canTouchEfiVariables = true;
 
     initrd = {

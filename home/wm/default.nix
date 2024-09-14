@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -35,7 +35,15 @@
         }
         {
           timeout = 1800;
-          on-timeout = "systemctl suspend-then-hibernate";
+          on-timeout = "${pkgs.writeShellScript "suspend" ''
+            file=/sys/class/power_supply/AC/online
+
+            if [ ! -f $file ] || [ "$(cat $file)" = "1" ]; then
+              systemctl suspend
+            else
+              systemctl suspend-then-hibernate
+            fi
+          ''}";
         }
       ];
     };
