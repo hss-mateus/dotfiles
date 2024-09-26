@@ -5,3 +5,4 @@
 (package! solaire-mode :disable t)
 (package! catppuccin-theme)
 (package! treesit-auto)
+(package! git-auto-commit-mode)
