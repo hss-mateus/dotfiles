@@ -137,11 +137,7 @@
   programs = {
     hyprland.enable = true;
     fish.enable = true;
-
-    neovim = {
-      enable = true;
-      configure.init = "set clipboard+=unnamedplus";
-    };
+    neovim.enable = true;
 
     light = {
       enable = true;

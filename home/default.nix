@@ -174,6 +174,11 @@
       };
     };
 
+    neovim = {
+      enable = true;
+      extraConfig = "set clipboard+=unnamedplus";
+    };
+
     newsboat = {
       enable = true;
       catppuccin.enable = false;
