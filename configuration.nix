@@ -22,7 +22,16 @@
 
   networking = {
     hostName = hostname;
-    networkmanager.enable = true;
+
+    networkmanager = {
+      enable = true;
+      dns = "none";
+    };
+
+    nameservers = [
+      "94.140.14.14"
+      "94.140.15.15"
+    ];
   };
 
   systemd.sleep.extraConfig = "HibernateDelaySec=1h";
