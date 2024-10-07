@@ -7,7 +7,6 @@
     home-manager.url = "github:nix-community/home-manager";
     stylix.url = "github:danth/stylix";
     nix-index-database.url = "github:nix-community/nix-index-database";
-    apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     catppuccin.url = "github:catppuccin/nix";
 
@@ -19,6 +18,16 @@
     catppuccin-swaync = {
       url = "file+https://github.com/catppuccin/swaync/releases/latest/download/mocha.css";
       flake = false;
+    };
+
+    sf-pro = {
+      url = "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg";
+      flake = false;
+    };
+
+    apple-fonts = {
+      url = "github:Lyndeno/apple-fonts.nix";
+      inputs.sf-pro.follows = "sf-pro";
     };
   };
 
