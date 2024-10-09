@@ -14,6 +14,8 @@
 
   catppuccin.enable = true;
 
+  stylix.targets.bat.enable = false;
+
   gtk = {
     enable = true;
     catppuccin.icon.enable = true;
@@ -114,10 +116,7 @@
       };
     };
 
-    bat = {
-      enable = true;
-      catppuccin.enable = false;
-    };
+    bat.enable = true;
 
     bottom = {
       enable = true;
@@ -163,10 +162,7 @@
       userName = "hss-mateus";
       userEmail = "hss-mateus@pm.me";
 
-      difftastic = {
-        enable = true;
-        display = "side-by-side-show-both";
-      };
+      delta.enable = true;
 
       extraConfig = {
         pull.ff = true;
