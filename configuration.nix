@@ -208,6 +208,7 @@
         "video"
         "audio"
         "docker"
+        "dialout"
       ];
     };
   };
