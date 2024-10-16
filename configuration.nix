@@ -182,7 +182,12 @@
   nix = {
     package = pkgs.lix;
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    optimise.automatic = true;
+
     settings = {
+      auto-optimise-store = true;
+      builders-use-substitutes = true;
+
       experimental-features = [
         "nix-command"
         "flakes"
@@ -190,8 +195,14 @@
 
       trusted-users = [
         "root"
+        "nix-ssh"
         user
       ];
+    };
+
+    sshServe = {
+      enable = true;
+      write = true;
     };
   };
 
