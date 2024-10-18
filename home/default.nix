@@ -38,7 +38,6 @@
       gnumake
       libtool
       (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
-      networkmanager_dmenu
       nixd
       nixfmt-rfc-style
       pavucontrol
@@ -66,16 +65,7 @@
     '';
   };
 
-  xdg = {
-    enable = true;
-
-    configFile = {
-      "networkmanager-dmenu/config.ini".text = ''
-        [dmenu]
-        dmenu_command = fuzzel --dpi-aware=yes --dmenu
-      '';
-    };
-  };
+  xdg.enable = true;
 
   programs = {
     alacritty = {
@@ -213,5 +203,9 @@
     };
   };
 
-  services.udiskie.enable = true;
+  services = {
+    udiskie.enable = true;
+    network-manager-applet.enable = true;
+    blueman-applet.enable = true;
+  };
 }

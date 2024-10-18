@@ -24,7 +24,6 @@
           "pulseaudio"
           "hyprland/language"
           "battery"
-          "network"
           "clock"
           "custom/notification"
           "tray"
@@ -85,21 +84,6 @@
             on-scroll-down = "shift_down";
             on-click-middle = "shift_reset";
           };
-        };
-
-        network = {
-          format-wifi = "{icon} ";
-          tooltip-format-wifi = "{icon}  {essid} ({signalStrength}%)  󰕒  {bandwidthUpBytes}  󰇚  {bandwidthDownBytes}";
-          format-disconnected = "󰤭 ";
-          format-icons = [
-            "󰤯"
-            "󰤟"
-            "󰤢"
-            "󰤥"
-            "󰤨"
-          ];
-          interval = 1;
-          on-click = "networkmanager_dmenu";
         };
 
         temperature = {
