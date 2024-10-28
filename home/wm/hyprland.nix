@@ -24,6 +24,7 @@
 
     settings = {
       monitor = lib.mkDefault ",preferred,auto,auto";
+      xwayland.force_zero_scaling = true;
 
       "$terminal" = "alacritty";
       "$fileManager" = "alacritty -e ranger";
