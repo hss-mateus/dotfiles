@@ -20,9 +20,9 @@
   wayland.windowManager.hyprland = {
     enable = true;
     catppuccin.enable = true;
-    systemd.extraCommands = [ "systemctl --user restart hyprland-session.target" ];
 
     settings = {
+      debug.disable_logs = false;
       monitor = lib.mkDefault ",preferred,auto,auto";
       xwayland.force_zero_scaling = true;
 
@@ -32,7 +32,15 @@
       "$browser" = "firefox";
       "$screenshot" = "grim -g \"$(slurp)\" - | satty --filename - --copy-command wl-copy";
 
-      exec-once = "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1 & swaync & waybar &";
+      exec-once = [
+        "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1"
+        "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        "swaync"
+        "waybar"
+      ];
 
       general = {
         gaps_in = 0;
