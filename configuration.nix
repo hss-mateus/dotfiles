@@ -199,11 +199,6 @@
         user
       ];
     };
-
-    sshServe = {
-      enable = true;
-      write = true;
-    };
   };
 
   users = {
