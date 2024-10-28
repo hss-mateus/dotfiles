@@ -19,7 +19,6 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    catppuccin.enable = true;
 
     settings = {
       debug.disable_logs = false;
@@ -27,7 +26,7 @@
       xwayland.force_zero_scaling = true;
 
       "$terminal" = "alacritty";
-      "$fileManager" = "alacritty -e ranger";
+      "$fileManager" = "alacritty -e yazi";
       "$menu" = "fuzzel --dpi-aware=yes";
       "$browser" = "firefox";
       "$screenshot" = "grim -g \"$(slurp)\" - | satty --filename - --copy-command wl-copy";

@@ -14,14 +14,17 @@
 
   catppuccin.enable = true;
 
-  stylix.targets.bat.enable = false;
+  stylix.targets = {
+    alacritty.enable = false;
+    bat.enable = false;
+    btop.enable = false;
+    yazi.enable = false;
+  };
 
   gtk = {
     enable = true;
     catppuccin.icon.enable = true;
   };
-
-  qt.style.catppuccin.enable = true;
 
   home = {
     username = user;
@@ -31,17 +34,13 @@
 
     packages = with pkgs; [
       act
-      cmake
       devcontainer
       devenv
-      gcc
-      gnumake
-      libtool
       (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
       nixd
       nixfmt-rfc-style
       pavucontrol
-      ranger
+      ueberzugpp
     ];
 
     sessionVariables = {
@@ -70,8 +69,6 @@
   programs = {
     alacritty = {
       enable = true;
-      catppuccin.enable = false;
-
       settings = {
         mouse.hide_when_typing = true;
         window.dynamic_padding = true;
@@ -108,10 +105,7 @@
 
     bat.enable = true;
 
-    bottom = {
-      enable = true;
-      catppuccin.enable = true;
-    };
+    btop.enable = true;
 
     chromium = {
       enable = true;
@@ -123,7 +117,7 @@
 
     eza = {
       enable = true;
-      icons = true;
+      icons = "auto";
       git = true;
       extraOptions = [
         "--ignore-glob"
@@ -135,7 +129,6 @@
 
     fish = {
       enable = true;
-      catppuccin.enable = true;
       interactiveShellInit = "set fish_greeting";
       plugins = [
         {
@@ -145,6 +138,7 @@
       ];
     };
 
+    fuzzel.enable = true;
     gh.enable = true;
 
     git = {
@@ -167,7 +161,6 @@
 
     newsboat = {
       enable = true;
-      catppuccin.enable = false;
       urls = builtins.map (url: { inherit url; }) [
         "https://lobste.rs/rss"
         "https://cprss.s3.amazonaws.com/rubyweekly.com.xml"
@@ -181,26 +174,12 @@
         "https://shopify.engineering/blog.atom"
         "https://hotwireweekly.com/rss"
       ];
-
-      extraConfig = ''
-        color listfocus        black blue bold
-        color listfocus_unread black blue bold
-        color info             black blue bold
-      '';
     };
 
     nix-index.enable = true;
     nix-index-database.comma.enable = true;
-
-    fuzzel = {
-      enable = true;
-      catppuccin.enable = true;
-    };
-
-    starship = {
-      enable = true;
-      catppuccin.enable = true;
-    };
+    starship.enable = true;
+    yazi.enable = true;
   };
 
   services = {

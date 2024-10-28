@@ -18,6 +18,8 @@
     ]
   );
 
+  boot.plymouth.enable = true;
+
   environment.systemPackages = [ pkgs.sbctl ];
 
   networking = {
@@ -89,7 +91,6 @@
       enable = true;
       wayland.enable = true;
       package = pkgs.kdePackages.sddm;
-      catppuccin.enable = true;
     };
 
     pipewire = {
@@ -174,7 +175,10 @@
       };
     };
 
-    targets.gtk.enable = false;
+    targets = {
+      gtk.enable = false;
+      plymouth.enable = false;
+    };
   };
 
   catppuccin.enable = true;
@@ -233,11 +237,7 @@
     ];
   };
 
-  console = {
-    catppuccin.enable = true;
-    useXkbConfig = true;
-  };
-
+  console.useXkbConfig = true;
   powerManagement.enable = true;
   system.stateVersion = "24.05";
 }
