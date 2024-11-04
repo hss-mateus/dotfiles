@@ -10,6 +10,8 @@ with config.xdg;
   home = {
     packages = with pkgs; [
       cmake
+      gzip
+      libtool
       ripgrep
     ];
 
