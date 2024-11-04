@@ -151,6 +151,7 @@
       extraConfig = {
         pull.ff = true;
         merge.conflictstyle = "diff3";
+        safe.directory = "/nix/store/*";
       };
     };
 
