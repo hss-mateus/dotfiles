@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     flakelight.url = "github:nix-community/flakelight";
     disko.url = "github:nix-community/disko";
     lanzaboote.url = "github:nix-community/lanzaboote";
@@ -35,6 +36,12 @@
     inputs:
     inputs.flakelight ./. {
       nixpkgs.config.allowUnfree = true;
+
+      withOverlays = [
+        (final: _: {
+          inherit (inputs.nixpkgs-small.legacyPackages.${final.system}) neatvnc _7zz;
+        })
+      ];
 
       nixosConfigurations = builtins.mapAttrs (hostname: _: {
         system = "x86_64-linux";
