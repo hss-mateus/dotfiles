@@ -9,8 +9,7 @@ with config.xdg;
 {
   home = {
     packages = with pkgs; [
-      editorconfig-core-c
-      emacs-lsp-booster
+      cmake
       ripgrep
     ];
 
@@ -20,15 +19,13 @@ with config.xdg;
       DOOMDIR = "${configHome}/doomconfig";
       DOOMLOCALDIR = "${configHome}/doomlocal";
       DOOMPROFILELOADFILE = "${configHome}/doomlocal/load.el";
-      LSP_USE_PLISTS = "true";
     };
   };
 
   programs = {
     emacs = {
       enable = true;
-      package = pkgs.emacs29-pgtk;
-      extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
+      package = pkgs.emacs30-pgtk;
     };
 
     fd.enable = true;
@@ -52,7 +49,6 @@ with config.xdg;
               DOOMDIR
               DOOMLOCALDIR
               DOOMPROFILELOADFILE
-              LSP_USE_PLISTS
               ;
           };
         }
