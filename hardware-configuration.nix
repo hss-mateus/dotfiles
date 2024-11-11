@@ -5,6 +5,7 @@
     resumeDevice = "/dev/dm-0";
     kernelParams = [ "resume_offset=533760" ];
     loader.efi.canTouchEfiVariables = true;
+    tmp.cleanOnBoot = true;
 
     initrd = {
       systemd.enable = true;
