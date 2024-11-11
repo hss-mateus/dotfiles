@@ -37,12 +37,6 @@
     inputs.flakelight ./. {
       nixpkgs.config.allowUnfree = true;
 
-      withOverlays = [
-        (final: _: {
-          inherit (inputs.nixpkgs-small.legacyPackages.${final.system}) neatvnc _7zz;
-        })
-      ];
-
       nixosConfigurations = builtins.mapAttrs (hostname: _: {
         system = "x86_64-linux";
         specialArgs.user = "mt";
