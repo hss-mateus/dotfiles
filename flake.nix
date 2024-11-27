@@ -16,11 +16,6 @@
       flake = false;
     };
 
-    catppuccin-swaync = {
-      url = "file+https://github.com/catppuccin/swaync/releases/latest/download/mocha.css";
-      flake = false;
-    };
-
     sf-pro = {
       url = "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg";
       flake = false;

@@ -136,14 +136,10 @@
   };
 
   programs = {
-    hyprland.enable = true;
     fish.enable = true;
+    light.enable = true;
     neovim.enable = true;
 
-    light = {
-      enable = true;
-      brightnessKeys.enable = true;
-    };
 
     nh = {
       enable = true;
@@ -153,6 +149,11 @@
           home = config.users.extraUsers.${user}.home;
         in
         "${home}/dev/dotfiles";
+    };
+
+    sway = {
+      enable = true;
+      package = pkgs.swayfx;
     };
   };
 

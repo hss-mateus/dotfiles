@@ -1,8 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   programs.waybar = {
     enable = true;
+    systemd.enable = true;
 
     settings = {
       mainBar = {
@@ -11,8 +12,9 @@
         height = 28;
 
         modules-left = [
-          "hyprland/workspaces"
-          "hyprland/window"
+          "sway/mode"
+          "sway/workspaces"
+          "sway/window"
         ];
 
         modules-right = [
@@ -21,16 +23,14 @@
           "cpu"
           "temperature"
           "pulseaudio"
-          "hyprland/language"
+          "sway/language"
           "battery"
           "clock"
           "custom/notification"
           "tray"
         ];
 
-        "hyprland/workspaces".format = "{id}";
-
-        "hyprland/window" = {
+        "sway/window" = {
           format = "{}";
           rewrite = {
             "(.*) — Mozilla Firefox" = "  $1";
@@ -38,7 +38,7 @@
         };
 
         battery = {
-          format = "{icon}  {capacity}%";
+          format = " {icon}  {capacity}%";
           format-icons = [
             "󱃍"
             "󰁺"
@@ -56,11 +56,7 @@
           interval = 1;
         };
 
-        "hyprland/language" = {
-          format = "󰌌  {}";
-          format-en = "en";
-          format-en-intl = "en-intl";
-        };
+        "sway/language".format = " 󰌌  {short} {variant}";
 
         tray = {
           icon-size = 18;
@@ -68,7 +64,7 @@
         };
 
         clock = {
-          format = "󰥔  {:%R}";
+          format = " 󰥔  {:%R}";
           tooltip-format = "<tt>{calendar}</tt>";
           interval = 1;
 
@@ -87,7 +83,7 @@
 
         temperature = {
           critical-threshold = 60;
-          format = "{icon}  {temperatureC}°C";
+          format = " {icon}  {temperatureC}°C";
           format-icons = [
             ""
             ""
@@ -96,9 +92,9 @@
         };
 
         pulseaudio = {
-          format = "{icon}  {volume}";
-          format-bluetooth = "󰂰  {volume}";
-          format-muted = "  0";
+          format = " {icon}  {volume}";
+          format-bluetooth = " 󰂰  {volume}";
+          format-muted = "   0";
           scroll-step = 5;
           format-icons.default = [
             ""
@@ -109,7 +105,7 @@
 
         "custom/weather" = {
           return-type = "json";
-          format = "{}";
+          format = " {}";
           tooltip = true;
           interval = 3600;
           exec = "${pkgs.wttrbar}/bin/wttrbar";
@@ -117,39 +113,39 @@
 
         cpu = {
           interval = 1;
-          format = "  {usage:2d}%";
+          format = "   {usage:2d}%";
         };
 
         memory = {
           interval = 1;
-          format = "  {:2d}%";
+          format = "   {:2d}%";
         };
 
-        "custom/notification" = {
-          tooltip = false;
-          format = "{icon} ";
-          format-icons = {
-            notification = "󰂚";
-            none = "󰂜";
-            dnd-notification = "󱏧";
-            dnd-none = "󱏨";
+        "custom/notification" =
+          let
+            swaync = "${config.services.swaync.package}/bin/swaync-client";
+          in
+          {
+            tooltip = false;
+            format = " {icon}  ";
+            format-icons = {
+              notification = "󰂚";
+              none = "󰂜";
+              dnd-notification = "󱏧";
+              dnd-none = "󱏨";
+            };
+            return-type = "json";
+            exec = "${swaync} --subscribe-waybar";
+            on-click = "${swaync} --toggle-panel --skip-wait";
+            on-click-right = "${swaync} --toggle-dnd --skip-wait";
+            escape = true;
           };
-          return-type = "json";
-          exec = "swaync-client --subscribe-waybar";
-          on-click = "swaync-client --toggle-panel --skip-wait";
-          on-click-right = "swaync-client --toggle-dnd --skip-wait";
-          escape = true;
-        };
       };
     };
 
     style = ''
       window#waybar {
         border-radius: 10px;
-      }
-
-      .module {
-        margin-left: 3px;
       }
 
       label {
