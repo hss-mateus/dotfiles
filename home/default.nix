@@ -36,7 +36,7 @@
       act
       devcontainer
       devenv
-      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      nerd-fonts.symbols-only
       nixd
       nixfmt-rfc-style
       pavucontrol
@@ -151,7 +151,6 @@
       extraConfig = {
         pull.ff = true;
         merge.conflictstyle = "diff3";
-        safe.directory = "/nix/store/*";
       };
     };
 
