@@ -19,8 +19,6 @@
 
         modules-right = [
           "custom/weather"
-          "memory"
-          "cpu"
           "temperature"
           "pulseaudio"
           "sway/language"
@@ -53,7 +51,6 @@
             "󰁹"
           ];
           tooltip-format = "{timeTo}\nCycles: {cycles}\nHealth: {health}%\nPower: {power}";
-          interval = 1;
         };
 
         "sway/language".format = " 󰌌  {short} {variant}";
@@ -66,7 +63,6 @@
         clock = {
           format = " 󰥔  {:%R}";
           tooltip-format = "<tt>{calendar}</tt>";
-          interval = 1;
 
           calendar = {
             mode = "year";
@@ -100,25 +96,15 @@
             ""
             ""
           ];
-          on-click = "pavucontrol";
+          on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
         };
 
         "custom/weather" = {
           return-type = "json";
-          format = " {}";
+          format = "{}°C";
           tooltip = true;
           interval = 3600;
           exec = "${pkgs.wttrbar}/bin/wttrbar";
-        };
-
-        cpu = {
-          interval = 1;
-          format = "   {usage:2d}%";
-        };
-
-        memory = {
-          interval = 1;
-          format = "   {:2d}%";
         };
 
         "custom/notification" =
