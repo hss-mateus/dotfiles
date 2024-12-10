@@ -125,7 +125,10 @@
       ];
     };
 
-    firefox.enable = true;
+    firefox = {
+      enable = true;
+      package = pkgs.firefox-bin;
+    };
 
     fish = {
       enable = true;
