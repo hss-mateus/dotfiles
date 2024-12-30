@@ -11,10 +11,7 @@
     ./waybar.nix
   ];
 
-  programs.swaylock = {
-    enable = true;
-    catppuccin.enable = false;
-  };
+  programs.swaylock.enable = true;
 
   services = {
     swaync.enable = true;

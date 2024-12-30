@@ -12,19 +12,21 @@
     inputs.nix-index-database.hmModules.nix-index
   ];
 
-  catppuccin.enable = true;
+  catppuccin = {
+    enable = true;
+    swaylock.enable = true;
+    gtk.icon.enable = true;
+  };
 
   stylix.targets = {
     alacritty.enable = false;
     bat.enable = false;
     btop.enable = false;
     yazi.enable = false;
+    swaylock.enable = false;
   };
 
-  gtk = {
-    enable = true;
-    catppuccin.icon.enable = true;
-  };
+  gtk.enable = true;
 
   home = {
     username = user;
