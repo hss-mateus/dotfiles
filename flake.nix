@@ -10,10 +10,9 @@
     nix-index-database.url = "github:nix-community/nix-index-database";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     catppuccin.url = "github:catppuccin/nix";
-
     doom-emacs = {
-      url = "github:doomemacs/doomemacs";
-      flake = false;
+      url = "github:marienz/nix-doom-emacs-unstraightened";
+      inputs.nixpkgs.follows = "";
     };
 
     sf-pro = {

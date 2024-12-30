@@ -10,6 +10,7 @@
     ./wm
     inputs.catppuccin.homeManagerModules.catppuccin
     inputs.nix-index-database.hmModules.nix-index
+    inputs.doom-emacs.hmModule
   ];
 
   catppuccin = {

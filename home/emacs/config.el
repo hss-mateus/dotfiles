@@ -1,14 +1,14 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-(setq user-full-name  "hss-mateuss"
+(setq user-full-name "hss-mateus"
       user-mail-address "hss-mateus@proton.me"
       doom-theme 'catppuccin
       org-directory "~/dev/org/"
       display-line-numbers-type 'relative
       confirm-kill-emacs nil
       lsp-disabled-clients '(rubocop-ls typeprof-ls ruby-syntax-tree-ls rubocop-ls-tramp typeprof-ls-tramp ruby-syntax-tree-ls-tramp)
-      lsp-sorbet-use-bundler t
-      lsp-ruby-lsp-use-bundler t
+      lsp-sorbet-as-add-on t
+      projectile-indexing-method 'alien
       lsp-ui-sideline-enable nil
       shell-file-name (executable-find "bash")
       vterm-shell (executable-find "fish")
@@ -25,7 +25,7 @@
     "Typecheck project using sorbet and spoom."
     (interactive)
     (let ((default-directory (projectile-project-root)))
-      (compile "bundle exec spoom srb tc -f '%F:%L: %C - %M'")))
+      (compile "spoom srb tc -f '%F:%L: %C - %M'")))
 
   (map! :localleader
         :map 'ruby-mode-map
@@ -67,7 +67,7 @@
 (lsp-register-client
  (make-lsp-client
   :add-on? t
-  :new-connection (lsp-stdio-connection '("bundle" "exec" "srb" "typecheck" "--lsp" "--enable-all-beta-lsp-features"))
+  :new-connection (lsp-stdio-connection '("srb" "typecheck" "--lsp" "--enable-all-beta-lsp-features"))
   :initialization-options '(:highlightUntyped "everywhere"
                             :supportsSorbetURIs t
                             :enableTypedFalseCompletionNudges :json-false)
