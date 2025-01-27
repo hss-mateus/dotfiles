@@ -172,13 +172,13 @@
         "https://cprss.s3.amazonaws.com/rubyweekly.com.xml"
         "https://ferd.ca/feed.rss"
         "http://www.rubyflow.com/rss"
-        "https://www.bigbinary.com/blog/feed.xml"
         "https://rubyonrails.org/feed.xml"
         "https://lwn.net/headlines/newrss"
         "https://blog.arkency.com/feed.xml"
         "https://esoteric.codes/rss"
         "https://shopify.engineering/blog.atom"
         "https://hotwireweekly.com/rss"
+        "https://byroot.github.io/feed.xml"
       ];
     };
 
