@@ -25,6 +25,7 @@
     btop.enable = false;
     yazi.enable = false;
     swaylock.enable = false;
+    qt.enable = false;
   };
 
   gtk.enable = true;
