@@ -228,7 +228,7 @@
     useUserPackages = true;
 
     extraSpecialArgs = {
-      inherit inputs user;
+      inherit inputs inputs' user;
     };
 
     users.${user}.imports = [

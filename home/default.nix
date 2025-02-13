@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  inputs',
   user,
   ...
 }:
@@ -39,7 +40,7 @@
     packages = with pkgs; [
       act
       devcontainer
-      devenv
+      inputs'.nixpkgs-small.legacyPackages.devenv
       nerd-fonts.symbols-only
       nixd
       nixfmt-rfc-style
