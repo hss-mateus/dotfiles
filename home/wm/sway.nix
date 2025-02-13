@@ -65,7 +65,7 @@
         "*" = {
           repeat_rate = "30";
           repeat_delay = "200";
-          xkb_layout = "us,us(intl)";
+          xkb_layout = lib.mkDefault "us,us(intl)";
           xkb_options = "grp:alt_space_toggle";
         };
 
