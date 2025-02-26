@@ -181,6 +181,7 @@
         "https://shopify.engineering/blog.atom"
         "https://hotwireweekly.com/rss"
         "https://byroot.github.io/feed.xml"
+        "http://feeds.feedburner.com/patshaughnessy"
       ];
     };
 
