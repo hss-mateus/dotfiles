@@ -79,3 +79,5 @@
   (add-hook 'crystal-mode-hook #'lsp! 'append))
 
 (add-to-list 'auto-mode-alist '("\\.rbi\\'" . ruby-mode))
+
+(add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.devenv\\'")
