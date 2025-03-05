@@ -12,6 +12,7 @@
       enable = true;
       doomDir = ./.;
       emacs = pkgs.emacs30-pgtk;
+      experimentalFetchTree = true;
     };
 
     fd.enable = true;

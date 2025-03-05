@@ -16,7 +16,10 @@
       projectile-rails-spring-command "bin/spring"
       projectile-rails-custom-console-command "bin/rails c"
       projectile-rails-custom-server-command "bin/dev"
-      enable-remote-dir-locals t)
+      enable-remote-dir-locals t
+      custom-file "~/.config/emacs-custom.el")
+
+(load custom-file)
 
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
