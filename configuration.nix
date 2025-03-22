@@ -161,7 +161,12 @@
     image = ./wallpaper.png;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-    cursor.size = 24;
+
+    cursor = {
+      name = "Vanilla-DMZ";
+      package = pkgs.vanilla-dmz;
+      size = 24;
+    };
 
     fonts = {
       monospace = {

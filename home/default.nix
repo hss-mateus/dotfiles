@@ -25,7 +25,9 @@
     bat.enable = false;
     btop.enable = false;
     yazi.enable = false;
+    starship.enable = false;
     swaylock.enable = false;
+    swaync.enable = false;
     qt.enable = false;
   };
 
