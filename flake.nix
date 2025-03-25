@@ -29,9 +29,15 @@
   nixConfig = {
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "doom-emacs-unstraightened.cachix.org-1:O5oOlRPnmQEvVaFyuMTmthCEooHbrg54WgSLR07tmg4="
+      "hss-mateus.cachix.org-1:Mjcgtnt9/ogUvKNoybvBcXxS6GOceFJjkDISerRFD8Q="
     ];
 
-    extra-substituters = [ "https://nix-community.cachix.org" ];
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://doom-emacs-unstraightened.cachix.org"
+      "https://hss-mateus.cachix.org"
+    ];
   };
 
   outputs =

@@ -25,8 +25,17 @@
           "battery"
           "clock"
           "custom/notification"
+          "idle_inhibitor"
           "tray"
         ];
+
+        idle_inhibitor = {
+          format = "{icon}";
+          format-icons = {
+            activated = "";
+            deactivated = "";
+          };
+        };
 
         "sway/window" = {
           format = "{}";

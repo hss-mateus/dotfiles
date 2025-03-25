@@ -1,0 +1,48 @@
+name: CI
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup nix
+        uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup cachix
+        uses: cachix/cachix-action@v16
+        with:
+          name: hss-mateus
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Update flake.lock
+        run: nix flake update
+
+      - name: Auto follow flake inputs
+        run: "nix run github:fzakaria/nix-auto-follow -- ./flake.lock -i"
+
+      - name: Build desktop derivation
+        run: nix build .#nixosConfigurations.desktop.config.system.build.toplevel --accept-flake-config
+
+      - name: Build notebook derivation
+        run: nix build .#nixosConfigurations.notebook.config.system.build.toplevel --accept-flake-config
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update flake.lock
+          file_pattern: flake.lock
