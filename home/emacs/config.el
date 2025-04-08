@@ -8,6 +8,7 @@
       confirm-kill-emacs nil
       lsp-disabled-clients '(rubocop-ls typeprof-ls ruby-syntax-tree-ls rubocop-ls-tramp typeprof-ls-tramp ruby-syntax-tree-ls-tramp)
       lsp-sorbet-as-add-on t
+      projectile-enable-caching t
       projectile-indexing-method 'alien
       lsp-ui-sideline-enable nil
       shell-file-name (executable-find "bash")
