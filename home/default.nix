@@ -180,8 +180,7 @@
         "https://lwn.net/headlines/newrss"
         "https://blog.arkency.com/feed.xml"
         "https://esoteric.codes/rss"
-        "https://shopify.engineering/blog.atom"
-        "https://hotwireweekly.com/rss"
+        "https://railsatscale.com/feed.xml"
         "https://byroot.github.io/feed.xml"
         "http://feeds.feedburner.com/patshaughnessy"
       ];
