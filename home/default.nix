@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  inputs',
   user,
   ...
 }:
@@ -9,7 +8,7 @@
   imports = [
     ./emacs
     ./wm
-    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeModules.catppuccin
     inputs.nix-index-database.hmModules.nix-index
     inputs.doom-emacs.hmModule
   ];
@@ -42,7 +41,6 @@
     packages = with pkgs; [
       act
       devcontainer
-      inputs'.nixpkgs-small.legacyPackages.devenv
       nerd-fonts.symbols-only
       nixd
       nixfmt-rfc-style
@@ -57,7 +55,6 @@
 
     shellAliases = {
       cat = "bat";
-      ls = "eza --git --ignore-glob .git";
       v = "nvim";
     };
 
@@ -124,12 +121,9 @@
 
     eza = {
       enable = true;
+      colors = "auto";
       icons = "auto";
       git = true;
-      extraOptions = [
-        "--ignore-glob"
-        ".git"
-      ];
     };
 
     firefox = {

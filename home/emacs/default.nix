@@ -2,8 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    cmake
-    libtool
+    graphviz
     ripgrep
   ];
 
