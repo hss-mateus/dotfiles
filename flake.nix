@@ -6,6 +6,7 @@
     disko.url = "github:nix-community/disko";
     lanzaboote.url = "github:nix-community/lanzaboote";
     home-manager.url = "github:nix-community/home-manager";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     stylix.url = "github:danth/stylix";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
@@ -31,12 +32,14 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "doom-emacs-unstraightened.cachix.org-1:O5oOlRPnmQEvVaFyuMTmthCEooHbrg54WgSLR07tmg4="
       "hss-mateus.cachix.org-1:Mjcgtnt9/ogUvKNoybvBcXxS6GOceFJjkDISerRFD8Q="
+      "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
     ];
 
     extra-substituters = [
       "https://nix-community.cachix.org"
       "https://doom-emacs-unstraightened.cachix.org"
       "https://hss-mateus.cachix.org"
+      "https://install.determinate.systems"
     ];
   };
 

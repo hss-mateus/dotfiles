@@ -15,7 +15,7 @@
       "stylix"
       "catppuccin"
       "home-manager"
-    ]
+    ] ++ [inputs.determinate.nixosModules.default]
   );
 
   boot.plymouth.enable = true;
@@ -189,13 +189,13 @@
   catppuccin.enable = true;
 
   nix = {
-    package = pkgs.lix;
-    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    registry.nixpkgs.flake = inputs.nixpkgs;
     optimise.automatic = true;
 
     settings = {
       auto-optimise-store = true;
       builders-use-substitutes = true;
+      lazy-trees = true;
 
       experimental-features = [
         "nix-command"
