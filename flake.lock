@@ -146,7 +146,7 @@
         "rev": "c4997319c359a49c5dc4c7a7b4d051fc4c076af5",
         "revCount": 255,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/determinate/3.6.8/0197a832-54da-741f-aec6-7bb1c227b533/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/determinate/3.6.8/0197a832-54da-741f-aec6-7bb1c227b533/source.tar.gz?rev=c4997319c359a49c5dc4c7a7b4d051fc4c076af5&revCount=255"
       },
       "original": {
         "type": "tarball",
