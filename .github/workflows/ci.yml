@@ -42,7 +42,7 @@ jobs:
         run: nix build .#nixosConfigurations.notebook.config.system.build.toplevel --accept-flake-config
 
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: Update flake.lock
           file_pattern: flake.lock
