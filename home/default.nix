@@ -17,6 +17,7 @@
     enable = true;
     swaylock.enable = true;
     gtk.icon.enable = true;
+    firefox.profiles.default.enable = false;
   };
 
   stylix.targets = {
