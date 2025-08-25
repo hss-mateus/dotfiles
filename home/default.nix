@@ -178,6 +178,8 @@
         "https://railsatscale.com/feed.xml"
         "https://byroot.github.io/feed.xml"
         "http://feeds.feedburner.com/patshaughnessy"
+        "https://retropolis.com.br/feed/podcast"
+        "https://us20.campaign-archive.com/feed?u=fd00d355531c767dc0176f9cc&id=53bc3d187d"
       ];
     };
 
