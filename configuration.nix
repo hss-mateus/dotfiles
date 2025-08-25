@@ -15,7 +15,8 @@
       "stylix"
       "catppuccin"
       "home-manager"
-    ] ++ [inputs.determinate.nixosModules.default]
+    ]
+    ++ [ inputs.determinate.nixosModules.default ]
   );
 
   boot.plymouth.enable = true;
@@ -142,7 +143,6 @@
 
     nh = {
       enable = true;
-      clean.enable = true;
       flake =
         let
           home = config.users.extraUsers.${user}.home;
