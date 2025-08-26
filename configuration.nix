@@ -32,6 +32,7 @@
     };
 
     nameservers = [
+      "100.100.100.100"
       "94.140.14.14"
       "94.140.15.15"
     ];
@@ -79,6 +80,10 @@
     acpid.enable = true;
     blueman.enable = true;
     udisks2.enable = true;
+    tailscale = {
+      enable = true;
+      extraSetFlags = [ "--accept-dns=false" ];
+    };
 
     tlp = {
       enable = true;
