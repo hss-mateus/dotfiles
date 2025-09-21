@@ -134,12 +134,8 @@
 
     fish = {
       enable = true;
-      interactiveShellInit = "set fish_greeting";
       plugins = [
-        {
-          name = "plugin-git";
-          src = pkgs.fishPlugins.plugin-git.src;
-        }
+        { inherit (pkgs.fishPlugins.plugin-git) name src; }
       ];
     };
 
@@ -185,7 +181,6 @@
 
     nix-index.enable = true;
     nix-index-database.comma.enable = true;
-    starship.enable = true;
     yazi.enable = true;
   };
 

@@ -142,7 +142,16 @@
   };
 
   programs = {
-    fish.enable = true;
+    fish = {
+      enable = true;
+      shellInit = "set fish_greeting";
+    };
+
+    starship = {
+      enable = true;
+      interactiveOnly = true;
+    };
+
     light.enable = true;
     neovim.enable = true;
 
