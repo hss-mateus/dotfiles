@@ -31,6 +31,8 @@
     };
 
     policies = {
+      AutofillAddressEnabled = false;
+      AutofillCreditCardEnabled = false;
       DisplayBookmarksToolbar = "newtab";
       Homepage.StartPage = "previous-session";
       NoDefaultBookmarks = true;
@@ -39,6 +41,8 @@
       SkipTermsOfUse = true;
       TranslateEnabled = false;
       UserMessaging.SkipOnboarding = true;
+      PasswordManagerEnabled = false;
+      OfferToSaveLogins = false;
 
       ExtensionSettings = {
         "*".installation_mode = "blocked";
