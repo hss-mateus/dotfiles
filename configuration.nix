@@ -83,6 +83,7 @@
     tailscale = {
       enable = true;
       extraSetFlags = [ "--accept-dns=false" ];
+      port = 0;
     };
 
     tlp = {
