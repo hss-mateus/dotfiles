@@ -8,8 +8,9 @@
   imports = [
     ./emacs
     ./wm
+    ./browser.nix
     inputs.catppuccin.homeModules.catppuccin
-    inputs.nix-index-database.hmModules.nix-index
+    inputs.nix-index-database.homeModules.nix-index
     inputs.doom-emacs.hmModule
   ];
 
@@ -17,7 +18,6 @@
     enable = true;
     swaylock.enable = true;
     gtk.icon.enable = true;
-    firefox.profiles.default.enable = false;
   };
 
   stylix.targets = {
@@ -69,7 +69,10 @@
     '';
   };
 
-  xdg.enable = true;
+  xdg = {
+    enable = true;
+    mimeApps.enable = true;
+  };
 
   programs = {
     alacritty = {
@@ -125,11 +128,6 @@
       colors = "auto";
       icons = "auto";
       git = true;
-    };
-
-    firefox = {
-      enable = true;
-      package = pkgs.firefox-bin;
     };
 
     fish = {
