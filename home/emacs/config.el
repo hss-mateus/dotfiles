@@ -1,5 +1,8 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
+(require 'info)
+(defvar Info-directory-list)
+
 (setq user-full-name "hss-mateus"
       user-mail-address "hss-mateus@proton.me"
       doom-theme 'catppuccin
