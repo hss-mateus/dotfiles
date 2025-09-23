@@ -135,9 +135,9 @@
       options = "grp:alt_space_toggle";
     };
 
-    logind = {
-      lidSwitch = "suspend-then-hibernate";
-      lidSwitchExternalPower = "suspend";
+    logind.settings.Login = {
+      HandleLidSwitch = "suspend-then-hibernate";
+      HandleLidSwitchExternalPower = "suspend";
     };
   };
 
