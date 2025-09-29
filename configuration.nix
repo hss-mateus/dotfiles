@@ -25,17 +25,7 @@
 
   networking = {
     hostName = hostname;
-
-    networkmanager = {
-      enable = true;
-      dns = "none";
-    };
-
-    nameservers = [
-      "100.100.100.100"
-      "94.140.14.14"
-      "94.140.15.15"
-    ];
+    networkmanager.enable = true;
   };
 
   systemd.sleep.extraConfig = "HibernateDelaySec=1h";
@@ -82,7 +72,6 @@
     udisks2.enable = true;
     tailscale = {
       enable = true;
-      extraSetFlags = [ "--accept-dns=false" ];
       port = 0;
     };
 
