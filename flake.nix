@@ -12,7 +12,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     catppuccin.url = "github:catppuccin/nix";
     doom-emacs = {
-      url = "github:marienz/nix-doom-emacs-unstraightened";
+      url = "github:marienz/nix-doom-emacs-unstraightened/lsp-use-plists";
       inputs.nixpkgs.follows = "";
     };
 
