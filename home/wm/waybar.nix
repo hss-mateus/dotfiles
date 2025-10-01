@@ -40,7 +40,7 @@
         "sway/window" = {
           format = "{}";
           rewrite = {
-            "(.*) — Mozilla Firefox" = "  $1";
+            "(.*) — LibreWolf" = "󰖟  $1";
           };
         };
 

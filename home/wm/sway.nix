@@ -49,7 +49,7 @@
           "XF86MonBrightnessUp" = "exec light -A 10";
           "XF86MonBrightnessDown" = "exec light -U 10";
 
-          "${mod}+b" = "exec firefox";
+          "${mod}+b" = "exec librewolf";
           "${mod}+e" = "exec alacritty -e yazi";
           "${mod}+s" = ''exec grimshot save anything - | satty -o "${config.xdg.userDirs.pictures}/%s.png" --filename - --copy-command wl-copy'';
         };
