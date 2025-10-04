@@ -158,25 +158,6 @@
       extraConfig = "set clipboard+=unnamedplus";
     };
 
-    newsboat = {
-      enable = true;
-      urls = builtins.map (url: { inherit url; }) [
-        "https://lobste.rs/rss"
-        "https://cprss.s3.amazonaws.com/rubyweekly.com.xml"
-        "https://ferd.ca/feed.rss"
-        "http://www.rubyflow.com/rss"
-        "https://rubyonrails.org/feed.xml"
-        "https://lwn.net/headlines/newrss"
-        "https://blog.arkency.com/feed.xml"
-        "https://esoteric.codes/rss"
-        "https://railsatscale.com/feed.xml"
-        "https://byroot.github.io/feed.xml"
-        "http://feeds.feedburner.com/patshaughnessy"
-        "https://retropolis.com.br/feed/podcast"
-        "https://us20.campaign-archive.com/feed?u=fd00d355531c767dc0176f9cc&id=53bc3d187d"
-      ];
-    };
-
     nix-index.enable = true;
     nix-index-database.comma.enable = true;
     yazi.enable = true;
