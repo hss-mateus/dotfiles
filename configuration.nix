@@ -53,6 +53,8 @@
     tailscale = {
       enable = true;
       port = 0;
+      openFirewall = true;
+      useRoutingFeatures = "client";
     };
 
     tlp = {
