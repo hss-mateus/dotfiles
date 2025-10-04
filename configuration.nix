@@ -43,35 +43,7 @@
 
   virtualisation = {
     docker.enable = true;
-
-    oci-containers = {
-      backend = "docker";
-
-      containers.postgres = {
-        image = "postgres:alpine";
-        ports = [ "5432:5432" ];
-        cmd = [
-          "postgres"
-          "-c"
-          "statement_timeout=2000"
-          "-c"
-          "max_connections=200"
-          "-c"
-          "shared_buffers=2GB"
-          "-c"
-          "fsync=off"
-          "-c"
-          "full_page_writes=off"
-        ];
-
-        environment = {
-          POSTGRES_USER = "postgres";
-          POSTGRES_PASSWORD = "postgres";
-        };
-
-        volumes = [ "/var/lib/postgresql/data:/var/lib/postgresql/data" ];
-      };
-    };
+    oci-containers.backend = "docker";
   };
 
   services = {
@@ -136,6 +108,18 @@
     logind.settings.Login = {
       HandleLidSwitch = "suspend-then-hibernate";
       HandleLidSwitchExternalPower = "suspend";
+    };
+
+    postgresql = {
+      enable = true;
+      enableJIT = true;
+      ensureUsers = [
+        {
+          name = user;
+          ensureClauses.createdb = true;
+        }
+      ];
+      settings.max_connections = 200;
     };
   };
 
