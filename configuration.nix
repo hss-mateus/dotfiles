@@ -33,6 +33,14 @@
   time.timeZone = "America/Sao_Paulo";
   i18n.defaultLocale = "en_US.UTF-8";
 
+  security = {
+    sudo.enable = false;
+    sudo-rs = {
+      enable = true;
+      execWheelOnly = true;
+    };
+  };
+
   virtualisation = {
     docker.enable = true;
 
