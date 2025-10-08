@@ -60,12 +60,7 @@
     };
 
     file.".irbrc".text = ''
-      IRB.conf.merge!(
-        PROMPT_MODE: :SIMPLE,
-        USE_MULTILINE: false,
-        USE_SINGLELINE: true,
-        USE_READLINE: true
-      )
+      IRB.conf[:PROMPT_MODE] = :SIMPLE
     '';
   };
 

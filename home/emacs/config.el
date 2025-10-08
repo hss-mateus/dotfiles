@@ -45,25 +45,7 @@
      "use-case: "
      '(("app/use_cases/" "\\(.+?\\)\\.rb$"))
      "app/use_cases/\$\{filename}.rb"))
-  (bind-key "u" 'projectile-rails-find-use-case 'projectile-rails-command-map)
-
-  (defun projectile-rails-console (arg)
-    "Start a rails console, asking for which if ARG is not nil."
-    (interactive "P")
-    (projectile-rails-with-root
-     (let ((rails-console-command (projectile-rails--command
-                                   :custom projectile-rails-custom-console-command
-                                   :spring (concat projectile-rails-spring-command " rails console")
-                                   :zeus "zeus console"
-                                   :vanilla (concat projectile-rails-vanilla-command " console"))))
-
-       (with-demoted-errors "Error: %S"
-         (inf-ruby-console-run
-          (if (>= (or (car arg) 0) 4)
-              (read-string "rails console: " rails-console-command)
-            rails-console-command)
-          "rails"))
-       (projectile-rails-mode +1)))))
+  (bind-key "u" 'projectile-rails-find-use-case 'projectile-rails-command-map))
 
 (after! tramp
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
