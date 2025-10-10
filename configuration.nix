@@ -192,7 +192,7 @@
     settings = {
       auto-optimise-store = true;
       builders-use-substitutes = true;
-      lazy-trees = true;
+      eval-cores = 0;
 
       experimental-features = [
         "nix-command"
