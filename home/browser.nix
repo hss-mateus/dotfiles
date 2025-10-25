@@ -113,8 +113,19 @@
 
     profiles.default.search = {
       force = true;
-      default = "udm14";
+      default = "searx";
       engines = {
+        searx = {
+          name = "searx";
+          urls = [
+            { template = "https://desktop.tail102bba.ts.net:6014/search?q={searchTerms}"; }
+            {
+              template = "https://desktop.tail102bba.ts.net:6014/autocompleter?q={searchTerms}";
+              type = "application/x-suggestions+json";
+            }
+          ];
+        };
+
         udm14 = {
           name = "udm14";
           urls = [
