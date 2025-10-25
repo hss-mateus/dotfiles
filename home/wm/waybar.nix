@@ -25,17 +25,8 @@
           "battery"
           "clock"
           "custom/notification"
-          "idle_inhibitor"
           "tray"
         ];
-
-        idle_inhibitor = {
-          format = "{icon}";
-          format-icons = {
-            activated = "";
-            deactivated = "";
-          };
-        };
 
         "sway/window" = {
           format = "{}";
@@ -113,7 +104,7 @@
           format = "{}°C";
           tooltip = true;
           interval = 3600;
-          exec = "${pkgs.wttrbar}/bin/wttrbar";
+          exec = "${pkgs.wttrbar}/bin/wttrbar --location jundiai";
         };
 
         "custom/notification" =
