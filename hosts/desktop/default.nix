@@ -19,7 +19,7 @@
   users = {
     extraUsers.remotebuild = {
       isNormalUser = true;
-      createUser = true;
+      createHome = false;
       group = "remotebuild";
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH3xDzHT2egMLstQJCOQ4t4TT0srrGBUkkKqbhvzJ7od root@notebook"
