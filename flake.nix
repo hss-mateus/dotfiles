@@ -33,6 +33,7 @@
       "doom-emacs-unstraightened.cachix.org-1:O5oOlRPnmQEvVaFyuMTmthCEooHbrg54WgSLR07tmg4="
       "hss-mateus.cachix.org-1:Mjcgtnt9/ogUvKNoybvBcXxS6GOceFJjkDISerRFD8Q="
       "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+      "desktop-cache:m3kl8CwqPx3WYk3LXlbR4cqyutVX2oQVGSxUbypQ56w="
     ];
 
     extra-substituters = [
@@ -40,6 +41,7 @@
       "https://doom-emacs-unstraightened.cachix.org"
       "https://hss-mateus.cachix.org"
       "https://install.determinate.systems"
+      "http://desktop.tail102bba.ts.net:5000"
     ];
   };
 

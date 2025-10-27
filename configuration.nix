@@ -16,7 +16,6 @@
       "catppuccin"
       "home-manager"
     ]
-    ++ [ inputs.determinate.nixosModules.default ]
   );
 
   boot.plymouth.enable = true;
@@ -25,6 +24,7 @@
 
   networking = {
     hostName = hostname;
+    domain = "tail102bba.ts.net";
     networkmanager.enable = true;
   };
 
@@ -186,6 +186,7 @@
   catppuccin.enable = true;
 
   nix = {
+    package = inputs'.determinate.packages.default;
     registry.nixpkgs.flake = inputs.nixpkgs;
     optimise.automatic = true;
 
@@ -193,6 +194,8 @@
       auto-optimise-store = true;
       builders-use-substitutes = true;
       eval-cores = 0;
+      max-jobs = "auto";
+      lazy-trees = true;
 
       experimental-features = [
         "nix-command"
@@ -201,7 +204,6 @@
 
       trusted-users = [
         "root"
-        "nix-ssh"
         user
       ];
     };
